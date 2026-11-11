@@ -61,7 +61,6 @@ export interface TranslationDictionary {
     delete: string;
     confirm: string;
     back: string;
-    optional: string;
     showPassword: string;
     hidePassword: string;
     showPasswordWarning: string;

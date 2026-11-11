@@ -94,7 +94,7 @@ export function SignUpPage() {
               type="text"
               autoComplete="family-name"
               enterKeyHint="next"
-              label={`${t.auth.lastNameLabel} (${t.common.optional})`}
+              label={t.auth.lastNameLabel}
               error={getFieldError("lastName")}
               {...register("lastName", {
                 setValueAs: (v: string) =>

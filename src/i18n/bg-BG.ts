@@ -29,7 +29,6 @@ export const bgBG: TranslationDictionary = {
     delete: "Изтрий",
     confirm: "Потвърди",
     back: "Назад",
-    optional: "Незадължително",
     showPassword: "Покажи паролата",
     hidePassword: "Скрий паролата",
     showPasswordWarning:

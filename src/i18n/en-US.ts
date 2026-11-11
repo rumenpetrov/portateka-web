@@ -28,7 +28,6 @@ export const enUS: TranslationDictionary = {
     delete: "Delete",
     confirm: "Confirm",
     back: "Back",
-    optional: "Optional",
     showPassword: "Show password",
     hidePassword: "Hide password",
     showPasswordWarning: "Warning: this displays your password on the screen.",

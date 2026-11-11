@@ -8,23 +8,23 @@
 
     /* Neutral Palette (OKLCH) */
     --primitive-neutral-0: oklch(100% 0 0);
-    --primitive-neutral-50: oklch(98.5% 0.004 260);
-    --primitive-neutral-100: oklch(96% 0.006 260);
-    --primitive-neutral-200: oklch(91% 0.01 260);
-    --primitive-neutral-300: oklch(83% 0.014 260);
-    --primitive-neutral-400: oklch(68% 0.018 260);
-    --primitive-neutral-500: oklch(54% 0.02 260);
-    --primitive-neutral-600: oklch(43% 0.02 260);
-    --primitive-neutral-700: oklch(33% 0.018 260);
-    --primitive-neutral-800: oklch(24% 0.016 260);
-    --primitive-neutral-900: oklch(18% 0.014 260);
-    --primitive-neutral-950: oklch(13% 0.012 260);
+    --primitive-neutral-50: oklch(98.5% 0.004 295);
+    --primitive-neutral-100: oklch(96% 0.006 295);
+    --primitive-neutral-200: oklch(91% 0.01 295);
+    --primitive-neutral-300: oklch(83% 0.014 295);
+    --primitive-neutral-400: oklch(68% 0.018 295);
+    --primitive-neutral-500: oklch(54% 0.02 295);
+    --primitive-neutral-600: oklch(43% 0.02 295);
+    --primitive-neutral-700: oklch(33% 0.018 295);
+    --primitive-neutral-800: oklch(24% 0.016 295);
+    --primitive-neutral-900: oklch(18% 0.014 295);
+    --primitive-neutral-950: oklch(13% 0.012 295);
 
-    /* Brand / Accent Palette (OKLCH Indigo) */
-    --primitive-brand-400: oklch(72% 0.16 265);
-    --primitive-brand-500: oklch(62% 0.2 265);
-    --primitive-brand-600: oklch(52% 0.22 265);
-    --primitive-brand-700: oklch(44% 0.2 265);
+    /* Brand / Accent Palette (OKLCH Purple) */
+    --primitive-brand-400: oklch(73% 0.17 295);
+    --primitive-brand-500: oklch(62% 0.21 295);
+    --primitive-brand-600: oklch(52% 0.23 295);
+    --primitive-brand-700: oklch(44% 0.21 295);
 
     /* Status Primitives */
     --primitive-success-400: oklch(76% 0.16 155);

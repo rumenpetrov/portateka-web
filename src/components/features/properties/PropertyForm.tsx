@@ -69,7 +69,7 @@ export function PropertyForm({
 
       <Textarea
         id="property-description"
-        label={`${t.properties.fields.descriptionLabel} (${t.common.optional})`}
+        label={t.properties.fields.descriptionLabel}
         hint={t.properties.fields.descriptionHint}
         error={getFieldError("description")}
         {...register("description", {
@@ -80,7 +80,7 @@ export function PropertyForm({
 
       <Textarea
         id="property-notes"
-        label={`${t.properties.fields.notesLabel} (${t.common.optional})`}
+        label={t.properties.fields.notesLabel}
         hint={t.properties.fields.notesHint}
         error={getFieldError("notes")}
         {...register("notes", {
