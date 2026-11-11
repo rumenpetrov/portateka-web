@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
-import { useI18n } from "../../../i18n/I18nProvider";
-import { Badge } from "../../ui";
+import { useI18n } from "@/i18n/I18nProvider";
+import { Badge } from "@/components/ui";
 
 interface PreferredPropertyBadgeProps {
   isPreferred: boolean;

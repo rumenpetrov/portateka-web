@@ -8,8 +8,8 @@ import type {
   UseFormReturn,
 } from "react-hook-form";
 import type { z } from "zod";
-import { isApiClientError } from "../api/client";
-import { translateFieldMachineCode, useI18n } from "../i18n/I18nProvider";
+import { isApiClientError } from "@/api/client";
+import { translateFieldMachineCode, useI18n } from "@/i18n/I18nProvider";
 
 /**
  * Custom Zod v4 resolver for react-hook-form that maps the first issue per field

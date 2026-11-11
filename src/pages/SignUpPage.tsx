@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { useSignUpMutation } from "../api/auth.api";
-import { PasswordInput } from "../components/features/auth/PasswordInput";
-import { Alert, Button, Card, CardContent, Input } from "../components/ui";
-import { useAppForm } from "../hooks/useAppForm";
-import { useI18n } from "../i18n/I18nProvider";
-import { signUpEmailSchema } from "../validators/authValidators";
+import { useSignUpMutation } from "@/api/auth.api";
+import { PasswordInput } from "@/components/features/auth/PasswordInput";
+import { Alert, Button, Card, CardContent, Input } from "@/components/ui";
+import { useAppForm } from "@/hooks/useAppForm";
+import { useI18n } from "@/i18n/I18nProvider";
+import { signUpEmailSchema } from "@/validators/authValidators";
 
 export function SignUpPage() {
   const { t } = useI18n();

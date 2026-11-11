@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import type { z } from "zod";
-import { useAppForm } from "../../../hooks/useAppForm";
-import { useI18n } from "../../../i18n/I18nProvider";
-import { createPropertySchema } from "../../../validators/propertyValidators";
-import { Button, Input, Textarea } from "../../ui";
+import { useAppForm } from "@/hooks/useAppForm";
+import { useI18n } from "@/i18n/I18nProvider";
+import { createPropertySchema } from "@/validators/propertyValidators";
+import { Button, Input, Textarea } from "@/components/ui";
 
 export type PropertyFormValues = z.output<typeof createPropertySchema>;
 

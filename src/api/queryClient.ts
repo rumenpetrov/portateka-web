@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import type { QueryKey } from "@tanstack/react-query";
-import { dispatchGlobalApiErrorNotification } from "../components/notifications/NotificationProvider";
+import { dispatchGlobalApiErrorNotification } from "@/components/notifications/NotificationProvider";
 import { isApiClientError, setAuthToken } from "./client";
 import { queryKeys } from "./queryKeys";
 

@@ -1,8 +1,8 @@
 import { Building2, LogOut, User } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router";
-import { useSignOut } from "../../api/auth.api";
-import { useI18n } from "../../i18n/I18nProvider";
-import { Button } from "../ui";
+import { useSignOut } from "@/api/auth.api";
+import { useI18n } from "@/i18n/I18nProvider";
+import { Button } from "@/components/ui";
 import { BrandLogo } from "./BrandLogo";
 import { TopControls } from "./TopControls";
 

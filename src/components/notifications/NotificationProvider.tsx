@@ -7,14 +7,14 @@ import {
   useState,
 } from "react";
 import type { ReactNode } from "react";
-import { ToastViewport } from "../ui/ToastViewport";
-import type { ToastItem, ToastTone } from "../ui/ToastViewport";
+import { ToastViewport } from "@/components/ui/ToastViewport";
+import type { ToastItem, ToastTone } from "@/components/ui/ToastViewport";
 import {
   getActiveDictionary,
   translateApiErrorFromShape,
   useI18n,
-} from "../../i18n/I18nProvider";
-import type { ApiErrorShape } from "../../i18n/types";
+} from "@/i18n/I18nProvider";
+import type { ApiErrorShape } from "@/i18n/types";
 
 interface NotificationContextValue {
   notify: (tone: ToastTone, message: string) => void;

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { useForgotPasswordMutation } from "../api/auth.api";
-import { Alert, Button, Card, CardContent, Input } from "../components/ui";
-import { useAppForm } from "../hooks/useAppForm";
-import { useI18n } from "../i18n/I18nProvider";
-import { forgotPasswordSchema } from "../validators/authValidators";
+import { useForgotPasswordMutation } from "@/api/auth.api";
+import { Alert, Button, Card, CardContent, Input } from "@/components/ui";
+import { useAppForm } from "@/hooks/useAppForm";
+import { useI18n } from "@/i18n/I18nProvider";
+import { forgotPasswordSchema } from "@/validators/authValidators";
 
 export function ForgotPasswordPage() {
   const { t } = useI18n();

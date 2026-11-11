@@ -1,8 +1,8 @@
 import { ArrowRight, Star } from "lucide-react";
 import { Link } from "react-router";
-import type { PropertyItem } from "../../../api/properties.api";
-import { useI18n } from "../../../i18n/I18nProvider";
-import { Button, Card, CardContent, CardFooter, CardHeader } from "../../ui";
+import type { PropertyItem } from "@/api/properties.api";
+import { useI18n } from "@/i18n/I18nProvider";
+import { Button, Card, CardContent, CardFooter, CardHeader } from "@/components/ui";
 import { PreferredPropertyBadge } from "./PreferredPropertyBadge";
 
 interface PropertyCardProps {

@@ -1,8 +1,8 @@
 import { ArrowRight, LogIn, UserPlus } from "lucide-react";
 import { Link } from "react-router";
-import { useAuthToken } from "../api/auth.api";
-import { Alert, Badge, Card, CardContent, CardHeader } from "../components/ui";
-import { useI18n } from "../i18n/I18nProvider";
+import { useAuthToken } from "@/api/auth.api";
+import { Alert, Badge, Card, CardContent, CardHeader } from "@/components/ui";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function HomePage() {
   const { t } = useI18n();

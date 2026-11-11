@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import type { UserProfile } from "../../../api/auth.api";
-import { useUpdateMeMutation } from "../../../api/auth.api";
-import type { PropertyItem } from "../../../api/properties.api";
-import { useAppForm } from "../../../hooks/useAppForm";
-import { useI18n } from "../../../i18n/I18nProvider";
-import { updateMeSchema } from "../../../validators/authValidators";
-import { useNotifications } from "../../notifications/NotificationProvider";
-import { Button, Input, Select } from "../../ui";
-import type { SelectOption } from "../../ui";
+import type { UserProfile } from "@/api/auth.api";
+import { useUpdateMeMutation } from "@/api/auth.api";
+import type { PropertyItem } from "@/api/properties.api";
+import { useAppForm } from "@/hooks/useAppForm";
+import { useI18n } from "@/i18n/I18nProvider";
+import { updateMeSchema } from "@/validators/authValidators";
+import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { Button, Input, Select } from "@/components/ui";
+import type { SelectOption } from "@/components/ui";
 
 interface ProfileFormProps {
   user: UserProfile;

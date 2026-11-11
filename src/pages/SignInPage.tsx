@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router";
-import { useSignInMutation } from "../api/auth.api";
-import { PasswordInput } from "../components/features/auth/PasswordInput";
-import { useNotifications } from "../components/notifications/NotificationProvider";
-import { Button, Card, CardContent, Input } from "../components/ui";
-import { useAppForm } from "../hooks/useAppForm";
-import { useI18n } from "../i18n/I18nProvider";
-import { signInEmailSchema } from "../validators/authValidators";
+import { useSignInMutation } from "@/api/auth.api";
+import { PasswordInput } from "@/components/features/auth/PasswordInput";
+import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { Button, Card, CardContent, Input } from "@/components/ui";
+import { useAppForm } from "@/hooks/useAppForm";
+import { useI18n } from "@/i18n/I18nProvider";
+import { signInEmailSchema } from "@/validators/authValidators";
 
 export function SignInPage() {
   const { t } = useI18n();

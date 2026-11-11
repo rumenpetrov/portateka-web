@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { Link } from "react-router";
-import { useMeQuery, useUpdateMeMutation } from "../api/auth.api";
-import { usePropertiesQuery } from "../api/properties.api";
-import { PropertyCard } from "../components/features/properties/PropertyCard";
-import { useNotifications } from "../components/notifications/NotificationProvider";
-import { EmptyState, Spinner } from "../components/ui";
-import { useI18n } from "../i18n/I18nProvider";
+import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
+import { usePropertiesQuery } from "@/api/properties.api";
+import { PropertyCard } from "@/components/features/properties/PropertyCard";
+import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { EmptyState, Spinner } from "@/components/ui";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function PropertiesListPage() {
   const { t } = useI18n();

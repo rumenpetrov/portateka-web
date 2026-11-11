@@ -1,8 +1,8 @@
 import { Globe, Moon, Sun } from "lucide-react";
-import { useI18n } from "../../i18n/I18nProvider";
-import type { SupportedLocale } from "../../i18n/types";
-import { useTheme } from "../../theme/ThemeProvider";
-import { Button } from "../ui";
+import { useI18n } from "@/i18n/I18nProvider";
+import type { SupportedLocale } from "@/i18n/types";
+import { useTheme } from "@/theme/ThemeProvider";
+import { Button } from "@/components/ui";
 
 export function TopControls() {
   const { locale, setLocale, t } = useI18n();

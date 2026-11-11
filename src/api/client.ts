@@ -1,4 +1,4 @@
-import type { ApiErrorShape } from "../i18n/types";
+import type { ApiErrorShape } from "@/i18n/types";
 
 const TOKEN_STORAGE_KEY = "portateka_token";
 

@@ -1,8 +1,8 @@
 import { useId, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { useI18n } from "../../../i18n/I18nProvider";
-import { Input } from "../../ui";
-import type { InputProps } from "../../ui";
+import { useI18n } from "@/i18n/I18nProvider";
+import { Input } from "@/components/ui";
+import type { InputProps } from "@/components/ui";
 
 export type PasswordInputProps = Omit<InputProps, "type" | "endAdornment">;
 

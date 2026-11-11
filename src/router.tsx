@@ -5,20 +5,20 @@ import {
   Route,
   Routes,
 } from "react-router";
-import { useAuthToken } from "./api/auth.api";
-import { AppLayout } from "./components/layout/AppLayout";
-import { AuthLayout } from "./components/layout/AuthLayout";
-import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
-import { HomePage } from "./pages/HomePage";
-import { NotFoundPage } from "./pages/NotFoundPage";
-import { ProfilePage } from "./pages/ProfilePage";
-import { PropertiesListPage } from "./pages/PropertiesListPage";
-import { PropertyCreatePage } from "./pages/PropertyCreatePage";
-import { PropertyDetailPage } from "./pages/PropertyDetailPage";
-import { ResetPasswordPage } from "./pages/ResetPasswordPage";
-import { SignInPage } from "./pages/SignInPage";
-import { SignUpPage } from "./pages/SignUpPage";
-import { VerifyEmailPage } from "./pages/VerifyEmailPage";
+import { useAuthToken } from "@/api/auth.api";
+import { AppLayout } from "@/components/layout/AppLayout";
+import { AuthLayout } from "@/components/layout/AuthLayout";
+import { ForgotPasswordPage } from "@/pages/ForgotPasswordPage";
+import { HomePage } from "@/pages/HomePage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
+import { ProfilePage } from "@/pages/ProfilePage";
+import { PropertiesListPage } from "@/pages/PropertiesListPage";
+import { PropertyCreatePage } from "@/pages/PropertyCreatePage";
+import { PropertyDetailPage } from "@/pages/PropertyDetailPage";
+import { ResetPasswordPage } from "@/pages/ResetPasswordPage";
+import { SignInPage } from "@/pages/SignInPage";
+import { SignUpPage } from "@/pages/SignUpPage";
+import { VerifyEmailPage } from "@/pages/VerifyEmailPage";
 
 function RequireAuth() {
   const token = useAuthToken();

@@ -1,6 +1,6 @@
-import { useMeQuery } from "../api/auth.api";
-import { usePropertiesQuery } from "../api/properties.api";
-import { ProfileForm } from "../components/features/profile/ProfileForm";
+import { useMeQuery } from "@/api/auth.api";
+import { usePropertiesQuery } from "@/api/properties.api";
+import { ProfileForm } from "@/components/features/profile/ProfileForm";
 import {
   Badge,
   Card,
@@ -8,11 +8,11 @@ import {
   CardHeader,
   Select,
   Spinner,
-} from "../components/ui";
-import { useI18n } from "../i18n/I18nProvider";
-import type { SupportedLocale } from "../i18n/types";
-import { useTheme } from "../theme/ThemeProvider";
-import type { ColorSchemePreference } from "../theme/ThemeProvider";
+} from "@/components/ui";
+import { useI18n } from "@/i18n/I18nProvider";
+import type { SupportedLocale } from "@/i18n/types";
+import { useTheme } from "@/theme/ThemeProvider";
+import type { ColorSchemePreference } from "@/theme/ThemeProvider";
 
 export function ProfilePage() {
   const { locale, setLocale, t, formatDate } = useI18n();

@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { ArrowLeft, Star, Trash2 } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router";
-import { useMeQuery, useUpdateMeMutation } from "../api/auth.api";
+import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import {
   useDeletePropertyMutation,
   usePropertyQuery,
   useUpdatePropertyMutation,
-} from "../api/properties.api";
-import { PreferredPropertyBadge } from "../components/features/properties/PreferredPropertyBadge";
-import { PropertyForm } from "../components/features/properties/PropertyForm";
-import type { PropertyFormValues } from "../components/features/properties/PropertyForm";
-import { useNotifications } from "../components/notifications/NotificationProvider";
+} from "@/api/properties.api";
+import { PreferredPropertyBadge } from "@/components/features/properties/PreferredPropertyBadge";
+import { PropertyForm } from "@/components/features/properties/PropertyForm";
+import type { PropertyFormValues } from "@/components/features/properties/PropertyForm";
+import { useNotifications } from "@/components/notifications/NotificationProvider";
 import {
   Button,
   Card,
@@ -19,8 +19,8 @@ import {
   EmptyState,
   Modal,
   Spinner,
-} from "../components/ui";
-import { useI18n } from "../i18n/I18nProvider";
+} from "@/components/ui";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function PropertyDetailPage() {
   const { id = "" } = useParams<{ id: string }>();

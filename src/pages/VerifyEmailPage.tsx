@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router";
-import { useVerifyEmailMutation } from "../api/auth.api";
+import { useVerifyEmailMutation } from "@/api/auth.api";
 import {
   Alert,
   Button,
@@ -8,10 +8,10 @@ import {
   CardContent,
   Input,
   Spinner,
-} from "../components/ui";
-import { useAppForm } from "../hooks/useAppForm";
-import { useI18n } from "../i18n/I18nProvider";
-import { verifyEmailSchema } from "../validators/authValidators";
+} from "@/components/ui";
+import { useAppForm } from "@/hooks/useAppForm";
+import { useI18n } from "@/i18n/I18nProvider";
+import { verifyEmailSchema } from "@/validators/authValidators";
 
 export function VerifyEmailPage() {
   const { t } = useI18n();
