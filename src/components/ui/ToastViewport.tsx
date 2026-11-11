@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { CheckCircle2, Info, X, XCircle } from "lucide-react";
 
 export type ToastTone = "info" | "success" | "error";
 
@@ -16,67 +17,24 @@ export interface ToastViewportProps {
   srAnnouncementLabel: string;
 }
 
-const TONE_ICONS: Record<ToastTone, string> = {
-  info: "ℹ",
-  success: "✓",
-  error: "✕",
-};
+function ToastToneIcon({ tone }: { tone: ToastTone }) {
+  const iconProps = {
+    "aria-hidden": true as const,
+    size: 18,
+    style: { flexShrink: 0 },
+  };
 
-function ToastPopoverItem({
-  item,
-  onDismiss,
-  dismissLabel,
-}: {
-  item: ToastItem;
-  onDismiss: (id: string) => void;
-  dismissLabel: string;
-}) {
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = popoverRef.current;
-    if (!el) {
-      return;
+  switch (tone) {
+    case "success": {
+      return <CheckCircle2 {...iconProps} />;
     }
-    if (typeof el.showPopover === "function") {
-      try {
-        el.showPopover();
-      } catch {
-        // Already open or unsupported
-      }
+    case "error": {
+      return <XCircle {...iconProps} />;
     }
-  }, []);
-
-  return (
-    <div
-      ref={popoverRef}
-      id={`toast-${item.id}`}
-      popover="manual"
-      className={`ui-toast ui-toast--${item.tone}`}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: "var(--primitive-space-2)",
-          fontSize: "var(--primitive-text-sm)",
-        }}
-      >
-        <span aria-hidden="true" style={{ fontWeight: 700 }}>
-          {TONE_ICONS[item.tone]}
-        </span>
-        <span>{item.message}</span>
-      </div>
-      <button
-        type="button"
-        className="ui-btn ui-btn--ghost ui-btn--sm"
-        aria-label={dismissLabel}
-        onClick={() => onDismiss(item.id)}
-      >
-        ✕
-      </button>
-    </div>
-  );
+    case "info": {
+      return <Info {...iconProps} />;
+    }
+  }
 }
 
 export function ToastViewport({
@@ -86,13 +44,30 @@ export function ToastViewport({
   dismissLabel,
   srAnnouncementLabel,
 }: ToastViewportProps) {
+  const regionRef = useRef<HTMLDivElement>(null);
   const latestToast = toasts[toasts.length - 1];
+
+  useEffect(() => {
+    const el = regionRef.current;
+    if (!el || typeof el.showPopover !== "function") {
+      return;
+    }
+
+    try {
+      if (toasts.length > 0 && !el.matches(":popover-open")) {
+        el.showPopover();
+      } else if (toasts.length === 0 && el.matches(":popover-open")) {
+        el.hidePopover();
+      }
+    } catch {
+      // Ignore state errors
+    }
+  }, [toasts.length]);
 
   useEffect(() => {
     if (!latestToast) {
       return;
     }
-    // Use standard ariaNotify() when available, falling back to the pre-populated aria-live container below
     const docWithNotify = document as Document & {
       ariaNotify?: (message: string) => void;
     };
@@ -108,14 +83,32 @@ export function ToastViewport({
         {latestToast ? latestToast.message : ""}
       </div>
 
-      <div role="region" aria-label={regionLabel} className="ui-toast-region">
+      <div
+        ref={regionRef}
+        popover="manual"
+        role="region"
+        aria-label={regionLabel}
+        className="ui-toast-region"
+      >
         {toasts.map((item) => (
-          <ToastPopoverItem
+          <div
             key={item.id}
-            item={item}
-            onDismiss={onDismiss}
-            dismissLabel={dismissLabel}
-          />
+            id={`toast-${item.id}`}
+            className={`ui-toast ui-toast--${item.tone}`}
+          >
+            <div className="ui-toast-content">
+              <ToastToneIcon tone={item.tone} />
+              <span>{item.message}</span>
+            </div>
+            <button
+              type="button"
+              className="ui-toast-close"
+              aria-label={dismissLabel}
+              onClick={() => onDismiss(item.id)}
+            >
+              <X aria-hidden="true" size={16} />
+            </button>
+          </div>
         ))}
       </div>
     </>

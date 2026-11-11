@@ -1,5 +1,6 @@
 import { useId } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
+import { AlertCircle } from "lucide-react";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -82,7 +83,7 @@ export function Input({
 
       {error ? (
         <span id={errorId} className="ui-field-error" role="alert">
-          <span aria-hidden="true">⚠</span>
+          <AlertCircle aria-hidden="true" size={15} style={{ flexShrink: 0 }} />
           <span>{error}</span>
         </span>
       ) : null}

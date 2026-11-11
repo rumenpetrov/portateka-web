@@ -39,6 +39,17 @@ export interface TranslationDictionary {
   app: {
     name: string;
     tagline: string;
+    betaBadge: string;
+  };
+  home: {
+    title: string;
+    subtitle: string;
+    betaWarningTitle: string;
+    betaWarningMessage: string;
+    betaDataLossNote: string;
+    goToProperties: string;
+    signInCta: string;
+    signUpCta: string;
   };
   common: {
     loading: string;
@@ -66,9 +77,6 @@ export interface TranslationDictionary {
     signIn: string;
     signUp: string;
     signOut: string;
-    apiOnline: string;
-    apiOffline: string;
-    apiChecking: string;
   };
   preferences: {
     languageLabel: string;

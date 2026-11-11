@@ -44,16 +44,11 @@ export const queryClient = new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    onError: (error, query) => {
+    onError: (error) => {
       if (isApiClientError(error) && error.status === 401) {
         setAuthToken(null);
         queryClient.removeQueries({ queryKey: queryKeys.auth.all });
         queryClient.removeQueries({ queryKey: queryKeys.properties.all });
-        return;
-      }
-
-      // Skip background health check errors from spamming user notifications
-      if (query.queryKey[0] === queryKeys.health.all[0]) {
         return;
       }
 

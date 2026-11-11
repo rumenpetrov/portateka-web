@@ -4,6 +4,19 @@ export const enUS: TranslationDictionary = {
   app: {
     name: "Portateka",
     tagline: "Property Portfolio Management",
+    betaBadge: "BETA",
+  },
+  home: {
+    title: "Welcome to Portateka",
+    subtitle: "A small space where you organize and manage your property information.",
+    betaWarningTitle: "Early Beta Release",
+    betaWarningMessage:
+      "Portateka is currently in an active beta stage and is not yet a finished product. Features may change, and occasional issues may occur.",
+    betaDataLossNote:
+      "Important: Please do not store critical or irreplaceable information here yet, as database resets or updates during beta testing may result in data loss.",
+    goToProperties: "Go to My Properties",
+    signInCta: "Sign in",
+    signUpCta: "Create an account",
   },
   common: {
     loading: "Loading...",
@@ -31,9 +44,6 @@ export const enUS: TranslationDictionary = {
     signIn: "Sign in",
     signUp: "Create account",
     signOut: "Sign out",
-    apiOnline: "API Online",
-    apiOffline: "API Unreachable",
-    apiChecking: "Checking API...",
   },
   preferences: {
     languageLabel: "Language",

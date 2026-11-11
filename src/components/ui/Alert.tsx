@@ -1,4 +1,10 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import {
+  AlertTriangle,
+  CheckCircle2,
+  Info,
+  XCircle,
+} from "lucide-react";
 
 export type AlertVariant = "info" | "success" | "warning" | "danger";
 
@@ -7,12 +13,28 @@ export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-const ICONS: Record<AlertVariant, string> = {
-  info: "ℹ",
-  success: "✓",
-  warning: "⚠",
-  danger: "✕",
-};
+function AlertIcon({ variant }: { variant: AlertVariant }) {
+  const iconProps = {
+    "aria-hidden": true as const,
+    size: 18,
+    style: { flexShrink: 0, marginBlockStart: "0.125rem" },
+  };
+
+  switch (variant) {
+    case "success": {
+      return <CheckCircle2 {...iconProps} />;
+    }
+    case "warning": {
+      return <AlertTriangle {...iconProps} />;
+    }
+    case "danger": {
+      return <XCircle {...iconProps} />;
+    }
+    case "info": {
+      return <Info {...iconProps} />;
+    }
+  }
+}
 
 export function Alert({
   variant = "info",
@@ -34,9 +56,7 @@ export function Alert({
       className={classes}
       {...rest}
     >
-      <span aria-hidden="true" style={{ fontWeight: 700 }}>
-        {ICONS[variant]}
-      </span>
+      <AlertIcon variant={variant} />
       <div style={{ flex: 1 }}>{children}</div>
     </div>
   );

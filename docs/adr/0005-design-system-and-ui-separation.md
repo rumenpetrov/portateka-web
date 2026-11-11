@@ -9,7 +9,7 @@ The showcase application requires a minimal, high-impact design system supportin
 ## Decision
 1. **Two-Tier Design Tokens (`src/theme/tokens.css`):**
    - **Tier 1 (`--primitive-*`):** Raw OKLCH color scales, spacing, typography, radius, and motion values defined once on `:root` inside `@layer tokens`. Never referenced directly by components.
-   - **Tier 2 (`--theme-*`):** Semantic tokens driven by `color-scheme: light dark`, `light-dark()`, CSS Relative Color Syntax (`oklch(from var(--theme-accent) l c h / 0.14)`), `color-mix(in oklab, ...)`, and `contrast-color()` (with CIE XYZ relative-color luminance calculation `color(from var(...) xyz-d65 ...)` as the pre-`contrast-color()` fallback).
+   - **Tier 2 (`--theme-*`):** Semantic tokens driven by `color-scheme: light dark`, `light-dark()`, CSS Relative Color Syntax (`oklch(from var(--theme-accent) l c h / 0.14)`), `color-mix(in oklab, ...)`, and `contrast-color()` (targeting Baseline 2026 directly without legacy math fallbacks).
 2. **Declarative `<meta name="color-scheme">` Sync:**
    - `index.html` declares `<meta name="color-scheme" content="light dark">` and runs an inline FOUC-prevention script.
    - `:root` maps `<meta name="color-scheme">` overrides directly in CSS using `:has(> head > meta[name="color-scheme"][content="dark"])` and `[content="light"]`, so all `light-dark()` tokens and native controls (`accent-color`, `scrollbar-color`) adapt automatically without duplicated theme blocks.

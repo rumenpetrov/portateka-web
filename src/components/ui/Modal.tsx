@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef } from "react";
 import type { MouseEvent, ReactNode } from "react";
+import { X } from "lucide-react";
 
 export interface ModalProps {
   open: boolean;
@@ -87,7 +88,7 @@ export function Modal({
             className="ui-btn ui-btn--ghost ui-btn--sm"
             aria-label={closeLabel}
           >
-            ✕
+            <X aria-hidden="true" size={18} />
           </button>
         </form>
       </div>

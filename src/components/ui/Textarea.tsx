@@ -1,5 +1,6 @@
 import { useId } from "react";
 import type { TextareaHTMLAttributes } from "react";
+import { AlertCircle } from "lucide-react";
 
 export interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -60,7 +61,7 @@ export function Textarea({
 
       {error ? (
         <span id={errorId} className="ui-field-error" role="alert">
-          <span aria-hidden="true">⚠</span>
+          <AlertCircle aria-hidden="true" size={15} style={{ flexShrink: 0 }} />
           <span>{error}</span>
         </span>
       ) : null}

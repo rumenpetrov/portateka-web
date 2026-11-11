@@ -1,5 +1,6 @@
 import { useId } from "react";
 import type { SelectHTMLAttributes } from "react";
+import { AlertCircle } from "lucide-react";
 
 export interface SelectOption {
   value: string;
@@ -72,7 +73,7 @@ export function Select({
 
       {error ? (
         <span id={errorId} className="ui-field-error" role="alert">
-          <span aria-hidden="true">⚠</span>
+          <AlertCircle aria-hidden="true" size={15} style={{ flexShrink: 0 }} />
           <span>{error}</span>
         </span>
       ) : null}

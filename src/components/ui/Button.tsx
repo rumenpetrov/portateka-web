@@ -38,7 +38,15 @@ export function Button({
       {...rest}
     >
       {isLoading ? <Spinner size="1em" /> : null}
-      <span>{children}</span>
+      <span
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "var(--primitive-space-2)",
+        }}
+      >
+        {children}
+      </span>
     </button>
   );
 }
