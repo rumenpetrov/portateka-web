@@ -4,7 +4,7 @@
 - **Date:** 2026-11-11
 
 ## Context
-We need a minimal, maintainable, and production-ready showcase frontend (`portateka-min-web`) for `portateka-api`. It must feature dedicated pages for every user flow (authentication, email verification, password reset, user profile, and properties CRUD) with strict TypeScript type safety and fast local development.
+We need a minimal, maintainable, and production-ready showcase frontend (`portateka-web`) for `portateka-api`. It must feature dedicated pages for every user flow (authentication, email verification, password reset, user profile, and properties CRUD) with strict TypeScript type safety and fast local development.
 
 ## Decision
 We use **React 19**, **Vite 6**, **TypeScript 5** (`strict: true`, `verbatimModuleSyntax: true`), and **React Router v7** (`react-router`) in declarative SPA mode with route guards (`RequireAuth` and `GuestOnly`).

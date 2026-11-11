@@ -4,7 +4,7 @@
 - **Date:** 2026-11-11
 
 ## Context
-`portateka-min-web` is used primarily on mobile phones and less frequently on desktop screens. Mobile browsers present dynamic toolbars/keyboards, coarse touch pointers, and single-hand thumb reach constraints.
+`portateka-web` is used primarily on mobile phones and less frequently on desktop screens. Mobile browsers present dynamic toolbars/keyboards, coarse touch pointers, and single-hand thumb reach constraints.
 
 ## Decision
 1. **Dynamic Viewport & Safe Areas:** Use `100dvh` (`min-block-size: 100dvh`) and `viewport-fit=cover` with `env(safe-area-inset-bottom)` so mobile address bars and home indicators never clip navigation or toast notifications.
