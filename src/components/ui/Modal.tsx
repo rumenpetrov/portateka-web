@@ -5,7 +5,7 @@ export interface ModalProps {
   open: boolean;
   title: string;
   onClose: () => void;
-  closeLabel?: string;
+  closeLabel: string;
   children: ReactNode;
 }
 
@@ -13,7 +13,7 @@ export function Modal({
   open,
   title,
   onClose,
-  closeLabel = "Close",
+  closeLabel,
   children,
 }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
