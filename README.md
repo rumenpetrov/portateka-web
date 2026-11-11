@@ -11,7 +11,7 @@ Web app where you organize and manage your property portfolio information.
 - **Routing:** React Router v7
 - **Server State & Caching:** TanStack React Query v5
 - **Forms & Validation:** React Hook Form + Zod v4 (`@hookform/resolvers`)
-- **Internationalization (i18n):** Built-in typed dictionary (`bg-BG` default, `en-US`)
+- **Internationalization (i18n):** Built-in typed dictionary (`en-US` default, `bg-BG`)
 - **Icons:** Lucide React
 
 ---
@@ -60,6 +60,7 @@ Web app where you organize and manage your property portfolio information.
 | ------------------- | --------------------------------------------------------------- |
 | `npm run dev`       | Start Vite dev server at `http://localhost:5173` with API proxy |
 | `npm run build`     | Typecheck (`tsc -b`) and build production bundle to `dist/`     |
+| `npm run deploy`    | Deploy the built `dist/` static assets to Cloudflare Workers    |
 | `npm run preview`   | Locally preview the production build from `dist/`               |
 | `npm run typecheck` | Run TypeScript compiler check without emitting (`tsc --noEmit`) |
 
