@@ -1,0 +1,582 @@
+@layer tokens, base, components, utilities;
+
+@layer tokens {
+  :root {
+    /* ==========================================================================
+       1. PRIMITIVE TOKENS (Single Source of Truth — Never used directly in UI)
+       ========================================================================== */
+
+    /* Neutral Palette (OKLCH) */
+    --primitive-neutral-0: oklch(100% 0 0);
+    --primitive-neutral-50: oklch(98.5% 0.004 260);
+    --primitive-neutral-100: oklch(96% 0.006 260);
+    --primitive-neutral-200: oklch(91% 0.01 260);
+    --primitive-neutral-300: oklch(83% 0.014 260);
+    --primitive-neutral-400: oklch(68% 0.018 260);
+    --primitive-neutral-500: oklch(54% 0.02 260);
+    --primitive-neutral-600: oklch(43% 0.02 260);
+    --primitive-neutral-700: oklch(33% 0.018 260);
+    --primitive-neutral-800: oklch(24% 0.016 260);
+    --primitive-neutral-900: oklch(18% 0.014 260);
+    --primitive-neutral-950: oklch(13% 0.012 260);
+
+    /* Brand / Accent Palette (OKLCH Indigo) */
+    --primitive-brand-400: oklch(72% 0.16 265);
+    --primitive-brand-500: oklch(62% 0.2 265);
+    --primitive-brand-600: oklch(52% 0.22 265);
+    --primitive-brand-700: oklch(44% 0.2 265);
+
+    /* Status Primitives */
+    --primitive-success-400: oklch(76% 0.16 155);
+    --primitive-success-600: oklch(52% 0.15 155);
+    --primitive-warning-400: oklch(82% 0.16 80);
+    --primitive-warning-600: oklch(56% 0.15 75);
+    --primitive-danger-400: oklch(72% 0.19 25);
+    --primitive-danger-600: oklch(53% 0.21 25);
+
+    /* Typography Primitives */
+    --primitive-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --primitive-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --primitive-text-xs: 0.75rem;
+    --primitive-text-sm: 0.875rem;
+    --primitive-text-md: 1rem;
+    --primitive-text-lg: 1.125rem;
+    --primitive-text-xl: 1.375rem;
+    --primitive-text-2xl: 1.75rem;
+
+    --primitive-weight-regular: 400;
+    --primitive-weight-medium: 500;
+    --primitive-weight-semibold: 600;
+    --primitive-weight-bold: 700;
+
+    /* Spacing Primitives */
+    --primitive-space-1: 0.25rem;
+    --primitive-space-2: 0.5rem;
+    --primitive-space-3: 0.75rem;
+    --primitive-space-4: 1rem;
+    --primitive-space-5: 1.25rem;
+    --primitive-space-6: 1.5rem;
+    --primitive-space-8: 2rem;
+    --primitive-space-10: 2.5rem;
+    --primitive-space-12: 3rem;
+
+    /* Radius & Border Primitives */
+    --primitive-radius-sm: 0.375rem;
+    --primitive-radius-md: 0.5rem;
+    --primitive-radius-lg: 0.75rem;
+    --primitive-radius-pill: 9999px;
+
+    /* Motion Primitives */
+    --primitive-duration-fast: 150ms;
+    --primitive-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+
+    /* WCAG relative luminance threshold for CIE XYZ contrast fallback */
+    --primitive-wcag-y-threshold: 0.17913;
+
+    /* ==========================================================================
+       2. SEMANTIC THEME TOKENS (Driven by color-scheme & light-dark())
+       ========================================================================== */
+
+    color-scheme: light dark;
+
+    &:has(> head > meta[name="color-scheme"][content="dark"]) {
+      color-scheme: dark;
+    }
+
+    &:has(> head > meta[name="color-scheme"][content="light"]) {
+      color-scheme: light;
+    }
+
+    /* Surfaces */
+    --theme-bg-canvas: light-dark(var(--primitive-neutral-50), var(--primitive-neutral-950));
+    --theme-bg-surface: light-dark(var(--primitive-neutral-0), var(--primitive-neutral-900));
+    --theme-bg-subtle: light-dark(var(--primitive-neutral-100), var(--primitive-neutral-800));
+    --theme-bg-elevated: light-dark(var(--primitive-neutral-0), var(--primitive-neutral-800));
+
+    /* Text */
+    --theme-text-primary: light-dark(var(--primitive-neutral-900), var(--primitive-neutral-50));
+    --theme-text-secondary: light-dark(var(--primitive-neutral-600), var(--primitive-neutral-300));
+    --theme-text-muted: light-dark(var(--primitive-neutral-500), var(--primitive-neutral-400));
+
+    /* Borders (meeting 3:1 non-text contrast on interactive controls) */
+    --theme-border-subtle: light-dark(var(--primitive-neutral-200), var(--primitive-neutral-800));
+    --theme-border-default: light-dark(var(--primitive-neutral-300), var(--primitive-neutral-700));
+    --theme-border-Control: light-dark(var(--primitive-neutral-500), var(--primitive-neutral-400));
+
+    /* Brand & Interactive */
+    --theme-accent: light-dark(var(--primitive-brand-600), var(--primitive-brand-400));
+    --theme-accent-hover: light-dark(
+      var(--primitive-brand-700),
+      color-mix(in oklab, var(--primitive-brand-400), white 18%)
+    );
+    --theme-accent-subtle: oklch(from var(--theme-accent) l c h / 0.14);
+
+    /* Status Semantic Colors */
+    --theme-success: light-dark(var(--primitive-success-600), var(--primitive-success-400));
+    --theme-success-subtle: oklch(from var(--theme-success) l c h / 0.14);
+
+    --theme-warning: light-dark(var(--primitive-warning-600), var(--primitive-warning-400));
+    --theme-warning-subtle: oklch(from var(--theme-warning) l c h / 0.16);
+
+    --theme-danger: light-dark(var(--primitive-danger-600), var(--primitive-danger-400));
+    --theme-danger-hover: light-dark(
+      color-mix(in oklab, var(--primitive-danger-600), black 15%),
+      color-mix(in oklab, var(--primitive-danger-400), white 15%)
+    );
+    --theme-danger-subtle: oklch(from var(--theme-danger) l c h / 0.14);
+
+    /* Shadows & Backdrop using Relative Color Syntax */
+    --theme-shadow-sm: 0 1px 3px oklch(from var(--primitive-neutral-950) l c h / light-dark(0.07, 0.35));
+    --theme-shadow-md: 0 6px 20px oklch(from var(--primitive-neutral-950) l c h / light-dark(0.1, 0.5));
+    --theme-backdrop: oklch(from var(--primitive-neutral-950) l c h / 0.55);
+
+    /* Scrollbars & Native Controls */
+    --theme-scrollbar-track: var(--theme-bg-subtle);
+    --theme-scrollbar-thumb: var(--theme-border-Control);
+    accent-color: var(--theme-accent);
+    scrollbar-color: var(--theme-scrollbar-thumb) var(--theme-scrollbar-track);
+  }
+}
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--theme-bg-canvas);
+    color: var(--theme-text-primary);
+    font-family: var(--primitive-font-sans);
+    font-size: var(--primitive-text-md);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    margin-block: 0;
+  }
+
+  a {
+    color: var(--theme-accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      color: var(--theme-accent-hover);
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--theme-accent);
+    outline-offset: 2px;
+  }
+
+  /* Native modal scroll containment */
+  dialog:modal {
+    overscroll-behavior: contain;
+  }
+
+  dialog::backdrop {
+    overflow: hidden;
+    overscroll-behavior: contain;
+    background-color: var(--theme-backdrop);
+    backdrop-filter: blur(3px);
+  }
+
+  @media (forced-colors: active) {
+    :root {
+      --theme-border-default: CanvasText;
+      --theme-border-Control: ButtonText;
+    }
+  }
+}
+
+@layer components {
+  /* ==========================================================================
+     Buttons (with CIE XYZ relative color fallback + contrast-color())
+     ========================================================================== */
+  .ui-btn {
+    --btn-bg: var(--theme-bg-surface);
+    --btn-fg: var(--theme-text-primary);
+    --btn-border: var(--theme-border-Control);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--primitive-space-2);
+    font: inherit;
+    font-size: var(--primitive-text-sm);
+    font-weight: var(--primitive-weight-medium);
+    padding-block: var(--primitive-space-2);
+    padding-inline: var(--primitive-space-4);
+    min-block-size: 2.5rem;
+    border-radius: var(--primitive-radius-md);
+    border: 1px solid var(--btn-border);
+    background-color: var(--btn-bg);
+    color: var(--btn-fg);
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition:
+      background-color var(--primitive-duration-fast) var(--primitive-easing-standard),
+      border-color var(--primitive-duration-fast) var(--primitive-easing-standard);
+
+    &:hover:not(:disabled) {
+      background-color: var(--theme-bg-subtle);
+    }
+
+    &:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    &.ui-btn--sm {
+      min-block-size: 2rem;
+      padding-block: var(--primitive-space-1);
+      padding-inline: var(--primitive-space-3);
+      font-size: var(--primitive-text-xs);
+    }
+
+    &.ui-btn--primary {
+      --btn-bg: var(--theme-accent);
+      --btn-border: transparent;
+      --y: max(0, sign(var(--primitive-wcag-y-threshold) - y));
+      color: color(from var(--btn-bg) xyz-d65 calc(var(--y) * 0.9505) var(--y) calc(var(--y) * 1.089));
+
+      @supports (color: contrast-color(red)) {
+        color: contrast-color(var(--btn-bg));
+      }
+
+      &:hover:not(:disabled) {
+        --btn-bg: var(--theme-accent-hover);
+        background-color: var(--btn-bg);
+      }
+    }
+
+    &.ui-btn--danger {
+      --btn-bg: var(--theme-danger);
+      --btn-border: transparent;
+      --y: max(0, sign(var(--primitive-wcag-y-threshold) - y));
+      color: color(from var(--btn-bg) xyz-d65 calc(var(--y) * 0.9505) var(--y) calc(var(--y) * 1.089));
+
+      @supports (color: contrast-color(red)) {
+        color: contrast-color(var(--btn-bg));
+      }
+
+      &:hover:not(:disabled) {
+        --btn-bg: var(--theme-danger-hover);
+        background-color: var(--btn-bg);
+      }
+    }
+
+    &.ui-btn--ghost {
+      --btn-bg: transparent;
+      --btn-border: transparent;
+
+      &:hover:not(:disabled) {
+        background-color: var(--theme-bg-subtle);
+      }
+    }
+  }
+
+  /* ==========================================================================
+     Form Fields (Inputs, Textareas, Selects)
+     ========================================================================== */
+  .ui-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--primitive-space-1);
+    margin-block-end: var(--primitive-space-4);
+  }
+
+  .ui-label {
+    font-size: var(--primitive-text-sm);
+    font-weight: var(--primitive-weight-medium);
+    color: var(--theme-text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--primitive-space-1);
+  }
+
+  .ui-required-mark {
+    color: var(--theme-danger);
+  }
+
+  .ui-control {
+    font: inherit;
+    font-size: max(1rem, 1em);
+    line-height: 1.4;
+    padding-block: var(--primitive-space-2);
+    padding-inline: var(--primitive-space-3);
+    min-block-size: 2.75rem;
+     inline-size: 100%;
+    box-sizing: border-box;
+    border-radius: var(--primitive-radius-md);
+    border: 1px solid var(--theme-border-Control);
+    background-color: var(--theme-bg-surface);
+    color: var(--theme-text-primary);
+    transition: border-color var(--primitive-duration-fast) var(--primitive-easing-standard);
+
+    @media (pointer: coarse) {
+      min-block-size: 3.125rem;
+    }
+
+    &::placeholder {
+      color: var(--theme-text-muted);
+    }
+
+    &:is([aria-invalid="true"], :user-invalid) {
+      border-color: var(--theme-danger);
+    }
+
+    &:disabled {
+      background-color: var(--theme-bg-subtle);
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+  }
+
+  textarea.ui-control {
+    min-block-size: 5.5rem;
+    resize: vertical;
+  }
+
+  .ui-field-hint {
+    font-size: var(--primitive-text-xs);
+    color: var(--theme-text-secondary);
+  }
+
+  .ui-field-error {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--primitive-space-1);
+    font-size: var(--primitive-text-xs);
+    font-weight: var(--primitive-weight-medium);
+    color: var(--theme-danger);
+  }
+
+  /* ==========================================================================
+     Cards
+     ========================================================================== */
+  .ui-card {
+    background-color: var(--theme-bg-surface);
+    border: 1px solid var(--theme-border-default);
+    border-radius: var(--primitive-radius-lg);
+    box-shadow: var(--theme-shadow-sm);
+    padding: var(--primitive-space-6);
+  }
+
+  .ui-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--primitive-space-4);
+    margin-block-end: var(--primitive-space-4);
+  }
+
+  .ui-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--primitive-space-3);
+    margin-block-start: var(--primitive-space-5);
+    padding-block-start: var(--primitive-space-4);
+    border-block-start: 1px solid var(--theme-border-subtle);
+  }
+
+  /* ==========================================================================
+     Badges (with contrast-color() for solid badges & relative color for subtle)
+     ========================================================================== */
+  .ui-badge {
+    --badge-tone: var(--theme-text-secondary);
+    --badge-bg: var(--theme-bg-subtle);
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--primitive-space-1);
+    padding-block: 0.15rem;
+    padding-inline: var(--primitive-space-2);
+    border-radius: var(--primitive-radius-pill);
+    font-size: var(--primitive-text-xs);
+    font-weight: var(--primitive-weight-medium);
+    background-color: var(--badge-bg);
+    color: var(--badge-tone);
+    border: 1px solid oklch(from var(--badge-tone) l c h / 0.28);
+
+    &.ui-badge--primary {
+      --badge-tone: var(--theme-accent);
+      --badge-bg: var(--theme-accent-subtle);
+    }
+
+    &.ui-badge--success {
+      --badge-tone: var(--theme-success);
+      --badge-bg: var(--theme-success-subtle);
+    }
+
+    &.ui-badge--warning {
+      --badge-tone: var(--theme-warning);
+      --badge-bg: var(--theme-warning-subtle);
+    }
+
+    &.ui-badge--danger {
+      --badge-tone: var(--theme-danger);
+      --badge-bg: var(--theme-danger-subtle);
+    }
+
+    &.ui-badge--solid {
+      --badge-bg: var(--badge-tone);
+      --y: max(0, sign(var(--primitive-wcag-y-threshold) - y));
+      color: color(from var(--badge-bg) xyz-d65 calc(var(--y) * 0.9505) var(--y) calc(var(--y) * 1.089));
+
+      @supports (color: contrast-color(red)) {
+        color: contrast-color(var(--badge-bg));
+      }
+    }
+  }
+
+  /* ==========================================================================
+     Alerts
+     ========================================================================== */
+  .ui-alert {
+    --alert-tone: var(--theme-accent);
+    --alert-bg: var(--theme-accent-subtle);
+
+    display: flex;
+    align-items: flex-start;
+    gap: var(--primitive-space-3);
+    padding: var(--primitive-space-3) var(--primitive-space-4);
+    border-radius: var(--primitive-radius-md);
+    border: 1px solid oklch(from var(--alert-tone) l c h / 0.35);
+    background-color: var(--alert-bg);
+    color: var(--theme-text-primary);
+    font-size: var(--primitive-text-sm);
+
+    &.ui-alert--success {
+      --alert-tone: var(--theme-success);
+      --alert-bg: var(--theme-success-subtle);
+    }
+
+    &.ui-alert--warning {
+      --alert-tone: var(--theme-warning);
+      --alert-bg: var(--theme-warning-subtle);
+    }
+
+    &.ui-alert--danger {
+      --alert-tone: var(--theme-danger);
+      --alert-bg: var(--theme-danger-subtle);
+    }
+  }
+
+  /* ==========================================================================
+     Native Modal Dialog (<dialog>)
+     ========================================================================== */
+  dialog.ui-modal {
+    border: 1px solid var(--theme-border-default);
+    border-radius: var(--primitive-radius-lg);
+    background-color: var(--theme-bg-elevated);
+    color: var(--theme-text-primary);
+    box-shadow: var(--theme-shadow-md);
+    padding: var(--primitive-space-6);
+    max-inline-size: min(28rem, calc(100vw - 2rem));
+    inline-size: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ==========================================================================
+     Popover Toast Stack (popover="manual")
+     ========================================================================== */
+  .ui-toast-region {
+    position: fixed;
+    inset-block-end: var(--primitive-space-4);
+    inset-inline-end: var(--primitive-space-4);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: var(--primitive-space-2);
+    max-inline-size: min(24rem, calc(100vw - 2rem));
+    pointer-events: none;
+  }
+
+  .ui-toast[popover] {
+    position: static;
+    inset: unset;
+    margin: 0;
+    inline-size: 100%;
+    box-sizing: border-box;
+    pointer-events: auto;
+    border-radius: var(--primitive-radius-md);
+    border: 1px solid var(--theme-border-default);
+    background-color: var(--theme-bg-elevated);
+    color: var(--theme-text-primary);
+    box-shadow: var(--theme-shadow-md);
+    padding: var(--primitive-space-3) var(--primitive-space-4);
+
+    &:where(:popover-open, .\:popover-open) {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--primitive-space-3);
+    }
+
+    &.ui-toast--success {
+      border-inline-start: 4px solid var(--theme-success);
+    }
+
+    &.ui-toast--error {
+      border-inline-start: 4px solid var(--theme-danger);
+    }
+
+    &.ui-toast--info {
+      border-inline-start: 4px solid var(--theme-accent);
+    }
+  }
+
+  /* ==========================================================================
+     Spinner & Empty State
+     ========================================================================== */
+  .ui-spinner {
+    display: inline-block;
+    inline-size: 1.125em;
+    block-size: 1.125em;
+    border: 2px solid currentColor;
+    border-inline-end-color: transparent;
+    border-radius: var(--primitive-radius-pill);
+    animation: ui-spin 0.7s linear infinite;
+  }
+
+  @keyframes ui-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .ui-empty-state {
+    text-align: center;
+    padding: var(--primitive-space-10) var(--primitive-space-6);
+    border: 1px dashed var(--theme-border-default);
+    border-radius: var(--primitive-radius-lg);
+    background-color: var(--theme-bg-surface);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--primitive-space-3);
+  }
+}
+
+@layer utilities {
+  .visually-hidden {
+    position: absolute;
+    clip-path: inset(50%);
+    overflow: hidden;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    white-space: nowrap;
+  }
+}

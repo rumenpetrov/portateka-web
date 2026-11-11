@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      try {
+        const storedScheme = localStorage.getItem("color-scheme");
+        const meta = document.querySelector('meta[name="color-scheme"]');
+        if (meta && (storedScheme === "light" || storedScheme === "dark")) {
+          meta.content = storedScheme;
+        }
+      } catch {
+        // Ignore storage access errors in restricted contexts
+      }
+    </script>
     <title>Portateka</title>
   </head>
   <body>
