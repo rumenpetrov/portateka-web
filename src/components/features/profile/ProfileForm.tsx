@@ -55,53 +55,55 @@ export function ProfileForm({ user, properties }: ProfileFormProps) {
 
   return (
     <form method="post" onSubmit={onSubmit} noValidate>
-      <Input
-        id="profile-first-name"
-        type="text"
-        autoComplete="given-name"
-        enterKeyHint="next"
-        required
-        label={t.auth.firstNameLabel}
-        error={getFieldError("firstName")}
-        {...register("firstName")}
-      />
+      <fieldset className="ui-fieldset" disabled={updateMeMutation.isPending}>
+        <Input
+          id="profile-first-name"
+          type="text"
+          autoComplete="given-name"
+          enterKeyHint="next"
+          required
+          label={t.auth.firstNameLabel}
+          error={getFieldError("firstName")}
+          {...register("firstName")}
+        />
 
-      <Input
-        id="profile-last-name"
-        type="text"
-        autoComplete="family-name"
-        enterKeyHint="next"
-        label={t.auth.lastNameLabel}
-        error={getFieldError("lastName")}
-        {...register("lastName", {
-          setValueAs: (v: string | null) =>
-            typeof v === "string" && v.trim() === "" ? null : v,
-        })}
-      />
+        <Input
+          id="profile-last-name"
+          type="text"
+          autoComplete="family-name"
+          enterKeyHint="next"
+          label={t.auth.lastNameLabel}
+          error={getFieldError("lastName")}
+          {...register("lastName", {
+            setValueAs: (v: string | null) =>
+              typeof v === "string" && v.trim() === "" ? null : v,
+          })}
+        />
 
-      <Select
-        id="profile-preferred-property"
-        label={t.profile.preferredPropertyLabel}
-        hint={t.profile.preferredPropertyHint}
-        options={propertyOptions}
-        error={getFieldError("preferredPropertyId")}
-        {...register("preferredPropertyId", {
-          setValueAs: (v: string | null) =>
-            typeof v === "string" && v.trim() === "" ? null : v,
-        })}
-      />
+        <Select
+          id="profile-preferred-property"
+          label={t.profile.preferredPropertyLabel}
+          hint={t.profile.preferredPropertyHint}
+          options={propertyOptions}
+          error={getFieldError("preferredPropertyId")}
+          {...register("preferredPropertyId", {
+            setValueAs: (v: string | null) =>
+              typeof v === "string" && v.trim() === "" ? null : v,
+          })}
+        />
 
-      <Button
-        type="submit"
-        variant="primary"
-        isLoading={updateMeMutation.isPending}
-        style={{
-          inlineSize: "100%",
-          marginBlockStart: "var(--primitive-space-2)",
-        }}
-      >
-        {t.profile.saveChanges}
-      </Button>
+        <Button
+          type="submit"
+          variant="primary"
+          isLoading={updateMeMutation.isPending}
+          style={{
+            inlineSize: "100%",
+            marginBlockStart: "var(--primitive-space-2)",
+          }}
+        >
+          {t.profile.saveChanges}
+        </Button>
+      </fieldset>
     </form>
   );
 }

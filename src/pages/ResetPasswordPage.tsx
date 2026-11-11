@@ -77,38 +77,43 @@ export function ResetPasswordPage() {
           </div>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
-            <Input
-              id="reset-password-token"
-              type="text"
-              autoComplete="off"
-              spellCheck={false}
-              enterKeyHint="next"
-              required
-              label={t.auth.tokenLabel}
-              hint={t.auth.tokenHint}
-              error={getFieldError("token")}
-              {...register("token")}
-            />
-
-            <PasswordInput
-              id="reset-password-new"
-              autoComplete="new-password"
-              enterKeyHint="done"
-              required
-              label={t.auth.resetPassword.newPasswordLabel}
-              hint={t.auth.passwordHint}
-              error={getFieldError("password")}
-              {...register("password")}
-            />
-
-            <Button
-              type="submit"
-              variant="primary"
-              isLoading={resetMutation.isPending}
-              style={{ inlineSize: "100%" }}
+            <fieldset
+              className="ui-fieldset"
+              disabled={resetMutation.isPending}
             >
-              {t.auth.resetPassword.submit}
-            </Button>
+              <Input
+                id="reset-password-token"
+                type="text"
+                autoComplete="off"
+                spellCheck={false}
+                enterKeyHint="next"
+                required
+                label={t.auth.tokenLabel}
+                hint={t.auth.tokenHint}
+                error={getFieldError("token")}
+                {...register("token")}
+              />
+
+              <PasswordInput
+                id="reset-password-new"
+                autoComplete="new-password"
+                enterKeyHint="done"
+                required
+                label={t.auth.resetPassword.newPasswordLabel}
+                hint={t.auth.passwordHint}
+                error={getFieldError("password")}
+                {...register("password")}
+              />
+
+              <Button
+                type="submit"
+                variant="primary"
+                isLoading={resetMutation.isPending}
+                style={{ inlineSize: "100%" }}
+              >
+                {t.auth.resetPassword.submit}
+              </Button>
+            </fieldset>
           </form>
         )}
 

@@ -74,28 +74,33 @@ export function ForgotPasswordPage() {
           </div>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
-            <Input
-              id="forgot-password-email"
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              spellCheck={false}
-              enterKeyHint="done"
-              required
-              label={t.auth.emailLabel}
-              placeholder={t.auth.emailPlaceholder}
-              error={getFieldError("email")}
-              {...register("email")}
-            />
-
-            <Button
-              type="submit"
-              variant="primary"
-              isLoading={forgotMutation.isPending}
-              style={{ inlineSize: "100%" }}
+            <fieldset
+              className="ui-fieldset"
+              disabled={forgotMutation.isPending}
             >
-              {t.auth.forgotPassword.submit}
-            </Button>
+              <Input
+                id="forgot-password-email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                spellCheck={false}
+                enterKeyHint="done"
+                required
+                label={t.auth.emailLabel}
+                placeholder={t.auth.emailPlaceholder}
+                error={getFieldError("email")}
+                {...register("email")}
+              />
+
+              <Button
+                type="submit"
+                variant="primary"
+                isLoading={forgotMutation.isPending}
+                style={{ inlineSize: "100%" }}
+              >
+                {t.auth.forgotPassword.submit}
+              </Button>
+            </fieldset>
           </form>
         )}
 

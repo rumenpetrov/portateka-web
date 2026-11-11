@@ -288,6 +288,13 @@
   /* ==========================================================================
      Form Fields (Inputs, Textareas, Selects)
      ========================================================================== */
+  .ui-fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-inline-size: 0;
+  }
+
   .ui-field {
     display: flex;
     flex-direction: column;

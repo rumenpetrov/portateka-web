@@ -105,42 +105,47 @@ export function VerifyEmailPage() {
           </div>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
-            {verifyMutation.isPending && initialUrlToken ? (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "var(--primitive-space-2)",
-                  marginBlockEnd: "var(--primitive-space-4)",
-                  fontSize: "var(--primitive-text-sm)",
-                }}
-              >
-                <Spinner label={t.auth.verifyEmail.verifying} />
-                <span>{t.auth.verifyEmail.verifying}</span>
-              </div>
-            ) : null}
-
-            <Input
-              id="verify-email-token"
-              type="text"
-              autoComplete="off"
-              spellCheck={false}
-              enterKeyHint="done"
-              required
-              label={t.auth.tokenLabel}
-              hint={t.auth.tokenHint}
-              error={getFieldError("token")}
-              {...register("token")}
-            />
-
-            <Button
-              type="submit"
-              variant="primary"
-              isLoading={verifyMutation.isPending}
-              style={{ inlineSize: "100%" }}
+            <fieldset
+              className="ui-fieldset"
+              disabled={verifyMutation.isPending}
             >
-              {t.auth.verifyEmail.submit}
-            </Button>
+              {verifyMutation.isPending && initialUrlToken ? (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "var(--primitive-space-2)",
+                    marginBlockEnd: "var(--primitive-space-4)",
+                    fontSize: "var(--primitive-text-sm)",
+                  }}
+                >
+                  <Spinner label={t.auth.verifyEmail.verifying} />
+                  <span>{t.auth.verifyEmail.verifying}</span>
+                </div>
+              ) : null}
+
+              <Input
+                id="verify-email-token"
+                type="text"
+                autoComplete="off"
+                spellCheck={false}
+                enterKeyHint="done"
+                required
+                label={t.auth.tokenLabel}
+                hint={t.auth.tokenHint}
+                error={getFieldError("token")}
+                {...register("token")}
+              />
+
+              <Button
+                type="submit"
+                variant="primary"
+                isLoading={verifyMutation.isPending}
+                style={{ inlineSize: "100%" }}
+              >
+                {t.auth.verifyEmail.submit}
+              </Button>
+            </fieldset>
           </form>
         )}
 

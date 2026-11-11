@@ -55,64 +55,66 @@ export function SignInPage() {
         </div>
 
         <form method="post" onSubmit={onSubmit} noValidate>
-          <Input
-            id="sign-in-email"
-            type="email"
-            inputMode="email"
-            autoComplete="username"
-            spellCheck={false}
-            enterKeyHint="next"
-            required
-            label={t.auth.emailLabel}
-            placeholder={t.auth.emailPlaceholder}
-            error={getFieldError("email")}
-            {...register("email")}
-          />
+          <fieldset className="ui-fieldset" disabled={signInMutation.isPending}>
+            <Input
+              id="sign-in-email"
+              type="email"
+              inputMode="email"
+              autoComplete="username"
+              spellCheck={false}
+              enterKeyHint="next"
+              required
+              label={t.auth.emailLabel}
+              placeholder={t.auth.emailPlaceholder}
+              error={getFieldError("email")}
+              {...register("email")}
+            />
 
-          <PasswordInput
-            id="sign-in-password"
-            autoComplete="current-password"
-            enterKeyHint="done"
-            required
-            label={t.auth.passwordLabel}
-            error={getFieldError("password")}
-            {...register("password")}
-          />
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "var(--primitive-space-3)",
-              marginBlockStart: "var(--primitive-space-5)",
-            }}
-          >
-            <Button
-              type="submit"
-              variant="primary"
-              isLoading={signInMutation.isPending}
-              style={{ inlineSize: "100%" }}
-            >
-              {t.auth.signIn.submit}
-            </Button>
+            <PasswordInput
+              id="sign-in-password"
+              autoComplete="current-password"
+              enterKeyHint="done"
+              required
+              label={t.auth.passwordLabel}
+              error={getFieldError("password")}
+              {...register("password")}
+            />
 
             <div
               style={{
                 display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-                gap: "var(--primitive-space-2)",
-                fontSize: "var(--primitive-text-sm)",
+                flexDirection: "column",
+                gap: "var(--primitive-space-3)",
+                marginBlockStart: "var(--primitive-space-5)",
               }}
             >
-              <Link to="/forgot-password">
-                {t.auth.signIn.forgotPasswordLink}
-              </Link>
-              <Link to="/verify-email">
-                {t.auth.signIn.needVerificationLink}
-              </Link>
+              <Button
+                type="submit"
+                variant="primary"
+                isLoading={signInMutation.isPending}
+                style={{ inlineSize: "100%" }}
+              >
+                {t.auth.signIn.submit}
+              </Button>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                  gap: "var(--primitive-space-2)",
+                  fontSize: "var(--primitive-text-sm)",
+                }}
+              >
+                <Link to="/forgot-password">
+                  {t.auth.signIn.forgotPasswordLink}
+                </Link>
+                <Link to="/verify-email">
+                  {t.auth.signIn.needVerificationLink}
+                </Link>
+              </div>
             </div>
-          </div>
+          </fieldset>
         </form>
 
         <div

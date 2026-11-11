@@ -56,57 +56,59 @@ export function PropertyForm({
 
   return (
     <form method="post" onSubmit={handleFormSubmit} noValidate>
-      <Input
-        id="property-name"
-        type="text"
-        enterKeyHint="next"
-        required
-        label={t.properties.fields.nameLabel}
-        hint={t.properties.fields.nameHint}
-        error={getFieldError("name")}
-        {...register("name")}
-      />
+      <fieldset className="ui-fieldset" disabled={isSubmitting}>
+        <Input
+          id="property-name"
+          type="text"
+          enterKeyHint="next"
+          required
+          label={t.properties.fields.nameLabel}
+          hint={t.properties.fields.nameHint}
+          error={getFieldError("name")}
+          {...register("name")}
+        />
 
-      <Textarea
-        id="property-description"
-        label={t.properties.fields.descriptionLabel}
-        hint={t.properties.fields.descriptionHint}
-        error={getFieldError("description")}
-        {...register("description", {
-          setValueAs: (v: string | null) =>
-            typeof v === "string" && v.trim() === "" ? null : v,
-        })}
-      />
+        <Textarea
+          id="property-description"
+          label={t.properties.fields.descriptionLabel}
+          hint={t.properties.fields.descriptionHint}
+          error={getFieldError("description")}
+          {...register("description", {
+            setValueAs: (v: string | null) =>
+              typeof v === "string" && v.trim() === "" ? null : v,
+          })}
+        />
 
-      <Textarea
-        id="property-notes"
-        label={t.properties.fields.notesLabel}
-        hint={t.properties.fields.notesHint}
-        error={getFieldError("notes")}
-        {...register("notes", {
-          setValueAs: (v: string | null) =>
-            typeof v === "string" && v.trim() === "" ? null : v,
-        })}
-      />
+        <Textarea
+          id="property-notes"
+          label={t.properties.fields.notesLabel}
+          hint={t.properties.fields.notesHint}
+          error={getFieldError("notes")}
+          {...register("notes", {
+            setValueAs: (v: string | null) =>
+              typeof v === "string" && v.trim() === "" ? null : v,
+          })}
+        />
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "var(--primitive-space-2)",
-          marginBlockStart: "var(--primitive-space-5)",
-        }}
-      >
-        <Button type="submit" variant="primary" isLoading={isSubmitting}>
-          {submitLabel}
-        </Button>
-
-        {onCancel ? (
-          <Button type="button" variant="secondary" onClick={onCancel}>
-            {t.common.cancel}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "var(--primitive-space-2)",
+            marginBlockStart: "var(--primitive-space-5)",
+          }}
+        >
+          <Button type="submit" variant="primary" isLoading={isSubmitting}>
+            {submitLabel}
           </Button>
-        ) : null}
-      </div>
+
+          {onCancel ? (
+            <Button type="button" variant="secondary" onClick={onCancel}>
+              {t.common.cancel}
+            </Button>
+          ) : null}
+        </div>
+      </fieldset>
     </form>
   );
 }

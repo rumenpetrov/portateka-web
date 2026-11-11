@@ -22,6 +22,7 @@ export function PasswordInput(props: PasswordInputProps) {
         endAdornment={
           <button
             type="button"
+            disabled={props.disabled}
             className="ui-btn ui-btn--ghost ui-btn--sm"
             aria-pressed={visible}
             aria-label={

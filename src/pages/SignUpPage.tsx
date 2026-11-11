@@ -78,66 +78,71 @@ export function SignUpPage() {
           </div>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
-            <Input
-              id="sign-up-first-name"
-              type="text"
-              autoComplete="given-name"
-              enterKeyHint="next"
-              required
-              label={t.auth.firstNameLabel}
-              error={getFieldError("firstName")}
-              {...register("firstName")}
-            />
-
-            <Input
-              id="sign-up-last-name"
-              type="text"
-              autoComplete="family-name"
-              enterKeyHint="next"
-              label={t.auth.lastNameLabel}
-              error={getFieldError("lastName")}
-              {...register("lastName", {
-                setValueAs: (v: string) =>
-                  typeof v === "string" && v.trim() === "" ? undefined : v,
-              })}
-            />
-
-            <Input
-              id="sign-up-email"
-              type="email"
-              inputMode="email"
-              autoComplete="username"
-              spellCheck={false}
-              enterKeyHint="next"
-              required
-              label={t.auth.emailLabel}
-              placeholder={t.auth.emailPlaceholder}
-              error={getFieldError("email")}
-              {...register("email")}
-            />
-
-            <PasswordInput
-              id="sign-up-password"
-              autoComplete="new-password"
-              enterKeyHint="done"
-              required
-              label={t.auth.passwordLabel}
-              hint={t.auth.passwordHint}
-              error={getFieldError("password")}
-              {...register("password")}
-            />
-
-            <Button
-              type="submit"
-              variant="primary"
-              isLoading={signUpMutation.isPending}
-              style={{
-                inlineSize: "100%",
-                marginBlockStart: "var(--primitive-space-2)",
-              }}
+            <fieldset
+              className="ui-fieldset"
+              disabled={signUpMutation.isPending}
             >
-              {t.auth.signUp.submit}
-            </Button>
+              <Input
+                id="sign-up-first-name"
+                type="text"
+                autoComplete="given-name"
+                enterKeyHint="next"
+                required
+                label={t.auth.firstNameLabel}
+                error={getFieldError("firstName")}
+                {...register("firstName")}
+              />
+
+              <Input
+                id="sign-up-last-name"
+                type="text"
+                autoComplete="family-name"
+                enterKeyHint="next"
+                label={t.auth.lastNameLabel}
+                error={getFieldError("lastName")}
+                {...register("lastName", {
+                  setValueAs: (v: string) =>
+                    typeof v === "string" && v.trim() === "" ? undefined : v,
+                })}
+              />
+
+              <Input
+                id="sign-up-email"
+                type="email"
+                inputMode="email"
+                autoComplete="username"
+                spellCheck={false}
+                enterKeyHint="next"
+                required
+                label={t.auth.emailLabel}
+                placeholder={t.auth.emailPlaceholder}
+                error={getFieldError("email")}
+                {...register("email")}
+              />
+
+              <PasswordInput
+                id="sign-up-password"
+                autoComplete="new-password"
+                enterKeyHint="done"
+                required
+                label={t.auth.passwordLabel}
+                hint={t.auth.passwordHint}
+                error={getFieldError("password")}
+                {...register("password")}
+              />
+
+              <Button
+                type="submit"
+                variant="primary"
+                isLoading={signUpMutation.isPending}
+                style={{
+                  inlineSize: "100%",
+                  marginBlockStart: "var(--primitive-space-2)",
+                }}
+              >
+                {t.auth.signUp.submit}
+              </Button>
+            </fieldset>
           </form>
         )}
 
