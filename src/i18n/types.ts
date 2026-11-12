@@ -211,6 +211,17 @@ export interface TranslationDictionary {
       submit: string;
       updatedNotification: string;
     };
+    dangerZone: {
+      title: string;
+      subtitle: string;
+      deleteButton: string;
+      deleteModalTitle: string;
+      deleteModalDescription: string;
+      confirmInputLabel: string;
+      confirmKeyword: string;
+      deleteConfirmButton: string;
+      deletedNotification: string;
+    };
   };
   notFound: {
     title: string;
