@@ -67,6 +67,8 @@ export const enUS: TranslationDictionary = {
       "8–128 characters with uppercase, lowercase, number, and special character.",
     firstNameLabel: "First name",
     lastNameLabel: "Last name",
+    languageLabel: "Preferred language",
+    languageHint: "Transactional emails will be sent in this language.",
     tokenLabel: "Verification or reset token",
     tokenHint:
       "Automatically filled from the email link, or paste the token manually.",
@@ -268,6 +270,7 @@ export const enUS: TranslationDictionary = {
       invalid_password: "Your current password is incorrect.",
       invalid_or_expired_token:
         "This token is invalid, expired, or has already been used.",
+      invalid_locale: "Please select a valid language.",
     },
   },
 };

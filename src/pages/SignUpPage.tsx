@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useSignUpMutation } from "@/api/auth.api";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
-import { Alert, Button, Card, CardContent, Input } from "@/components/ui";
+import { Alert, Button, Card, CardContent, Input, Select } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/types";
 import { signUpEmailSchema } from "@/validators/authValidators";
 
 export function SignUpPage() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const signUpMutation = useSignUpMutation();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -19,6 +20,7 @@ export function SignUpPage() {
         lastName: undefined,
         email: "",
         password: "",
+        locale: locale || DEFAULT_LOCALE,
       },
     });
 
@@ -129,6 +131,19 @@ export function SignUpPage() {
                 hint={t.auth.passwordHint}
                 error={getFieldError("password")}
                 {...register("password")}
+              />
+
+              <Select
+                id="sign-up-locale"
+                label={t.auth.languageLabel}
+                hint={t.auth.languageHint}
+                required
+                options={SUPPORTED_LOCALES.map((supportedLocale) => ({
+                  value: supportedLocale,
+                  label: t.preferences.languages[supportedLocale],
+                }))}
+                error={getFieldError("locale")}
+                {...register("locale")}
               />
 
               <Button

@@ -1,4 +1,9 @@
 import { z } from "zod";
+import { SUPPORTED_LOCALES } from "@/i18n/types";
+
+const localeFieldSchema = z.enum(SUPPORTED_LOCALES, {
+  error: "invalid_locale",
+});
 
 const passwordFieldSchema = z
   .string({ error: "required" })
@@ -30,6 +35,7 @@ export const signUpEmailSchema = z.object({
     .max(50, "too_long")
     .optional(),
   password: passwordFieldSchema,
+  locale: localeFieldSchema.optional(),
 });
 
 export const signInEmailSchema = z.object({
@@ -95,4 +101,5 @@ export const updateMeSchema = z.object({
     .pipe(z.uuid("invalid_uuid"))
     .nullable()
     .optional(),
+  locale: localeFieldSchema.optional(),
 });

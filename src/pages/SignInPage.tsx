@@ -8,7 +8,7 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { signInEmailSchema } from "@/validators/authValidators";
 
 export function SignInPage() {
-  const { t } = useI18n();
+  const { setLocale, t } = useI18n();
   const { notifySuccess } = useNotifications();
   const navigate = useNavigate();
   const signInMutation = useSignInMutation();
@@ -23,7 +23,10 @@ export function SignInPage() {
 
   const onSubmit = handleSubmit(async (values) => {
     try {
-      await signInMutation.mutateAsync(values);
+      const output = await signInMutation.mutateAsync(values);
+      if (output.user.locale) {
+        setLocale(output.user.locale);
+      }
       notifySuccess(t.auth.signIn.welcomeNotification);
       navigate("/properties", { replace: true });
     } catch (err) {

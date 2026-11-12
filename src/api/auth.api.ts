@@ -12,6 +12,7 @@ import {
   subscribeAuthToken,
 } from "./client";
 import { queryKeys } from "./queryKeys";
+import type { SupportedLocale } from "@/i18n/types";
 
 export interface UserProfile {
   id: string;
@@ -20,6 +21,7 @@ export interface UserProfile {
   lastName: string | null;
   emailVerified: boolean;
   preferredPropertyId: string | null;
+  locale: SupportedLocale;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -29,6 +31,7 @@ export interface SignUpInput {
   firstName: string;
   lastName?: string;
   password: string;
+  locale?: SupportedLocale;
 }
 
 export interface SignInInput {
@@ -63,6 +66,7 @@ export interface UpdateMeInput {
   firstName?: string;
   lastName?: string | null;
   preferredPropertyId?: string | null;
+  locale?: SupportedLocale;
 }
 
 export interface MessageOutput {
