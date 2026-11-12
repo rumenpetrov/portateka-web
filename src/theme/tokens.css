@@ -372,6 +372,8 @@
      Cards (Mobile-first padding, expanding on larger viewports)
      ========================================================================== */
   .ui-card {
+    display: flex;
+    flex-direction: column;
     background-color: var(--theme-bg-surface);
     border: 1px solid var(--theme-border-default);
     border-radius: var(--primitive-radius-lg);
@@ -381,6 +383,10 @@
     @media (min-width: 40rem) {
       padding: var(--primitive-space-6);
     }
+  }
+
+  .ui-card-content {
+    flex: 1 1 auto;
   }
 
   .ui-card-header {
@@ -500,6 +506,40 @@
     max-inline-size: min(28rem, calc(100vw - 2rem));
     inline-size: 100%;
     box-sizing: border-box;
+  }
+
+  .ui-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--primitive-space-3);
+    margin-block-end: var(--primitive-space-4);
+  }
+
+  .ui-modal-header form {
+    display: flex;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .ui-btn.ui-modal-close-btn {
+    padding: 0;
+    inline-size: 2.25rem;
+    min-inline-size: 2.25rem;
+    block-size: 2.25rem;
+    min-block-size: 2.25rem;
+    flex-shrink: 0;
+
+    @media (pointer: coarse) {
+      inline-size: 2.5rem;
+      min-inline-size: 2.5rem;
+      block-size: 2.5rem;
+      min-block-size: 2.5rem;
+    }
+  }
+
+  .ui-modal-close-btn svg {
+    flex-shrink: 0;
   }
 
   /* ==========================================================================
