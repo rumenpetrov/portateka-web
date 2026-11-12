@@ -9,6 +9,7 @@ import {
 import type { ReactNode } from "react";
 import { bgBG } from "./bg-BG";
 import { enUS } from "./en-US";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "./types";
 import type {
   ApiErrorShape,
   FieldMachineCodeKey,
@@ -23,16 +24,23 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
   "bg-BG": bgBG,
 };
 
+function isSupportedLocale(value: string | null): value is SupportedLocale {
+  if (!value) {
+    return false;
+  }
+  return (SUPPORTED_LOCALES as readonly string[]).includes(value);
+}
+
 function readInitialLocale(): SupportedLocale {
   try {
     const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-    if (stored === "en-US" || stored === "bg-BG") {
+    if (isSupportedLocale(stored)) {
       return stored;
     }
   } catch {
     // Ignore storage access errors
   }
-  return "en-US";
+  return DEFAULT_LOCALE;
 }
 
 export function translateFieldMachineCode(

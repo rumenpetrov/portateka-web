@@ -1,4 +1,6 @@
-export type SupportedLocale = "en-US" | "bg-BG";
+export const SUPPORTED_LOCALES = ["en-US", "bg-BG"] as const;
+export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
+export const DEFAULT_LOCALE: SupportedLocale = "en-US";
 
 export type ApiErrorCodeKey =
   | "UNAUTHORIZED"
@@ -28,7 +30,8 @@ export type FieldMachineCodeKey =
   | "password_missing_special"
   | "password_same_as_current"
   | "invalid_password"
-  | "invalid_or_expired_token";
+  | "invalid_or_expired_token"
+  | "invalid_locale";
 
 export interface ApiErrorShape {
   status?: number;
@@ -81,10 +84,7 @@ export interface TranslationDictionary {
   };
   preferences: {
     languageLabel: string;
-    languages: {
-      "en-US": string;
-      "bg-BG": string;
-    };
+    languages: Record<SupportedLocale, string>;
     themeToggleToDark: string;
     themeToggleToLight: string;
     themeLabel: string;
@@ -101,6 +101,8 @@ export interface TranslationDictionary {
     passwordHint: string;
     firstNameLabel: string;
     lastNameLabel: string;
+    languageLabel: string;
+    languageHint: string;
     tokenLabel: string;
     tokenHint: string;
     signIn: {

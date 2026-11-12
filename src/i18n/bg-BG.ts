@@ -69,6 +69,9 @@ export const bgBG: TranslationDictionary = {
       "8–128 символа с главна буква, малка буква, цифра и специален символ.",
     firstNameLabel: "Собствено име",
     lastNameLabel: "Фамилно име",
+    languageLabel: "Предпочитан език",
+    languageHint:
+      "Имейлите за потвърждение и смяна на парола ще се изпращат на този език.",
     tokenLabel: "Код (токен) за потвърждение или нулиране",
     tokenHint:
       "Попълва се автоматично от връзката в имейла или го поставете ръчно.",
@@ -273,6 +276,7 @@ export const bgBG: TranslationDictionary = {
       invalid_password: "Текущата ви парола е неправилна.",
       invalid_or_expired_token:
         "Този код е невалиден, изтекъл или вече е бил използван.",
+      invalid_locale: "Моля, изберете валиден език.",
     },
   },
 };

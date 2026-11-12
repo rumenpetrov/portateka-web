@@ -1,15 +1,27 @@
+import { useEffect, useRef } from "react";
 import { Building2, LogOut, User } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router";
-import { useSignOut } from "@/api/auth.api";
+import { useMeQuery, useSignOut } from "@/api/auth.api";
 import { useI18n } from "@/i18n/I18nProvider";
+import type { SupportedLocale } from "@/i18n/types";
 import { Button } from "@/components/ui";
 import { BrandLogo } from "./BrandLogo";
 import { TopControls } from "./TopControls";
 
 export function AppLayout() {
-  const { t } = useI18n();
+  const { setLocale, t } = useI18n();
+  const meQuery = useMeQuery();
   const signOut = useSignOut();
   const navigate = useNavigate();
+  const syncedServerLocaleRef = useRef<SupportedLocale | null>(null);
+
+  useEffect(() => {
+    const serverLocale = meQuery.data?.locale;
+    if (serverLocale && syncedServerLocaleRef.current !== serverLocale) {
+      syncedServerLocaleRef.current = serverLocale;
+      setLocale(serverLocale);
+    }
+  }, [meQuery.data?.locale, setLocale]);
 
   const handleSignOut = () => {
     signOut();

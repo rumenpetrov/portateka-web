@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
 import { useNavigate } from "react-router";
-import { useDeleteMeMutation, useMeQuery, useSignOut } from "@/api/auth.api";
+import {
+  useDeleteMeMutation,
+  useMeQuery,
+  useSignOut,
+  useUpdateMeMutation,
+} from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
 import { ChangePasswordForm } from "@/components/features/profile/ChangePasswordForm";
 import { ProfileForm } from "@/components/features/profile/ProfileForm";
@@ -18,6 +23,7 @@ import {
   Spinner,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
+import { SUPPORTED_LOCALES } from "@/i18n/types";
 import type { SupportedLocale } from "@/i18n/types";
 import { useTheme } from "@/theme/ThemeProvider";
 import type { ColorSchemePreference } from "@/theme/ThemeProvider";
@@ -32,6 +38,7 @@ export function ProfilePage() {
   const meQuery = useMeQuery();
   const propertiesQuery = usePropertiesQuery();
   const deleteMeMutation = useDeleteMeMutation();
+  const updateMeMutation = useUpdateMeMutation();
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [confirmText, setConfirmText] = useState("");
@@ -174,11 +181,15 @@ export function ProfilePage() {
             id="profile-language-select"
             label={t.preferences.languageLabel}
             value={locale}
-            options={[
-              { value: "en-US", label: t.preferences.languages["en-US"] },
-              { value: "bg-BG", label: t.preferences.languages["bg-BG"] },
-            ]}
-            onChange={(e) => setLocale(e.target.value as SupportedLocale)}
+            options={SUPPORTED_LOCALES.map((supportedLocale) => ({
+              value: supportedLocale,
+              label: t.preferences.languages[supportedLocale],
+            }))}
+            onChange={(e) => {
+              const next = e.target.value as SupportedLocale;
+              setLocale(next);
+              updateMeMutation.mutate({ locale: next });
+            }}
           />
 
           <Select
