@@ -188,6 +188,16 @@ export function useUpdateMeMutation() {
   });
 }
 
+export function useDeleteMeMutation() {
+  return useMutation({
+    mutationFn: () =>
+      apiRequest<undefined>("/api/auth/me", {
+        method: "DELETE",
+        authenticated: true,
+      }),
+  });
+}
+
 export function useSignOut() {
   const client = useQueryClient();
 

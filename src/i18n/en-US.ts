@@ -188,6 +188,18 @@ export const enUS: TranslationDictionary = {
       submit: "Change password",
       updatedNotification: "Password changed successfully.",
     },
+    dangerZone: {
+      title: "Danger zone",
+      subtitle: "Irreversible and destructive actions for your account.",
+      deleteButton: "Delete account",
+      deleteModalTitle: "Delete your account?",
+      deleteModalDescription:
+        "This will permanently delete your account and remove any data associated with it. This action cannot be undone.",
+      confirmInputLabel: 'Type "DELETE" to confirm',
+      confirmKeyword: "DELETE",
+      deleteConfirmButton: "Delete account permanently",
+      deletedNotification: "Your account has been permanently deleted.",
+    },
   },
   notFound: {
     title: "Page not found",

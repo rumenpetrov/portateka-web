@@ -190,6 +190,18 @@ export const bgBG: TranslationDictionary = {
       submit: "Смени паролата",
       updatedNotification: "Паролата е сменена успешно.",
     },
+    dangerZone: {
+      title: "Опасна зона",
+      subtitle: "Необратими действия за вашия профил.",
+      deleteButton: "Изтрий профила",
+      deleteModalTitle: "Изтриване на вашия профил?",
+      deleteModalDescription:
+        "Това ще изтрие завинаги вашия профил и ще премахне всички свързани с него данни. Това действие е необратимо.",
+      confirmInputLabel: 'Въведете "DELETE" за потвърждение',
+      confirmKeyword: "DELETE",
+      deleteConfirmButton: "Изтрий профила завинаги",
+      deletedNotification: "Профилът ви беше изтрит завинаги.",
+    },
   },
   notFound: {
     title: "Страницата не е намерена",

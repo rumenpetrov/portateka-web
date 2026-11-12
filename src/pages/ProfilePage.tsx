@@ -1,12 +1,19 @@
-import { useMeQuery } from "@/api/auth.api";
+import { useState } from "react";
+import { Trash2 } from "lucide-react";
+import { useNavigate } from "react-router";
+import { useDeleteMeMutation, useMeQuery, useSignOut } from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
 import { ChangePasswordForm } from "@/components/features/profile/ChangePasswordForm";
 import { ProfileForm } from "@/components/features/profile/ProfileForm";
+import { useNotifications } from "@/components/notifications/NotificationProvider";
 import {
   Badge,
+  Button,
   Card,
   CardContent,
   CardHeader,
+  Input,
+  Modal,
   Select,
   Spinner,
 } from "@/components/ui";
@@ -18,8 +25,16 @@ import type { ColorSchemePreference } from "@/theme/ThemeProvider";
 export function ProfilePage() {
   const { locale, setLocale, t, formatDate } = useI18n();
   const { preference, setPreference } = useTheme();
+  const { notifySuccess } = useNotifications();
+  const navigate = useNavigate();
+  const signOut = useSignOut();
+
   const meQuery = useMeQuery();
   const propertiesQuery = usePropertiesQuery();
+  const deleteMeMutation = useDeleteMeMutation();
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
 
   if (meQuery.isPending || propertiesQuery.isPending) {
     return (
@@ -39,6 +54,25 @@ export function ProfilePage() {
   if (!user) {
     return null;
   }
+
+  const isDeleteConfirmed = confirmText === t.profile.dangerZone.confirmKeyword;
+
+  const handleCloseDeleteModal = () => {
+    setDeleteModalOpen(false);
+    setConfirmText("");
+  };
+
+  const handleConfirmDeleteAccount = async () => {
+    if (!isDeleteConfirmed) {
+      return;
+    }
+
+    await deleteMeMutation.mutateAsync();
+    handleCloseDeleteModal();
+    signOut();
+    notifySuccess(t.profile.dangerZone.deletedNotification);
+    navigate("/", { replace: true });
+  };
 
   return (
     <div
@@ -162,6 +196,101 @@ export function ProfilePage() {
           />
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <div>
+            <h2
+              style={{
+                fontSize: "var(--primitive-text-lg)",
+                fontWeight: "var(--primitive-weight-semibold)",
+                color: "var(--theme-danger)",
+              }}
+            >
+              {t.profile.dangerZone.title}
+            </h2>
+            <p
+              style={{
+                fontSize: "var(--primitive-text-xs)",
+                color: "var(--theme-text-muted)",
+                marginBlockStart: "var(--primitive-space-1)",
+              }}
+            >
+              {t.profile.dangerZone.subtitle}
+            </p>
+          </div>
+        </CardHeader>
+
+        <CardContent>
+          <Button
+            type="button"
+            variant="danger"
+            onClick={() => setDeleteModalOpen(true)}
+            style={{ inlineSize: "100%" }}
+          >
+            <Trash2 aria-hidden="true" size={16} />
+            <span>{t.profile.dangerZone.deleteButton}</span>
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Modal
+        open={deleteModalOpen}
+        title={t.profile.dangerZone.deleteModalTitle}
+        closeLabel={t.common.close}
+        onClose={handleCloseDeleteModal}
+      >
+        <p
+          style={{
+            color: "var(--theme-text-secondary)",
+            fontSize: "var(--primitive-text-sm)",
+            marginBlockEnd: "var(--primitive-space-4)",
+          }}
+        >
+          {t.profile.dangerZone.deleteModalDescription}
+        </p>
+
+        <div style={{ marginBlockEnd: "var(--primitive-space-5)" }}>
+          <Input
+            id="profile-delete-confirm-input"
+            type="text"
+            autoComplete="off"
+            spellCheck={false}
+            label={t.profile.dangerZone.confirmInputLabel}
+            placeholder={t.profile.dangerZone.confirmKeyword}
+            value={confirmText}
+            disabled={deleteMeMutation.isPending}
+            onChange={(e) => setConfirmText(e.target.value)}
+          />
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "var(--primitive-space-2)",
+          }}
+        >
+          <Button
+            type="button"
+            variant="danger"
+            disabled={!isDeleteConfirmed}
+            isLoading={deleteMeMutation.isPending}
+            onClick={handleConfirmDeleteAccount}
+          >
+            <Trash2 aria-hidden="true" size={16} />
+            <span>{t.profile.dangerZone.deleteConfirmButton}</span>
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            disabled={deleteMeMutation.isPending}
+            onClick={handleCloseDeleteModal}
+          >
+            {t.common.cancel}
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 }
