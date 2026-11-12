@@ -2,7 +2,13 @@ import { ArrowRight, Star } from "lucide-react";
 import { Link } from "react-router";
 import type { PropertyItem } from "@/api/properties.api";
 import { useI18n } from "@/i18n/I18nProvider";
-import { Button, Card, CardContent, CardFooter, CardHeader } from "@/components/ui";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui";
 import { PreferredPropertyBadge } from "./PreferredPropertyBadge";
 
 interface PropertyCardProps {
@@ -61,6 +67,7 @@ export function PropertyCard({
               color: "var(--theme-text-secondary)",
               fontSize: "var(--primitive-text-sm)",
               whiteSpace: "pre-wrap",
+              overflowWrap: "anywhere",
             }}
           >
             {property.description}
@@ -76,6 +83,7 @@ export function PropertyCard({
               paddingBlockStart: "var(--primitive-space-2)",
               borderBlockStart: "1px dashed var(--theme-border-subtle)",
               whiteSpace: "pre-wrap",
+              overflowWrap: "anywhere",
             }}
           >
             {property.notes}
