@@ -180,6 +180,14 @@ export const enUS: TranslationDictionary = {
     saveChanges: "Save profile",
     updatedNotification: "Profile updated successfully.",
     memberSinceLabel: "Member since",
+    changePassword: {
+      title: "Change password",
+      subtitle: "Update your account password using your current password.",
+      currentPasswordLabel: "Current password",
+      newPasswordLabel: "New password",
+      submit: "Change password",
+      updatedNotification: "Password changed successfully.",
+    },
   },
   notFound: {
     title: "Page not found",
@@ -243,6 +251,9 @@ export const enUS: TranslationDictionary = {
         "Password must include at least one number (0–9).",
       password_missing_special:
         "Password must include at least one special character (e.g. !@#$%).",
+      password_same_as_current:
+        "New password must be different from your current password.",
+      invalid_password: "Your current password is incorrect.",
       invalid_or_expired_token:
         "This token is invalid, expired, or has already been used.",
     },

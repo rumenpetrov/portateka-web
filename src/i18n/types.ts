@@ -26,6 +26,8 @@ export type FieldMachineCodeKey =
   | "password_missing_lowercase"
   | "password_missing_number"
   | "password_missing_special"
+  | "password_same_as_current"
+  | "invalid_password"
   | "invalid_or_expired_token";
 
 export interface ApiErrorShape {
@@ -201,6 +203,14 @@ export interface TranslationDictionary {
     saveChanges: string;
     updatedNotification: string;
     memberSinceLabel: string;
+    changePassword: {
+      title: string;
+      subtitle: string;
+      currentPasswordLabel: string;
+      newPasswordLabel: string;
+      submit: string;
+      updatedNotification: string;
+    };
   };
   notFound: {
     title: string;

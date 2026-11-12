@@ -1,5 +1,6 @@
 import { useMeQuery } from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
+import { ChangePasswordForm } from "@/components/features/profile/ChangePasswordForm";
 import { ProfileForm } from "@/components/features/profile/ProfileForm";
 import {
   Badge,
@@ -102,6 +103,34 @@ export function ProfilePage() {
             user={user}
             properties={propertiesQuery.data ?? []}
           />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <div>
+            <h2
+              style={{
+                fontSize: "var(--primitive-text-lg)",
+                fontWeight: "var(--primitive-weight-semibold)",
+              }}
+            >
+              {t.profile.changePassword.title}
+            </h2>
+            <p
+              style={{
+                fontSize: "var(--primitive-text-xs)",
+                color: "var(--theme-text-muted)",
+                marginBlockStart: "var(--primitive-space-1)",
+              }}
+            >
+              {t.profile.changePassword.subtitle}
+            </p>
+          </div>
+        </CardHeader>
+
+        <CardContent>
+          <ChangePasswordForm />
         </CardContent>
       </Card>
 
