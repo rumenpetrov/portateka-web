@@ -54,6 +54,11 @@ export interface ResetPasswordInput {
   password: string;
 }
 
+export interface ChangePasswordInput {
+  currentPassword: string;
+  newPassword: string;
+}
+
 export interface UpdateMeInput {
   firstName?: string;
   lastName?: string | null;
@@ -149,6 +154,17 @@ export function useResetPasswordMutation() {
         method: "POST",
         body: input,
         authenticated: false,
+      }),
+  });
+}
+
+export function useChangePasswordMutation() {
+  return useMutation({
+    mutationFn: (input: ChangePasswordInput) =>
+      apiRequest<MessageOutput>("/api/auth/change-password", {
+        method: "POST",
+        body: input,
+        authenticated: true,
       }),
   });
 }

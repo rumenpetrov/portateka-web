@@ -182,6 +182,14 @@ export const bgBG: TranslationDictionary = {
     saveChanges: "Запази профила",
     updatedNotification: "Профилът е обновен успешно.",
     memberSinceLabel: "Регистриран на",
+    changePassword: {
+      title: "Смяна на парола",
+      subtitle: "Обновете паролата на профила си с текущата си парола.",
+      currentPasswordLabel: "Текуща парола",
+      newPasswordLabel: "Нова парола",
+      submit: "Смени паролата",
+      updatedNotification: "Паролата е сменена успешно.",
+    },
   },
   notFound: {
     title: "Страницата не е намерена",
@@ -248,6 +256,9 @@ export const bgBG: TranslationDictionary = {
         "Паролата трябва да съдържа поне една цифра (0–9).",
       password_missing_special:
         "Паролата трябва да съдържа поне един специален символ (напр. !@#$%).",
+      password_same_as_current:
+        "Новата парола трябва да бъде различна от текущата ви парола.",
+      invalid_password: "Текущата ви парола е неправилна.",
       invalid_or_expired_token:
         "Този код е невалиден, изтекъл или вече е бил използван.",
     },
