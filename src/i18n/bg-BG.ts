@@ -149,7 +149,7 @@ export const bgBG: TranslationDictionary = {
       nameHint: "Задължително поле, до 100 символа.",
       descriptionLabel: "Описание",
       descriptionHint: "Незадължително резюме, до 1 000 символа.",
-      notesLabel: "Лични бележки",
+      notesLabel: "Бележки",
       notesHint: "Незадължителни бележки, до 2 000 символа.",
     },
     create: {

@@ -146,7 +146,7 @@ export const enUS: TranslationDictionary = {
       nameHint: "Required, up to 100 characters.",
       descriptionLabel: "Description",
       descriptionHint: "Optional summary, up to 1,000 characters.",
-      notesLabel: "Private notes",
+      notesLabel: "Notes",
       notesHint: "Optional notes, up to 2,000 characters.",
     },
     create: {

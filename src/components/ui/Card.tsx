@@ -36,7 +36,7 @@ export function CardContent({
   ...rest
 }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={className} {...rest}>
+    <div className={`ui-card-content ${className}`.trim()} {...rest}>
       {children}
     </div>
   );

@@ -71,7 +71,7 @@ export function Modal({
       onClick={handleBackdropClick}
       {...({ closedby: "any" } as Record<string, string>)}
     >
-      <div className="ui-card-header">
+      <div className="ui-modal-header">
         <h2
           id={titleId}
           style={{
@@ -85,10 +85,10 @@ export function Modal({
           <button
             type="submit"
             value="cancel"
-            className="ui-btn ui-btn--ghost ui-btn--sm"
+            className="ui-btn ui-btn--ghost ui-btn--sm ui-modal-close-btn"
             aria-label={closeLabel}
           >
-            <X aria-hidden="true" size={18} />
+            <X aria-hidden="true" size={18} style={{ flexShrink: 0 }} />
           </button>
         </form>
       </div>
