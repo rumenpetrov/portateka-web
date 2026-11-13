@@ -236,8 +236,8 @@ export function ProfilePage() {
           <Button
             type="button"
             variant="danger"
+            fullWidth
             onClick={() => setDeleteModalOpen(true)}
-            style={{ inlineSize: "100%" }}
           >
             <Trash2 aria-hidden="true" size={16} />
             <span>{t.profile.dangerZone.deleteButton}</span>

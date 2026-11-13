@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, Star, Trash2 } from "lucide-react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import {
   useDeletePropertyMutation,
@@ -12,6 +12,7 @@ import { PropertyForm } from "@/components/features/properties/PropertyForm";
 import type { PropertyFormValues } from "@/components/features/properties/PropertyForm";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
 import {
+  Anchor,
   Button,
   Card,
   CardContent,
@@ -55,10 +56,10 @@ export function PropertyDetailPage() {
       <EmptyState
         title={t.errors.topLevel.NOT_FOUND.property}
         action={
-          <Link to="/properties" className="ui-btn ui-btn--primary">
+          <Button as={Anchor} to="/properties" variant="primary">
             <ArrowLeft aria-hidden="true" size={16} />
             <span>{t.common.back}</span>
-          </Link>
+          </Button>
         }
       />
     );
@@ -120,19 +121,19 @@ export function PropertyDetailPage() {
               marginBlockEnd: "var(--primitive-space-1)",
             }}
           >
-            <Link
+            <Anchor
               to="/properties"
+              tone="secondary"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "var(--primitive-space-1)",
                 fontSize: "var(--primitive-text-sm)",
-                color: "var(--theme-text-secondary)",
               }}
             >
               <ArrowLeft aria-hidden="true" size={16} />
               <span>{t.nav.properties}</span>
-            </Link>
+            </Anchor>
             <PreferredPropertyBadge isPreferred={isPreferred} />
           </div>
 

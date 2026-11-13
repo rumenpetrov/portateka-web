@@ -1,8 +1,8 @@
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useSignInMutation } from "@/api/auth.api";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Button, Card, CardContent, Input } from "@/components/ui";
+import { Anchor, Button, Card, CardContent, Input } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { signInEmailSchema } from "@/validators/authValidators";
@@ -94,8 +94,8 @@ export function SignInPage() {
               <Button
                 type="submit"
                 variant="primary"
+                fullWidth
                 isLoading={signInMutation.isPending}
-                style={{ inlineSize: "100%" }}
               >
                 {t.auth.signIn.submit}
               </Button>
@@ -109,12 +109,12 @@ export function SignInPage() {
                   fontSize: "var(--primitive-text-sm)",
                 }}
               >
-                <Link to="/forgot-password">
+                <Anchor to="/forgot-password">
                   {t.auth.signIn.forgotPasswordLink}
-                </Link>
-                <Link to="/verify-email">
+                </Anchor>
+                <Anchor to="/verify-email">
                   {t.auth.signIn.needVerificationLink}
-                </Link>
+                </Anchor>
               </div>
             </div>
           </fieldset>
@@ -131,7 +131,7 @@ export function SignInPage() {
           }}
         >
           <span>{t.auth.signIn.noAccountPrompt} </span>
-          <Link to="/sign-up">{t.auth.signIn.signUpLink}</Link>
+          <Anchor to="/sign-up">{t.auth.signIn.signUpLink}</Anchor>
         </div>
       </CardContent>
     </Card>

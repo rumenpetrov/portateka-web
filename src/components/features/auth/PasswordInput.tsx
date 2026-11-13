@@ -1,7 +1,7 @@
 import { useId, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
-import { Input } from "@/components/ui";
+import { Input, Button } from "@/components/ui";
 import type { InputProps } from "@/components/ui";
 
 export type PasswordInputProps = Omit<InputProps, "type" | "endAdornment">;
@@ -20,10 +20,10 @@ export function PasswordInput(props: PasswordInputProps) {
         {...props}
         type={visible ? "text" : "password"}
         endAdornment={
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="sm"
             disabled={props.disabled}
-            className="ui-btn ui-btn--ghost ui-btn--sm"
             aria-pressed={visible}
             aria-label={
               visible ? t.common.hidePassword : t.common.showPassword
@@ -36,7 +36,7 @@ export function PasswordInput(props: PasswordInputProps) {
             ) : (
               <Eye aria-hidden="true" size={18} />
             )}
-          </button>
+          </Button>
         }
       />
     </div>

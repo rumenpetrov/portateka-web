@@ -1,11 +1,11 @@
-import { Link } from "react-router";
+import { Anchor } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function BrandLogo() {
   const { t } = useI18n();
 
   return (
-    <Link to="/" className="brand-logo">
+    <Anchor to="/" className="brand-logo">
       <svg
         aria-hidden="true"
         className="brand-logo-mark"
@@ -37,6 +37,6 @@ export function BrandLogo() {
       </svg>
       <span className="brand-logo-text">{t.app.name}</span>
       <span className="brand-logo-badge">{t.app.betaBadge}</span>
-    </Link>
+    </Anchor>
   );
 }

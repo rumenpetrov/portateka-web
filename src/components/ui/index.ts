@@ -1,3 +1,6 @@
+export { Anchor } from "./Anchor";
+export type { AnchorProps, AnchorTone, AnchorUnderline } from "./Anchor";
+
 export { Alert } from "./Alert";
 export type { AlertProps, AlertVariant } from "./Alert";
 

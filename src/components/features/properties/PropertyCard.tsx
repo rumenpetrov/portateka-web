@@ -1,8 +1,8 @@
 import { ArrowRight, Star } from "lucide-react";
-import { Link } from "react-router";
 import type { PropertyItem } from "@/api/properties.api";
 import { useI18n } from "@/i18n/I18nProvider";
 import {
+  Anchor,
   Button,
   Card,
   CardContent,
@@ -36,15 +36,13 @@ export function PropertyCard({
               fontWeight: "var(--primitive-weight-semibold)",
             }}
           >
-            <Link
+            <Anchor
               to={`/properties/${property.id}`}
-              style={{
-                color: "var(--theme-text-primary)",
-                textDecoration: "none",
-              }}
+              tone="primary"
+              underline="none"
             >
               {property.name}
-            </Link>
+            </Anchor>
           </h2>
           <p
             style={{
@@ -110,13 +108,15 @@ export function PropertyCard({
           </span>
         </Button>
 
-        <Link
+        <Button
+          as={Anchor}
           to={`/properties/${property.id}`}
-          className="ui-btn ui-btn--primary ui-btn--sm"
+          variant="primary"
+          size="sm"
         >
           <span>{t.properties.viewDetailsButton}</span>
           <ArrowRight aria-hidden="true" size={16} />
-        </Link>
+        </Button>
       </CardFooter>
     </Card>
   );

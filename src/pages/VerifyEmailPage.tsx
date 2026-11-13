@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import { useVerifyEmailMutation } from "@/api/auth.api";
 import {
   Alert,
+  Anchor,
   Button,
   Card,
   CardContent,
@@ -95,13 +96,9 @@ export function VerifyEmailPage() {
                 {t.auth.verifyEmail.successMessage}
               </p>
             </Alert>
-            <Link
-              to="/sign-in"
-              className="ui-btn ui-btn--primary"
-              style={{ inlineSize: "100%" }}
-            >
+            <Button as={Anchor} to="/sign-in" variant="primary" fullWidth>
               {t.auth.verifyEmail.proceedToSignIn}
-            </Link>
+            </Button>
           </div>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
@@ -140,8 +137,8 @@ export function VerifyEmailPage() {
               <Button
                 type="submit"
                 variant="primary"
+                fullWidth
                 isLoading={verifyMutation.isPending}
-                style={{ inlineSize: "100%" }}
               >
                 {t.auth.verifyEmail.submit}
               </Button>
@@ -158,7 +155,7 @@ export function VerifyEmailPage() {
             textAlign: "center",
           }}
         >
-          <Link to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Link>
+          <Anchor to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>
         </div>
       </CardContent>
     </Card>

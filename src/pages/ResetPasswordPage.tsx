@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import { useResetPasswordMutation } from "@/api/auth.api";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
-import { Alert, Button, Card, CardContent, Input } from "@/components/ui";
+import { Alert, Anchor, Button, Card, CardContent, Input } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { resetPasswordSchema } from "@/validators/authValidators";
@@ -67,13 +67,9 @@ export function ResetPasswordPage() {
                 {t.auth.resetPassword.successMessage}
               </p>
             </Alert>
-            <Link
-              to="/sign-in"
-              className="ui-btn ui-btn--primary"
-              style={{ inlineSize: "100%" }}
-            >
+            <Button as={Anchor} to="/sign-in" variant="primary" fullWidth>
               {t.auth.resetPassword.proceedToSignIn}
-            </Link>
+            </Button>
           </div>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
@@ -108,8 +104,8 @@ export function ResetPasswordPage() {
               <Button
                 type="submit"
                 variant="primary"
+                fullWidth
                 isLoading={resetMutation.isPending}
-                style={{ inlineSize: "100%" }}
               >
                 {t.auth.resetPassword.submit}
               </Button>
@@ -126,7 +122,7 @@ export function ResetPasswordPage() {
             textAlign: "center",
           }}
         >
-          <Link to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Link>
+          <Anchor to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>
         </div>
       </CardContent>
     </Card>
