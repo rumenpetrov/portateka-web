@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router";
 import { useResetPasswordMutation } from "@/api/auth.api";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
-import { Alert, Anchor, Button, Card, CardContent, Input } from "@/components/ui";
+import { Alert, Anchor, Button, Card, CardContent, Flex, Input } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { resetPasswordSchema } from "@/validators/authValidators";
@@ -54,13 +54,7 @@ export function ResetPasswordPage() {
         </div>
 
         {completed ? (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "var(--primitive-space-4)",
-            }}
-          >
+          <Flex direction="column" gap={4}>
             <Alert variant="success">
               <strong>{t.auth.resetPassword.successTitle}</strong>
               <p style={{ marginBlockStart: "var(--primitive-space-1)" }}>
@@ -70,7 +64,7 @@ export function ResetPasswordPage() {
             <Button as={Anchor} to="/sign-in" variant="primary" fullWidth>
               {t.auth.resetPassword.proceedToSignIn}
             </Button>
-          </div>
+          </Flex>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
             <fieldset

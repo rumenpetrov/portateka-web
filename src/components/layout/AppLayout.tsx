@@ -4,7 +4,7 @@ import { NavLink, Outlet, useNavigate } from "react-router";
 import { useMeQuery, useSignOut } from "@/api/auth.api";
 import { useI18n } from "@/i18n/I18nProvider";
 import type { SupportedLocale } from "@/i18n/types";
-import { Button } from "@/components/ui";
+import { Button, Flex } from "@/components/ui";
 import { BrandLogo } from "./BrandLogo";
 import { TopControls } from "./TopControls";
 
@@ -32,13 +32,7 @@ export function AppLayout() {
     <div className="app-shell">
       <header className="app-header">
         <div className="app-header-inner">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--primitive-space-6)",
-            }}
-          >
+          <Flex align="center" gap={6}>
             <BrandLogo />
 
             <nav
@@ -61,15 +55,9 @@ export function AppLayout() {
                 <span>{t.nav.profile}</span>
               </NavLink>
             </nav>
-          </div>
+          </Flex>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--primitive-space-2)",
-            }}
-          >
+          <Flex align="center" gap={2}>
             <TopControls />
             <div className="app-desktop-nav">
               <Button variant="secondary" size="sm" onClick={handleSignOut}>
@@ -77,7 +65,7 @@ export function AppLayout() {
                 <span>{t.nav.signOut}</span>
               </Button>
             </div>
-          </div>
+          </Flex>
         </div>
       </header>
 

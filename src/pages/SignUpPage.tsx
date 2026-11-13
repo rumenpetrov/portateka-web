@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   CardContent,
+  Flex,
   Input,
   Select,
 } from "@/components/ui";
@@ -64,13 +65,7 @@ export function SignUpPage() {
         </div>
 
         {isSubmitted ? (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "var(--primitive-space-4)",
-            }}
-          >
+          <Flex direction="column" gap={4}>
             <Alert variant="success">
               <strong>{t.auth.signUp.successTitle}</strong>
               <p style={{ marginBlockStart: "var(--primitive-space-1)" }}>
@@ -85,7 +80,7 @@ export function SignUpPage() {
             >
               {t.auth.signUp.goToVerifyLink}
             </Button>
-          </div>
+          </Flex>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
             <fieldset

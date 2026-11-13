@@ -3,7 +3,7 @@ import type { z } from "zod";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { createPropertySchema } from "@/validators/propertyValidators";
-import { Button, Input, Textarea } from "@/components/ui";
+import { Button, Flex, Input, Textarea } from "@/components/ui";
 
 export type PropertyFormValues = z.output<typeof createPropertySchema>;
 
@@ -90,11 +90,10 @@ export function PropertyForm({
           })}
         />
 
-        <div
+        <Flex
+          direction="column"
+          gap={2}
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "var(--primitive-space-2)",
             marginBlockStart: "var(--primitive-space-5)",
           }}
         >
@@ -107,7 +106,7 @@ export function PropertyForm({
               {t.common.cancel}
             </Button>
           ) : null}
-        </div>
+        </Flex>
       </fieldset>
     </form>
   );
