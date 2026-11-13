@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router";
 import { useForgotPasswordMutation } from "@/api/auth.api";
-import { Alert, Button, Card, CardContent, Input } from "@/components/ui";
+import { Alert, Anchor, Button, Card, CardContent, Input } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { forgotPasswordSchema } from "@/validators/authValidators";
@@ -64,13 +63,14 @@ export function ForgotPasswordPage() {
                 {t.auth.forgotPassword.successMessage}
               </p>
             </Alert>
-            <Link
+            <Button
+              as={Anchor}
               to="/reset-password"
-              className="ui-btn ui-btn--primary"
-              style={{ inlineSize: "100%" }}
+              variant="primary"
+              fullWidth
             >
               {t.auth.forgotPassword.goToResetLink}
-            </Link>
+            </Button>
           </div>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
@@ -95,8 +95,8 @@ export function ForgotPasswordPage() {
               <Button
                 type="submit"
                 variant="primary"
+                fullWidth
                 isLoading={forgotMutation.isPending}
-                style={{ inlineSize: "100%" }}
               >
                 {t.auth.forgotPassword.submit}
               </Button>
@@ -113,7 +113,7 @@ export function ForgotPasswordPage() {
             textAlign: "center",
           }}
         >
-          <Link to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Link>
+          <Anchor to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>
         </div>
       </CardContent>
     </Card>

@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef } from "react";
 import type { MouseEvent, ReactNode } from "react";
 import { X } from "lucide-react";
+import { Button } from "./Button";
 
 export interface ModalProps {
   open: boolean;
@@ -82,14 +83,16 @@ export function Modal({
           {title}
         </h2>
         <form method="dialog">
-          <button
+          <Button
             type="submit"
             value="cancel"
-            className="ui-btn ui-btn--ghost ui-btn--sm ui-modal-close-btn"
+            variant="ghost"
+            size="sm"
+            className="ui-modal-close-btn"
             aria-label={closeLabel}
           >
             <X aria-hidden="true" size={18} style={{ flexShrink: 0 }} />
-          </button>
+          </Button>
         </form>
       </div>
       <div>{children}</div>

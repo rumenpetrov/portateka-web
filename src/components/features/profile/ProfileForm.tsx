@@ -95,9 +95,9 @@ export function ProfileForm({ user, properties }: ProfileFormProps) {
         <Button
           type="submit"
           variant="primary"
+          fullWidth
           isLoading={updateMeMutation.isPending}
           style={{
-            inlineSize: "100%",
             marginBlockStart: "var(--primitive-space-2)",
           }}
         >

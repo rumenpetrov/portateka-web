@@ -1,52 +1,72 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import { clsx } from "clsx";
+import styles from "./Button.module.css";
 import { Spinner } from "./Spinner";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 export type ButtonSize = "sm" | "md";
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown
+  ? Omit<T, K>
+  : never;
+
+interface ButtonOwnProps<C extends ElementType = "button"> {
+  as?: C;
   variant?: ButtonVariant;
   size?: ButtonSize;
+  fullWidth?: boolean;
   isLoading?: boolean;
+  className?: string;
   children: ReactNode;
 }
 
-export function Button({
+export type ButtonProps<C extends ElementType = "button"> = ButtonOwnProps<C> &
+  DistributiveOmit<ComponentPropsWithoutRef<C>, keyof ButtonOwnProps<C>>;
+
+export function Button<C extends ElementType = "button">({
+  as,
   variant = "secondary",
   size = "md",
+  fullWidth = false,
   isLoading = false,
-  disabled,
-  className = "",
-  type = "button",
+  className,
   children,
   ...rest
-}: ButtonProps) {
-  const classes = [
+}: ButtonProps<C>) {
+  const Component = (as ?? "button") as ElementType;
+  const classes = clsx(
     "ui-btn",
-    variant !== "secondary" ? `ui-btn--${variant}` : "",
-    size === "sm" ? "ui-btn--sm" : "",
+    variant !== "secondary" && `ui-btn--${variant}`,
+    size === "sm" && "ui-btn--sm",
+    fullWidth && styles.fullWidth,
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
+
+  if (Component === "button") {
+    const buttonRest = rest as ComponentPropsWithoutRef<"button">;
+    const { type = "button", disabled, ...otherButtonProps } = buttonRest;
+
+    return (
+      <button
+        type={type}
+        className={classes}
+        disabled={disabled || isLoading}
+        {...otherButtonProps}
+      >
+        {isLoading ? <Spinner size="1em" /> : null}
+        <span className={styles.content}>{children}</span>
+      </button>
+    );
+  }
 
   return (
-    <button
-      type={type}
+    <Component
       className={classes}
-      disabled={disabled || isLoading}
+      aria-busy={isLoading || undefined}
       {...rest}
     >
       {isLoading ? <Spinner size="1em" /> : null}
-      <span
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "var(--primitive-space-2)",
-        }}
-      >
-        {children}
-      </span>
-    </button>
+      <span className={styles.content}>{children}</span>
+    </Component>
   );
 }

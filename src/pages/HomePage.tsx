@@ -1,7 +1,14 @@
 import { ArrowRight, LogIn, UserPlus } from "lucide-react";
-import { Link } from "react-router";
 import { useAuthToken } from "@/api/auth.api";
-import { Alert, Badge, Card, CardContent, CardHeader } from "@/components/ui";
+import {
+  Alert,
+  Anchor,
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+} from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function HomePage() {
@@ -73,14 +80,15 @@ export function HomePage() {
                 marginBlockStart: "var(--primitive-space-2)",
               }}
             >
-              <Link
+              <Button
+                as={Anchor}
                 to="/properties"
-                className="ui-btn ui-btn--primary"
-                style={{ inlineSize: "100%" }}
+                variant="primary"
+                fullWidth
               >
                 <span>{t.home.goToProperties}</span>
                 <ArrowRight aria-hidden="true" size={18} />
-              </Link>
+              </Button>
             </div>
           ) : (
             <div
@@ -91,22 +99,19 @@ export function HomePage() {
                 marginBlockStart: "var(--primitive-space-2)",
               }}
             >
-              <Link
+              <Button
+                as={Anchor}
                 to="/sign-in"
-                className="ui-btn ui-btn--primary"
-                style={{ inlineSize: "100%" }}
+                variant="primary"
+                fullWidth
               >
                 <LogIn aria-hidden="true" size={18} />
                 <span>{t.home.signInCta}</span>
-              </Link>
-              <Link
-                to="/sign-up"
-                className="ui-btn"
-                style={{ inlineSize: "100%" }}
-              >
+              </Button>
+              <Button as={Anchor} to="/sign-up" fullWidth>
                 <UserPlus aria-hidden="true" size={18} />
                 <span>{t.home.signUpCta}</span>
-              </Link>
+              </Button>
             </div>
           )}
         </div>

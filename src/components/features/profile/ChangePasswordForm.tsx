@@ -59,9 +59,9 @@ export function ChangePasswordForm() {
         <Button
           type="submit"
           variant="primary"
+          fullWidth
           isLoading={changePasswordMutation.isPending}
           style={{
-            inlineSize: "100%",
             marginBlockStart: "var(--primitive-space-2)",
           }}
         >

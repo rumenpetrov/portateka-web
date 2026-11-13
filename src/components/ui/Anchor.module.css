@@ -1,0 +1,66 @@
+@layer base {
+  .anchor {
+    color: var(--theme-accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      color: var(--theme-accent-hover);
+    }
+  }
+}
+
+@layer components {
+  .button {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .underlineHover {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .underlineNone {
+    text-decoration: none;
+  }
+
+  .tonePrimary {
+    color: var(--theme-text-primary);
+
+    &:hover {
+      color: var(--theme-accent);
+    }
+  }
+
+  .toneSecondary {
+    color: var(--theme-text-secondary);
+
+    &:hover {
+      color: var(--theme-text-primary);
+    }
+  }
+
+  .toneMuted {
+    color: var(--theme-text-muted);
+
+    &:hover {
+      color: var(--theme-text-secondary);
+    }
+  }
+
+  .toneInherit {
+    color: inherit;
+
+    &:hover {
+      color: inherit;
+    }
+  }
+}

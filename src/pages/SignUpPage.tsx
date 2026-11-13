@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router";
 import { useSignUpMutation } from "@/api/auth.api";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
-import { Alert, Button, Card, CardContent, Input, Select } from "@/components/ui";
+import {
+  Alert,
+  Anchor,
+  Button,
+  Card,
+  CardContent,
+  Input,
+  Select,
+} from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/types";
@@ -70,13 +77,14 @@ export function SignUpPage() {
                 {t.auth.signUp.successMessage}
               </p>
             </Alert>
-            <Link
+            <Button
+              as={Anchor}
               to="/verify-email"
-              className="ui-btn ui-btn--primary"
-              style={{ inlineSize: "100%" }}
+              variant="primary"
+              fullWidth
             >
               {t.auth.signUp.goToVerifyLink}
-            </Link>
+            </Button>
           </div>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
@@ -149,9 +157,9 @@ export function SignUpPage() {
               <Button
                 type="submit"
                 variant="primary"
+                fullWidth
                 isLoading={signUpMutation.isPending}
                 style={{
-                  inlineSize: "100%",
                   marginBlockStart: "var(--primitive-space-2)",
                 }}
               >
@@ -172,7 +180,7 @@ export function SignUpPage() {
           }}
         >
           <span>{t.auth.signUp.hasAccountPrompt} </span>
-          <Link to="/sign-in">{t.auth.signUp.signInLink}</Link>
+          <Anchor to="/sign-in">{t.auth.signUp.signInLink}</Anchor>
         </div>
       </CardContent>
     </Card>
