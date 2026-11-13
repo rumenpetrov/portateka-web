@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForgotPasswordMutation } from "@/api/auth.api";
-import { Alert, Anchor, Button, Card, CardContent, Input } from "@/components/ui";
+import { Alert, Anchor, Button, Card, CardContent, Flex, Input } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { forgotPasswordSchema } from "@/validators/authValidators";
@@ -50,13 +50,7 @@ export function ForgotPasswordPage() {
         </div>
 
         {sent ? (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "var(--primitive-space-4)",
-            }}
-          >
+          <Flex direction="column" gap={4}>
             <Alert variant="success">
               <strong>{t.auth.forgotPassword.successTitle}</strong>
               <p style={{ marginBlockStart: "var(--primitive-space-1)" }}>
@@ -71,7 +65,7 @@ export function ForgotPasswordPage() {
             >
               {t.auth.forgotPassword.goToResetLink}
             </Button>
-          </div>
+          </Flex>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
             <fieldset

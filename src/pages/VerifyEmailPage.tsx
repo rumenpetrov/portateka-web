@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   CardContent,
+  Flex,
   Input,
   Spinner,
 } from "@/components/ui";
@@ -83,13 +84,7 @@ export function VerifyEmailPage() {
         </div>
 
         {verified ? (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "var(--primitive-space-4)",
-            }}
-          >
+          <Flex direction="column" gap={4}>
             <Alert variant="success">
               <strong>{t.auth.verifyEmail.successTitle}</strong>
               <p style={{ marginBlockStart: "var(--primitive-space-1)" }}>
@@ -99,7 +94,7 @@ export function VerifyEmailPage() {
             <Button as={Anchor} to="/sign-in" variant="primary" fullWidth>
               {t.auth.verifyEmail.proceedToSignIn}
             </Button>
-          </div>
+          </Flex>
         ) : (
           <form method="post" onSubmit={onSubmit} noValidate>
             <fieldset
@@ -107,18 +102,17 @@ export function VerifyEmailPage() {
               disabled={verifyMutation.isPending}
             >
               {verifyMutation.isPending && initialUrlToken ? (
-                <div
+                <Flex
+                  align="center"
+                  gap={2}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "var(--primitive-space-2)",
                     marginBlockEnd: "var(--primitive-space-4)",
                     fontSize: "var(--primitive-text-sm)",
                   }}
                 >
                   <Spinner label={t.auth.verifyEmail.verifying} />
                   <span>{t.auth.verifyEmail.verifying}</span>
-                </div>
+                </Flex>
               ) : null}
 
               <Input

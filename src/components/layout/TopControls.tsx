@@ -4,7 +4,7 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/types";
 import type { SupportedLocale } from "@/i18n/types";
 import { useTheme } from "@/theme/ThemeProvider";
-import { Button } from "@/components/ui";
+import { Button, Flex } from "@/components/ui";
 
 export function TopControls() {
   const { locale, setLocale, t } = useI18n();
@@ -31,13 +31,7 @@ export function TopControls() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "var(--primitive-space-2)",
-      }}
-    >
+    <Flex align="center" gap={2}>
       <Button
         variant="ghost"
         size="sm"
@@ -60,6 +54,6 @@ export function TopControls() {
           <Moon aria-hidden="true" size={18} />
         )}
       </Button>
-    </div>
+    </Flex>
   );
 }

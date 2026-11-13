@@ -15,6 +15,15 @@ export { Card, CardContent, CardFooter, CardHeader } from "./Card";
 export { EmptyState } from "./EmptyState";
 export type { EmptyStateProps } from "./EmptyState";
 
+export { Flex } from "./Flex";
+export type {
+  FlexAlign,
+  FlexDirection,
+  FlexGap,
+  FlexJustify,
+  FlexProps,
+} from "./Flex";
+
 export { Input } from "./Input";
 export type { InputProps } from "./Input";
 

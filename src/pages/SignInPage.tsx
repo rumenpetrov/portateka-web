@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useSignInMutation } from "@/api/auth.api";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Anchor, Button, Card, CardContent, Input } from "@/components/ui";
+import { Anchor, Button, Card, CardContent, Flex, Input } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { signInEmailSchema } from "@/validators/authValidators";
@@ -83,11 +83,10 @@ export function SignInPage() {
               {...register("password")}
             />
 
-            <div
+            <Flex
+              direction="column"
+              gap={3}
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--primitive-space-3)",
                 marginBlockStart: "var(--primitive-space-5)",
               }}
             >
@@ -100,12 +99,11 @@ export function SignInPage() {
                 {t.auth.signIn.submit}
               </Button>
 
-              <div
+              <Flex
+                wrap
+                justify="between"
+                gap={2}
                 style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent: "space-between",
-                  gap: "var(--primitive-space-2)",
                   fontSize: "var(--primitive-text-sm)",
                 }}
               >
@@ -115,8 +113,8 @@ export function SignInPage() {
                 <Anchor to="/verify-email">
                   {t.auth.signIn.needVerificationLink}
                 </Anchor>
-              </div>
-            </div>
+              </Flex>
+            </Flex>
           </fieldset>
         </form>
 

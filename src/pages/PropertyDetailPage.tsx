@@ -18,6 +18,7 @@ import {
   CardContent,
   CardHeader,
   EmptyState,
+  Flex,
   Modal,
   Spinner,
 } from "@/components/ui";
@@ -39,15 +40,14 @@ export function PropertyDetailPage() {
 
   if (propertyQuery.isPending) {
     return (
-      <div
+      <Flex
+        justify="center"
         style={{
-          display: "flex",
-          justifyContent: "center",
           paddingBlock: "var(--primitive-space-10)",
         }}
       >
         <Spinner label={t.common.loading} size="1.75rem" />
-      </div>
+      </Flex>
     );
   }
 
@@ -96,46 +96,32 @@ export function PropertyDetailPage() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--primitive-space-5)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-          gap: "var(--primitive-space-3)",
-        }}
-      >
+    <Flex direction="column" gap={5}>
+      <Flex wrap align="start" justify="between" gap={3}>
         <div>
-          <div
+          <Flex
+            align="center"
+            gap={2}
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--primitive-space-2)",
               marginBlockEnd: "var(--primitive-space-1)",
             }}
           >
-            <Anchor
+            <Flex
+              as={Anchor}
               to="/properties"
               tone="secondary"
+              inline
+              align="center"
+              gap={1}
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "var(--primitive-space-1)",
                 fontSize: "var(--primitive-text-sm)",
               }}
             >
               <ArrowLeft aria-hidden="true" size={16} />
               <span>{t.nav.properties}</span>
-            </Anchor>
+            </Flex>
             <PreferredPropertyBadge isPreferred={isPreferred} />
-          </div>
+          </Flex>
 
           <h1
             style={{
@@ -158,13 +144,7 @@ export function PropertyDetailPage() {
           </p>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "var(--primitive-space-2)",
-          }}
-        >
+        <Flex wrap gap={2}>
           <Button
             variant="secondary"
             size="sm"
@@ -191,8 +171,8 @@ export function PropertyDetailPage() {
             <Trash2 aria-hidden="true" size={16} />
             <span>{t.properties.detail.deleteButton}</span>
           </Button>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
 
       <Card>
         <CardHeader>
@@ -235,13 +215,7 @@ export function PropertyDetailPage() {
           {t.properties.detail.deleteModalDescription}
         </p>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "var(--primitive-space-2)",
-          }}
-        >
+        <Flex direction="column" gap={2}>
           <Button
             variant="danger"
             isLoading={deletePropertyMutation.isPending}
@@ -256,8 +230,8 @@ export function PropertyDetailPage() {
           >
             {t.common.cancel}
           </Button>
-        </div>
+        </Flex>
       </Modal>
-    </div>
+    </Flex>
   );
 }

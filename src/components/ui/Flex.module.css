@@ -1,0 +1,93 @@
+@layer components {
+  .flex {
+    display: flex;
+  }
+
+  .inline {
+    display: inline-flex;
+  }
+
+  .directionRow {
+    flex-direction: row;
+  }
+
+  .directionColumn {
+    flex-direction: column;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+  }
+
+  .alignStart {
+    align-items: flex-start;
+  }
+
+  .alignCenter {
+    align-items: center;
+  }
+
+  .alignEnd {
+    align-items: flex-end;
+  }
+
+  .alignStretch {
+    align-items: stretch;
+  }
+
+  .alignBaseline {
+    align-items: baseline;
+  }
+
+  .justifyStart {
+    justify-content: flex-start;
+  }
+
+  .justifyCenter {
+    justify-content: center;
+  }
+
+  .justifyEnd {
+    justify-content: flex-end;
+  }
+
+  .justifyBetween {
+    justify-content: space-between;
+  }
+
+  .gap1 {
+    gap: var(--primitive-space-1);
+  }
+
+  .gap2 {
+    gap: var(--primitive-space-2);
+  }
+
+  .gap3 {
+    gap: var(--primitive-space-3);
+  }
+
+  .gap4 {
+    gap: var(--primitive-space-4);
+  }
+
+  .gap5 {
+    gap: var(--primitive-space-5);
+  }
+
+  .gap6 {
+    gap: var(--primitive-space-6);
+  }
+
+  .gap8 {
+    gap: var(--primitive-space-8);
+  }
+
+  .gap10 {
+    gap: var(--primitive-space-10);
+  }
+
+  .gap12 {
+    gap: var(--primitive-space-12);
+  }
+}

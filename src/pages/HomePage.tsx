@@ -8,6 +8,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Flex,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 
@@ -49,34 +50,21 @@ export function HomePage() {
       </CardHeader>
 
       <CardContent>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "var(--primitive-space-4)",
-          }}
-        >
+        <Flex direction="column" gap={4}>
           <Alert variant="warning">
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--primitive-space-2)",
-              }}
-            >
+            <Flex direction="column" gap={2}>
               <strong>{t.home.betaWarningTitle}</strong>
               <p>{t.home.betaWarningMessage}</p>
               <p style={{ fontWeight: "var(--primitive-weight-medium)" }}>
                 {t.home.betaDataLossNote}
               </p>
-            </div>
+            </Flex>
           </Alert>
 
           {token ? (
-            <div
+            <Flex
+              direction="column"
               style={{
-                display: "flex",
-                flexDirection: "column",
                 marginBlockStart: "var(--primitive-space-2)",
               }}
             >
@@ -89,13 +77,12 @@ export function HomePage() {
                 <span>{t.home.goToProperties}</span>
                 <ArrowRight aria-hidden="true" size={18} />
               </Button>
-            </div>
+            </Flex>
           ) : (
-            <div
+            <Flex
+              direction="column"
+              gap={2}
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--primitive-space-2)",
                 marginBlockStart: "var(--primitive-space-2)",
               }}
             >
@@ -112,9 +99,9 @@ export function HomePage() {
                 <UserPlus aria-hidden="true" size={18} />
                 <span>{t.home.signUpCta}</span>
               </Button>
-            </div>
+            </Flex>
           )}
-        </div>
+        </Flex>
       </CardContent>
     </Card>
   );

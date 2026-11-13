@@ -1,16 +1,17 @@
 import { Outlet } from "react-router";
+import { Flex } from "@/components/ui";
 import { BrandLogo } from "./BrandLogo";
 import { TopControls } from "./TopControls";
 
 export function AuthLayout() {
   return (
     <div className="auth-shell">
-      <header
+      <Flex
+        as="header"
+        align="center"
+        justify="between"
+        gap={3}
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "var(--primitive-space-3)",
           maxInlineSize: "64rem",
           inlineSize: "100%",
           marginInline: "auto",
@@ -19,7 +20,7 @@ export function AuthLayout() {
       >
         <BrandLogo />
         <TopControls />
-      </header>
+      </Flex>
 
       <main className="auth-main">
         <Outlet />

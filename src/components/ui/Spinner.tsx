@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { Flex } from "./Flex";
 
 interface SpinnerProps {
   label?: string;
@@ -11,9 +12,9 @@ export function Spinner({ label, size }: SpinnerProps) {
     : undefined;
 
   return (
-    <span role="status" style={{ display: "inline-flex", alignItems: "center" }}>
+    <Flex as="span" inline align="center" role="status">
       <span aria-hidden="true" className="ui-spinner" style={style} />
       {label ? <span className="visually-hidden">{label}</span> : null}
-    </span>
+    </Flex>
   );
 }

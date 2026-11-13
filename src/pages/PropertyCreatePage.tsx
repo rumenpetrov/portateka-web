@@ -3,7 +3,7 @@ import { useCreatePropertyMutation } from "@/api/properties.api";
 import { PropertyForm } from "@/components/features/properties/PropertyForm";
 import type { PropertyFormValues } from "@/components/features/properties/PropertyForm";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Card, CardContent } from "@/components/ui";
+import { Card, CardContent, Flex } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function PropertyCreatePage() {
@@ -26,13 +26,7 @@ export function PropertyCreatePage() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--primitive-space-5)",
-      }}
-    >
+    <Flex direction="column" gap={5}>
       <div>
         <h1
           style={{
@@ -62,6 +56,6 @@ export function PropertyCreatePage() {
           />
         </CardContent>
       </Card>
-    </div>
+    </Flex>
   );
 }

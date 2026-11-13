@@ -17,6 +17,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Flex,
   Input,
   Modal,
   Select,
@@ -45,15 +46,14 @@ export function ProfilePage() {
 
   if (meQuery.isPending || propertiesQuery.isPending) {
     return (
-      <div
+      <Flex
+        justify="center"
         style={{
-          display: "flex",
-          justifyContent: "center",
           paddingBlock: "var(--primitive-space-10)",
         }}
       >
         <Spinner label={t.common.loading} size="1.75rem" />
-      </div>
+      </Flex>
     );
   }
 
@@ -82,13 +82,7 @@ export function ProfilePage() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--primitive-space-6)",
-      }}
-    >
+    <Flex direction="column" gap={6}>
       <div>
         <h1
           style={{
@@ -275,13 +269,7 @@ export function ProfilePage() {
           />
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "var(--primitive-space-2)",
-          }}
-        >
+        <Flex direction="column" gap={2}>
           <Button
             type="button"
             variant="danger"
@@ -300,8 +288,8 @@ export function ProfilePage() {
           >
             {t.common.cancel}
           </Button>
-        </div>
+        </Flex>
       </Modal>
-    </div>
+    </Flex>
   );
 }
