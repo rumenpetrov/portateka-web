@@ -1,5 +1,0 @@
-@layer components {
-  .submit {
-    margin-block-start: var(--primitive-space-2);
-  }
-}

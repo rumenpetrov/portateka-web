@@ -4,7 +4,6 @@ import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { createPropertySchema } from "@/validators/propertyValidators";
 import { Button, Fieldset, Flex, Input, Textarea } from "@/components/ui";
-import styles from "./PropertyForm.module.css";
 
 export type PropertyFormValues = z.output<typeof createPropertySchema>;
 
@@ -91,7 +90,7 @@ export function PropertyForm({
           })}
         />
 
-        <Flex direction="column" gap={2} className={styles.actions}>
+        <Flex direction="column" gap={2}>
           <Button type="submit" variant="primary" isLoading={isSubmitting}>
             {submitLabel}
           </Button>

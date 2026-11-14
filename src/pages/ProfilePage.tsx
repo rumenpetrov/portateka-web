@@ -29,7 +29,6 @@ import { SUPPORTED_LOCALES } from "@/i18n/types";
 import type { SupportedLocale } from "@/i18n/types";
 import { useTheme } from "@/theme/ThemeProvider";
 import type { ColorSchemePreference } from "@/theme/ThemeProvider";
-import styles from "./ProfilePage.module.css";
 
 export function ProfilePage() {
   const { locale, setLocale, t, formatDate } = useI18n();
@@ -188,15 +187,11 @@ export function ProfilePage() {
         closeLabel={t.common.close}
         onClose={handleCloseDeleteModal}
       >
-        <Text
-          variant="subtitle"
-          tone="secondary"
-          className={styles.modalDescription}
-        >
-          {t.profile.dangerZone.deleteModalDescription}
-        </Text>
+        <Flex direction="column" gap={4}>
+          <Text variant="subtitle" tone="secondary">
+            {t.profile.dangerZone.deleteModalDescription}
+          </Text>
 
-        <div className={styles.confirmField}>
           <Input
             id="profile-delete-confirm-input"
             type="text"
@@ -208,27 +203,27 @@ export function ProfilePage() {
             disabled={deleteMeMutation.isPending}
             onChange={(e) => setConfirmText(e.target.value)}
           />
-        </div>
 
-        <Flex direction="column" gap={2}>
-          <Button
-            type="button"
-            variant="danger"
-            disabled={!isDeleteConfirmed}
-            isLoading={deleteMeMutation.isPending}
-            onClick={handleConfirmDeleteAccount}
-          >
-            <Trash2 aria-hidden="true" size={16} />
-            <span>{t.profile.dangerZone.deleteConfirmButton}</span>
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            disabled={deleteMeMutation.isPending}
-            onClick={handleCloseDeleteModal}
-          >
-            {t.common.cancel}
-          </Button>
+          <Flex direction="column" gap={2}>
+            <Button
+              type="button"
+              variant="danger"
+              disabled={!isDeleteConfirmed}
+              isLoading={deleteMeMutation.isPending}
+              onClick={handleConfirmDeleteAccount}
+            >
+              <Trash2 aria-hidden="true" size={16} />
+              <span>{t.profile.dangerZone.deleteConfirmButton}</span>
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              disabled={deleteMeMutation.isPending}
+              onClick={handleCloseDeleteModal}
+            >
+              {t.common.cancel}
+            </Button>
+          </Flex>
         </Flex>
       </Modal>
     </Flex>
