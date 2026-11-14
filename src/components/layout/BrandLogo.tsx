@@ -1,14 +1,15 @@
 import { Anchor } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
+import styles from "./BrandLogo.module.css";
 
 export function BrandLogo() {
   const { t } = useI18n();
 
   return (
-    <Anchor to="/" className="brand-logo">
+    <Anchor to="/" className={styles.brandLogo}>
       <svg
         aria-hidden="true"
-        className="brand-logo-mark"
+        className={styles.mark}
         viewBox="0 0 64 64"
         fill="none"
       >
@@ -35,8 +36,8 @@ export function BrandLogo() {
           fill="currentColor"
         />
       </svg>
-      <span className="brand-logo-text">{t.app.name}</span>
-      <span className="brand-logo-badge">{t.app.betaBadge}</span>
+      <span className={styles.text}>{t.app.name}</span>
+      <span className={styles.badge}>{t.app.betaBadge}</span>
     </Anchor>
   );
 }
