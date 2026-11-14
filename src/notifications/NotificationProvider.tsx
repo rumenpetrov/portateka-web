@@ -55,7 +55,14 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
   const notify = useCallback(
     (tone: ToastTone, message: string) => {
       const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
-      setToasts((prev) => [...prev, { id, tone, message }]);
+      setToasts((prev) => {
+        if (
+          prev.some((item) => item.tone === tone && item.message === message)
+        ) {
+          return prev;
+        }
+        return [...prev, { id, tone, message }];
+      });
 
       window.setTimeout(() => {
         dismiss(id);

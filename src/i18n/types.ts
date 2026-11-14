@@ -68,6 +68,9 @@ export interface TranslationDictionary {
     delete: string;
     confirm: string;
     back: string;
+    retry: string;
+    errorTitle: string;
+    offlineBanner: string;
     showPassword: string;
     hidePassword: string;
     showPasswordWarning: string;
@@ -89,6 +92,10 @@ export interface TranslationDictionary {
     signIn: string;
     signUp: string;
     signOut: string;
+  };
+  footer: {
+    copyright: (year: number) => string;
+    installApp: string;
   };
   preferences: {
     languageLabel: string;

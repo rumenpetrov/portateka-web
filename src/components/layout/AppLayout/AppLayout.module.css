@@ -18,8 +18,10 @@
     background-color: oklch(from var(--theme-bg-surface) l c h / 0.88);
     backdrop-filter: blur(10px);
     border-block-end: 1px solid var(--theme-border-subtle);
-    padding-block: var(--primitive-space-2);
-    padding-inline: var(--primitive-space-4);
+    padding-block-start: calc(var(--primitive-space-2) + env(safe-area-inset-top, 0px));
+    padding-block-end: var(--primitive-space-2);
+    padding-inline-start: max(var(--primitive-space-4), env(safe-area-inset-left, 0px));
+    padding-inline-end: max(var(--primitive-space-4), env(safe-area-inset-right, 0px));
   }
 
   .headerInner {
@@ -123,13 +125,15 @@
     inline-size: 100%;
     max-inline-size: 56rem;
     margin-inline: auto;
-    padding-block: var(--primitive-space-4);
+    padding-block-start: var(--primitive-space-4);
+    padding-block-end: var(--primitive-space-8);
     padding-inline: var(--primitive-space-4);
     box-sizing: border-box;
     container-type: inline-size;
 
     @media (min-width: 48rem) {
-      padding-block: var(--primitive-space-8);
+      padding-block-start: var(--primitive-space-8);
+      padding-block-end: var(--primitive-space-12);
       padding-inline: var(--primitive-space-6);
     }
   }

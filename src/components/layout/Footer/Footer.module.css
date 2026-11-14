@@ -1,0 +1,59 @@
+@layer components {
+  .footer {
+    border-block-start: 1px solid var(--theme-border-subtle);
+    padding-block: var(--primitive-space-4);
+    padding-inline-start: max(var(--primitive-space-4), env(safe-area-inset-left, 0px));
+    padding-inline-end: max(var(--primitive-space-4), env(safe-area-inset-right, 0px));
+    margin-block-start: var(--primitive-space-8);
+  }
+
+  .inner {
+    max-inline-size: 64rem;
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--primitive-space-3);
+  }
+
+  .installButton {
+    --btn-bg: var(--theme-bg-surface);
+    --btn-fg: var(--theme-text-secondary);
+    --btn-border: var(--theme-border-default);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--primitive-space-2);
+    min-block-size: 2rem;
+    padding-block: var(--primitive-space-1);
+    padding-inline: var(--primitive-space-3);
+    border-radius: var(--primitive-radius-md);
+    border: 1px solid var(--btn-border);
+    background-color: var(--btn-bg);
+    color: var(--btn-fg);
+    font: inherit;
+    font-size: var(--primitive-text-xs);
+    font-weight: var(--primitive-weight-medium);
+    cursor: pointer;
+    transition:
+      background-color var(--primitive-duration-fast) var(--primitive-easing-standard),
+      border-color var(--primitive-duration-fast) var(--primitive-easing-standard),
+      color var(--primitive-duration-fast) var(--primitive-easing-standard);
+
+    &[hidden] {
+      display: none;
+    }
+
+    &:hover:not([aria-disabled="true"]) {
+      background-color: var(--theme-bg-subtle);
+      color: var(--theme-text-primary);
+    }
+
+    &[aria-disabled="true"] {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+  }
+}

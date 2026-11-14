@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Trash2 } from "lucide-react";
+import { RefreshCw, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router";
 import {
   useDeleteMeMutation,
@@ -17,6 +17,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  EmptyState,
   Flex,
   Input,
   Modal,
@@ -26,13 +27,13 @@ import {
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 import { SUPPORTED_LOCALES } from "@/i18n/types";
-import type { SupportedLocale } from "@/i18n/types";
+import type { ApiErrorShape, SupportedLocale } from "@/i18n/types";
 import { useTheme } from "@/theme/ThemeProvider";
 import type { ColorSchemePreference } from "@/theme/ThemeProvider";
 import { MAX_PAGE_SIZE } from "@/validators/paginationValidators";
 
 export function ProfilePage() {
-  const { locale, setLocale, t, formatDate } = useI18n();
+  const { locale, setLocale, t, formatDate, translateApiError } = useI18n();
   const { preference, setPreference } = useTheme();
   const { notifySuccess } = useNotifications();
   const navigate = useNavigate();
@@ -150,8 +151,40 @@ export function ProfilePage() {
   }
 
   const user = meQuery.data;
-  if (!user) {
-    return null;
+  if (meQuery.isError || !user) {
+    return (
+      <Flex direction="column" gap={6}>
+        <div>
+          <Text variant="page-title">{t.profile.title}</Text>
+          <Text variant="subtitle" tone="secondary">
+            {t.profile.subtitle}
+          </Text>
+        </div>
+
+        <EmptyState
+          title={t.common.errorTitle}
+          description={translateApiError(
+            (meQuery.error ?? propertiesQuery.error) as
+              | ApiErrorShape
+              | undefined,
+          )}
+          action={
+            <Button
+              type="button"
+              variant="primary"
+              isLoading={meQuery.isFetching || propertiesQuery.isFetching}
+              onClick={() => {
+                void meQuery.refetch();
+                void propertiesQuery.refetch();
+              }}
+            >
+              <RefreshCw aria-hidden="true" size={16} />
+              <span>{t.common.retry}</span>
+            </Button>
+          }
+        />
+      </Flex>
+    );
   }
 
   const isDeleteConfirmed = confirmText === t.profile.dangerZone.confirmKeyword;

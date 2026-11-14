@@ -34,13 +34,18 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 30_000,
+      networkMode: "always",
       retry: (failureCount, error) => {
-        if (isApiClientError(error) && error.status > 0 && error.status < 500) {
+        if (isApiClientError(error) && error.status < 500) {
           return false;
         }
         return failureCount < 1;
       },
       refetchOnWindowFocus: false,
+      refetchOnReconnect: true,
+    },
+    mutations: {
+      networkMode: "always",
     },
   },
   queryCache: new QueryCache({

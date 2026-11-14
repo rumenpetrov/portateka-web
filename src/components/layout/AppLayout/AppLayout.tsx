@@ -6,6 +6,8 @@ import { useI18n } from "@/i18n/I18nProvider";
 import type { SupportedLocale } from "@/i18n/types";
 import { Button, Flex } from "@/components/ui";
 import { BrandLogo } from "../BrandLogo";
+import { Footer } from "../Footer";
+import { OfflineBanner } from "../OfflineBanner";
 import { TopControls } from "../TopControls";
 import styles from "./AppLayout.module.css";
 
@@ -70,9 +72,13 @@ export function AppLayout() {
         </div>
       </header>
 
+      <OfflineBanner />
+
       <main className={styles.main}>
         <Outlet />
       </main>
+
+      <Footer />
 
       <nav aria-label={t.nav.mainNavigation} className={styles.bottomNav}>
         <NavLink to="/properties" end className={styles.bottomNavItem}>

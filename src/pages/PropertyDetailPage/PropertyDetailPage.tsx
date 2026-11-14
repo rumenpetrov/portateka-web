@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { ArrowLeft, Star, Trash2 } from "lucide-react";
+import { ArrowLeft, RefreshCw, Star, Trash2 } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router";
 import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
+import { isApiClientError } from "@/api/client";
 import {
   useDeletePropertyMutation,
   usePropertyQuery,
@@ -24,10 +25,11 @@ import {
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
+import type { ApiErrorShape } from "@/i18n/types";
 
 export function PropertyDetailPage() {
   const { id = "" } = useParams<{ id: string }>();
-  const { t, formatDate } = useI18n();
+  const { t, formatDate, translateApiError } = useI18n();
   const { notifySuccess } = useNotifications();
   const navigate = useNavigate();
 
@@ -99,14 +101,48 @@ export function PropertyDetailPage() {
   }
 
   if (propertyQuery.isError || !propertyQuery.data) {
+    const isNotFound =
+      isApiClientError(propertyQuery.error) &&
+      propertyQuery.error.status === 404;
+
+    if (isNotFound) {
+      return (
+        <EmptyState
+          title={t.errors.topLevel.NOT_FOUND.property}
+          action={
+            <Button as={Link} to="/properties" variant="primary">
+              <ArrowLeft aria-hidden="true" size={16} />
+              <span>{t.common.back}</span>
+            </Button>
+          }
+        />
+      );
+    }
+
     return (
       <EmptyState
-        title={t.errors.topLevel.NOT_FOUND.property}
+        title={t.common.errorTitle}
+        description={translateApiError(
+          propertyQuery.error as ApiErrorShape | undefined,
+        )}
         action={
-          <Button as={Link} to="/properties" variant="primary">
-            <ArrowLeft aria-hidden="true" size={16} />
-            <span>{t.common.back}</span>
-          </Button>
+          <Flex wrap justify="center" gap={2}>
+            <Button
+              type="button"
+              variant="primary"
+              isLoading={propertyQuery.isFetching}
+              onClick={() => {
+                void propertyQuery.refetch();
+              }}
+            >
+              <RefreshCw aria-hidden="true" size={16} />
+              <span>{t.common.retry}</span>
+            </Button>
+            <Button as={Link} to="/properties" variant="secondary">
+              <ArrowLeft aria-hidden="true" size={16} />
+              <span>{t.common.back}</span>
+            </Button>
+          </Flex>
         }
       />
     );
