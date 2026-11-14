@@ -36,6 +36,12 @@ export const bgBG: TranslationDictionary = {
     notificationsRegion: "Известия",
     dismissNotification: "Затвори известието",
     srAnnouncements: "Съобщения за екранен четец",
+    pagination: {
+      navigationLabel: "Странициране",
+      previous: "Предишна",
+      next: "Следваща",
+      pageOf: (page, totalPages) => `Страница ${page} от ${totalPages}`,
+    },
   },
   nav: {
     mainNavigation: "Главна навигация",
@@ -252,6 +258,8 @@ export const bgBG: TranslationDictionary = {
       required: "Това поле е задължително.",
       invalid_type: "Въведената стойност е с невалиден формат.",
       too_long: "Стойността надвишава максимално допустимата дължина.",
+      too_small: "Стойността е под минимално допустимата.",
+      too_big: "Стойността надвишава максимално допустимата.",
       nameTooLong: "Името не може да надвишава максималната дължина.",
       descriptionTooLong: "Описанието не може да надвишава 1 000 символа.",
       notesTooLong: "Бележките не могат да надвишават 2 000 символа.",

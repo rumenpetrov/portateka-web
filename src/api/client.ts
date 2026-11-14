@@ -91,9 +91,27 @@ const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? "").replace(
   "",
 );
 
+export interface PaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface PaginationParams {
+  page?: number;
+  limit?: number;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  pagination: PaginationMeta;
+}
+
 export interface ApiRequestOptions {
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   body?: unknown;
+  params?: Record<string, string | number | undefined>;
   authenticated?: boolean;
   signal?: AbortSignal;
 }
@@ -108,11 +126,36 @@ interface ErrorEnvelope {
   params?: Record<string, string>;
 }
 
-export async function apiRequest<T>(
+function buildRequestUrl(
+  path: string,
+  params?: Record<string, string | number | undefined>,
+): string {
+  const base = `${API_BASE_URL}${path}`;
+  if (!params) {
+    return base;
+  }
+
+  const searchParams = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined) {
+      searchParams.set(key, String(value));
+    }
+  }
+
+  const queryString = searchParams.toString();
+  if (!queryString) {
+    return base;
+  }
+
+  return `${base}?${queryString}`;
+}
+
+async function requestRaw<P>(
   path: string,
   options: ApiRequestOptions = {},
-): Promise<T> {
-  const { method = "GET", body, authenticated = true, signal } = options;
+): Promise<P> {
+  const { method = "GET", body, params, authenticated = true, signal } =
+    options;
   const headers: Record<string, string> = {};
 
   if (body !== undefined) {
@@ -128,7 +171,7 @@ export async function apiRequest<T>(
 
   let response: Response;
   try {
-    response = await fetch(`${API_BASE_URL}${path}`, {
+    response = await fetch(buildRequestUrl(path, params), {
       method,
       headers,
       body: body !== undefined ? JSON.stringify(body) : undefined,
@@ -142,7 +185,7 @@ export async function apiRequest<T>(
   }
 
   if (response.status === 204) {
-    return undefined as T;
+    return undefined as P;
   }
 
   if (!response.ok) {
@@ -182,7 +225,14 @@ export async function apiRequest<T>(
     });
   }
 
-  const payload = (await response.json()) as SuccessEnvelope<T> | T;
+  return (await response.json()) as P;
+}
+
+export async function apiRequest<T>(
+  path: string,
+  options: ApiRequestOptions = {},
+): Promise<T> {
+  const payload = await requestRaw<SuccessEnvelope<T> | T>(path, options);
   if (
     payload !== null &&
     typeof payload === "object" &&
@@ -190,5 +240,13 @@ export async function apiRequest<T>(
   ) {
     return (payload as SuccessEnvelope<T>).data;
   }
+
   return payload as T;
+}
+
+export async function apiPaginatedRequest<T>(
+  path: string,
+  options: ApiRequestOptions = {},
+): Promise<PaginatedResponse<T>> {
+  return requestRaw<PaginatedResponse<T>>(path, options);
 }

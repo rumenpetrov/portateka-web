@@ -34,6 +34,12 @@ export const enUS: TranslationDictionary = {
     notificationsRegion: "Notifications",
     dismissNotification: "Dismiss notification",
     srAnnouncements: "Screen reader announcements",
+    pagination: {
+      navigationLabel: "Pagination",
+      previous: "Previous",
+      next: "Next",
+      pageOf: (page, totalPages) => `Page ${page} of ${totalPages}`,
+    },
   },
   nav: {
     mainNavigation: "Main navigation",
@@ -246,6 +252,8 @@ export const enUS: TranslationDictionary = {
       required: "This field is required.",
       invalid_type: "The provided value has an invalid format.",
       too_long: "This value exceeds the maximum allowed length.",
+      too_small: "This value is below the minimum allowed.",
+      too_big: "This value exceeds the maximum allowed.",
       nameTooLong: "Name cannot exceed 50 characters (or 100 for properties).",
       descriptionTooLong: "Description cannot exceed 1,000 characters.",
       notesTooLong: "Notes cannot exceed 2,000 characters.",

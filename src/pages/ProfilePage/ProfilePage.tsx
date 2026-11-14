@@ -29,6 +29,7 @@ import { SUPPORTED_LOCALES } from "@/i18n/types";
 import type { SupportedLocale } from "@/i18n/types";
 import { useTheme } from "@/theme/ThemeProvider";
 import type { ColorSchemePreference } from "@/theme/ThemeProvider";
+import { MAX_PAGE_SIZE } from "@/validators/paginationValidators";
 
 export function ProfilePage() {
   const { locale, setLocale, t, formatDate } = useI18n();
@@ -38,7 +39,7 @@ export function ProfilePage() {
   const signOut = useSignOut();
 
   const meQuery = useMeQuery();
-  const propertiesQuery = usePropertiesQuery();
+  const propertiesQuery = usePropertiesQuery({ limit: MAX_PAGE_SIZE });
   const deleteMeMutation = useDeleteMeMutation();
   const updateMeMutation = useUpdateMeMutation();
 
@@ -202,7 +203,7 @@ export function ProfilePage() {
         <CardContent>
           <ProfileForm
             user={user}
-            properties={propertiesQuery.data ?? []}
+            properties={propertiesQuery.data?.data ?? []}
           />
         </CardContent>
       </Card>

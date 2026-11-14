@@ -1,0 +1,15 @@
+@layer components {
+  .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--primitive-space-3);
+    padding-block-start: var(--primitive-space-4);
+    border-block-start: 1px solid var(--theme-border-subtle);
+  }
+
+  .indicator {
+    font-variant-numeric: tabular-nums;
+  }
+}
