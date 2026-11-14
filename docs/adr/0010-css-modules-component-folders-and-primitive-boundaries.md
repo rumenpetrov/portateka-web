@@ -8,7 +8,7 @@ As the component library expanded, global `.ui-*`, layout, and page rules accumu
 
 ## Decision
 1. **Colocated CSS Modules with Automated Declaration Generation:**
-   - Move all component, layout, feature, and page styling out of `src/theme/tokens.css` and inline `style={{}}` blocks into colocated `*.module.css` files (retaining inline `style` only for truly dynamic runtime values such as numeric `Spinner` sizes).
+   - Move all component, layout, feature, and page styling out of `src/theme/tokens.css` and inline `style={{}}` blocks into colocated `*.module.css` files (retaining inline `style` only for truly dynamic runtime values such as dynamic `Spinner` and `Skeleton` dimensions).
    - Use `vite-css-modules` (`patchCssModules({ generateSourceTypes: true, declarationMap: true })` in `vite.config.ts`) together with `allowArbitraryExtensions: true` in `tsconfig.json`.
    - Generate `*.module.css.d.ts` files automatically via `npm run css:types` (`vite-css-modules --silent`), wired ahead of `vite`, `tsc --noEmit`, and `tsc -b` in `package.json` (`dev`, `typecheck`, `build`).
 2. **Explicit CSS Cascade Layer Order at App Entry:**

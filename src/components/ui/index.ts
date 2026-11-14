@@ -34,14 +34,14 @@ export type {
 export { Input } from "./Input";
 export type { InputProps } from "./Input";
 
-export { LoadingState } from "./LoadingState";
-export type { LoadingStateProps } from "./LoadingState";
-
 export { Modal } from "./Modal";
 export type { ModalProps } from "./Modal";
 
 export { Select } from "./Select";
 export type { SelectOption, SelectProps } from "./Select";
+
+export { Skeleton } from "./Skeleton";
+export type { SkeletonProps, SkeletonVariant } from "./Skeleton";
 
 export { Spinner } from "./Spinner";
 export type { SpinnerProps } from "./Spinner";

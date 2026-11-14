@@ -19,8 +19,8 @@ import {
   CardHeader,
   EmptyState,
   Flex,
-  LoadingState,
   Modal,
+  Skeleton,
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -40,7 +40,62 @@ export function PropertyDetailPage() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   if (propertyQuery.isPending) {
-    return <LoadingState label={t.common.loading} />;
+    return (
+      <Flex direction="column" gap={5} role="status" aria-busy="true">
+        <span className="visually-hidden">{t.common.loading}</span>
+
+        <Flex wrap align="start" justify="between" gap={3}>
+          <Flex direction="column" gap={1}>
+            <Flex align="center" gap={2}>
+              <Anchor as={Link} to="/properties" tone="secondary">
+                <Flex as="span" inline align="center" gap={1}>
+                  <ArrowLeft aria-hidden="true" size={16} />
+                  <Text as="span" variant="subtitle">
+                    {t.nav.properties}
+                  </Text>
+                </Flex>
+              </Anchor>
+            </Flex>
+
+            <Skeleton variant="text" width="14rem" height="2rem" />
+            <Skeleton variant="text" width="16rem" height="0.875rem" />
+          </Flex>
+
+          <Flex wrap gap={2}>
+            <Skeleton variant="rect" width="7.5rem" height="2rem" />
+            <Skeleton variant="rect" width="6rem" height="2rem" />
+          </Flex>
+        </Flex>
+
+        <Card>
+          <CardHeader>
+            <Text variant="card-title">
+              {t.properties.detail.editSectionTitle}
+            </Text>
+          </CardHeader>
+          <CardContent>
+            <Flex direction="column" gap={4}>
+              <Flex direction="column" gap={1}>
+                <Skeleton variant="text" width="6rem" height="1rem" />
+                <Skeleton variant="rect" width="100%" height="2.75rem" />
+              </Flex>
+
+              <Flex direction="column" gap={1}>
+                <Skeleton variant="text" width="8rem" height="1rem" />
+                <Skeleton variant="rect" width="100%" height="5.5rem" />
+              </Flex>
+
+              <Flex direction="column" gap={1}>
+                <Skeleton variant="text" width="5rem" height="1rem" />
+                <Skeleton variant="rect" width="100%" height="5.5rem" />
+              </Flex>
+
+              <Skeleton variant="rect" width="100%" height="2.75rem" />
+            </Flex>
+          </CardContent>
+        </Card>
+      </Flex>
+    );
   }
 
   if (propertyQuery.isError || !propertyQuery.data) {

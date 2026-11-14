@@ -5,9 +5,21 @@ import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
 import { PropertyCard } from "@/components/features/properties/PropertyCard";
 import { useNotifications } from "@/notifications/NotificationProvider";
-import { Button, EmptyState, Flex, LoadingState, Text } from "@/components/ui";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  EmptyState,
+  Flex,
+  Skeleton,
+  Text,
+} from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 import styles from "./PropertiesListPage.module.css";
+
+const SKELETON_CARD_KEYS = [0, 1, 2] as const;
 
 export function PropertiesListPage() {
   const { t } = useI18n();
@@ -35,10 +47,7 @@ export function PropertiesListPage() {
     }
   };
 
-  if (propertiesQuery.isPending || meQuery.isPending) {
-    return <LoadingState label={t.common.loading} />;
-  }
-
+  const isLoading = propertiesQuery.isPending || meQuery.isPending;
   const properties = propertiesQuery.data ?? [];
   const preferredPropertyId = meQuery.data?.preferredPropertyId ?? null;
 
@@ -58,7 +67,35 @@ export function PropertiesListPage() {
         </Button>
       </Flex>
 
-      {properties.length === 0 ? (
+      {isLoading ? (
+        <div className={styles.grid} role="status" aria-busy="true">
+          <span className="visually-hidden">{t.common.loading}</span>
+          {SKELETON_CARD_KEYS.map((key) => (
+            <Card key={key} as="article">
+              <CardHeader>
+                <Flex direction="column" gap={1}>
+                  <Skeleton variant="text" width="10rem" height="1.375rem" />
+                  <Skeleton variant="text" width="7.5rem" height="0.875rem" />
+                </Flex>
+
+                <Skeleton variant="circle" width="5rem" height="1.375rem" />
+              </CardHeader>
+
+              <CardContent>
+                <Flex direction="column" gap={2}>
+                  <Skeleton variant="text" width="100%" height="1rem" />
+                  <Skeleton variant="text" width="75%" height="0.875rem" />
+                </Flex>
+              </CardContent>
+
+              <CardFooter>
+                <Skeleton variant="rect" width="7.5rem" height="2rem" />
+                <Skeleton variant="rect" width="6.5rem" height="2rem" />
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      ) : properties.length === 0 ? (
         <EmptyState
           title={t.properties.emptyTitle}
           description={t.properties.emptyDescription}
