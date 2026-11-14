@@ -1,7 +1,7 @@
 # ADR 0005: Design System Tokens, Modern Web Platform Primitives, and UI vs. Feature Separation
 
 - **Status:** Accepted (Updated)
-- **Date:** 2026-11-11
+- **Date:** 2026-11-14
 
 ## Context
 The showcase application requires a minimal, high-impact design system supporting Light and Dark themes, strict separation between primitive and semantic theme tokens (single source of truth), and reusable UI components with zero business-logic coupling.
@@ -17,7 +17,7 @@ The showcase application requires a minimal, high-impact design system supportin
    - `Modal` uses `<dialog closedby="any">` opened with `.showModal()` (with a coordinate-based click fallback for browsers without `closedBy`) and `overscroll-behavior: contain` on `dialog:modal` and `dialog::backdrop`.
    - `ToastViewport` uses the Popover API (`popover="manual"`) inside a top-layer stack with `ariaNotify()` + a pre-populated `aria-live="assertive"` live region.
 4. **Pure UI Primitives (`src/components/ui/`) vs. Feature Components (`src/components/features/`):**
-   - Components in `src/components/ui/` accept only presentation props and never import from `src/api/` or domain modules.
+   - Components in `src/components/ui/` accept only presentation props (using `@layer components` CSS Modules and `as?: C` polymorphism where needed) and never import from `react-router`, `src/api/`, `src/i18n/`, `src/notifications/`, or domain modules. See ADR `0010` for the CSS Module, folder layout, and primitive boundary rules.
 
 ## Consequences
 - **Positive:** Single source of truth for all tokens; zero-JS focus trapping and `Esc` handling for modals; automatic WCAG foreground contrast calculation via `contrast-color()`.

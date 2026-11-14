@@ -56,13 +56,14 @@ Web app where you organize and manage your property portfolio information.
 
 ## Scripts
 
-| Command             | Description                                                     |
-| ------------------- | --------------------------------------------------------------- |
-| `npm run dev`       | Start Vite dev server at `http://localhost:5173` with API proxy |
-| `npm run build`     | Typecheck (`tsc -b`) and build production bundle to `dist/`     |
-| `npm run deploy`    | Deploy the built `dist/` static assets to Cloudflare Workers    |
-| `npm run preview`   | Locally preview the production build from `dist/`               |
-| `npm run typecheck` | Run TypeScript compiler check without emitting (`tsc --noEmit`) |
+| Command             | Description                                                                        |
+| ------------------- | ---------------------------------------------------------------------------------- |
+| `npm run css:types` | Generate TypeScript declaration files (`*.module.css.d.ts`) for CSS Modules      |
+| `npm run dev`       | Generate CSS Module types and start Vite dev server at `http://localhost:5173`     |
+| `npm run build`     | Generate CSS Module types, run `tsc -b`, and build production bundle to `dist/`    |
+| `npm run deploy`    | Deploy the built `dist/` static assets to Cloudflare Workers                       |
+| `npm run preview`   | Locally preview the production build from `dist/`                                  |
+| `npm run typecheck` | Generate CSS Module types and run TypeScript compiler check without emitting       |
 
 ---
 
@@ -70,17 +71,17 @@ Web app where you organize and manage your property portfolio information.
 
 ```text
 src/
-├── api/          # Fetch client, React Query keys, and domain API modules (auth, properties)
+├── api/            # Fetch client, React Query keys, types, and domain API modules (auth, properties)
 ├── components/
-│   ├── features/ # Domain-specific components (auth, profile, properties tabs & modals)
-│   ├── layout/   # AppLayout, AuthLayout, TopControls, BrandLogo
-│   ├── notifications/ # Toast notification context & provider
-│   └── ui/       # Reusable UI primitives (Button, Input, Select, Modal, Card, Badge, Alert, etc.)
-├── hooks/        # Shared hooks (e.g. useAppForm wrapper for React Hook Form + Zod)
-├── i18n/         # Locale dictionaries (bg-BG, en-US) and I18nProvider
-├── pages/        # Route-level page components
-├── theme/        # Design tokens (tokens.css) and ThemeProvider (light/dark/system)
-├── types/        # Shared TypeScript interfaces matching API contracts
-├── utils/        # Formatting and error mapping helpers
-└── validators/   # Zod schemas mapped to i18n validation keys
+│   ├── features/   # Domain-specific components (auth, profile, properties tabs & modals)
+│   ├── layout/     # AppLayout, AuthLayout, TopControls, BrandLogo
+│   └── ui/         # Pure polymorphic UI primitives (Anchor, Button, Input, Modal, Card, etc.)
+├── hooks/          # Shared hooks (e.g. useAppForm wrapper for React Hook Form + Zod)
+├── i18n/           # Locale dictionaries (bg-BG, en-US) and I18nProvider
+├── notifications/  # Toast notification context & global error notification bridge
+├── pages/          # Route-level page components
+├── theme/          # Design tokens & cascade layers (tokens.css) and ThemeProvider (light/dark/system)
+└── validators/     # Zod schemas mapped to i18n validation keys
 ```
+
+Each component, layout, and page lives in its own `<Name>/` folder alongside any colocated `<Name>.types.ts`, `<Name>.module.css`, and `index.ts` barrel.
