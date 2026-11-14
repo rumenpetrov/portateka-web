@@ -30,14 +30,12 @@ export function HomePage() {
               {t.app.betaBadge}
             </Badge>
           </div>
-          <Text variant="page-title">{t.home.title}</Text>
-          <Text
-            variant="subtitle"
-            tone="secondary"
-            style={{ marginBlockStart: "var(--primitive-space-1)" }}
-          >
-            {t.home.subtitle}
-          </Text>
+          <Flex direction="column" gap={1}>
+            <Text variant="page-title">{t.home.title}</Text>
+            <Text variant="subtitle" tone="secondary">
+              {t.home.subtitle}
+            </Text>
+          </Flex>
         </div>
       </CardHeader>
 
