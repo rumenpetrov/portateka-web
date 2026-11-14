@@ -5,6 +5,7 @@ import { Button, Fieldset } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { changePasswordSchema } from "@/validators/authValidators";
+import styles from "./ChangePasswordForm.module.css";
 
 export function ChangePasswordForm() {
   const { t } = useI18n();
@@ -58,9 +59,7 @@ export function ChangePasswordForm() {
           variant="primary"
           fullWidth
           isLoading={changePasswordMutation.isPending}
-          style={{
-            marginBlockStart: "var(--primitive-space-2)",
-          }}
+          className={styles.submit}
         >
           {t.profile.changePassword.submit}
         </Button>

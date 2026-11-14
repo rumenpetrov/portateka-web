@@ -12,6 +12,7 @@ import {
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
+import styles from "./HomePage.module.css";
 
 export function HomePage() {
   const { t } = useI18n();
@@ -21,11 +22,7 @@ export function HomePage() {
     <Card>
       <CardHeader>
         <div>
-          <div
-            style={{
-              marginBlockEnd: "var(--primitive-space-2)",
-            }}
-          >
+          <div className={styles.headerBadge}>
             <Badge variant="warning" solid>
               {t.app.betaBadge}
             </Badge>
@@ -52,12 +49,7 @@ export function HomePage() {
           </Alert>
 
           {token ? (
-            <Flex
-              direction="column"
-              style={{
-                marginBlockStart: "var(--primitive-space-2)",
-              }}
-            >
+            <Flex direction="column" className={styles.ctaGroup}>
               <Button
                 as={Anchor}
                 to="/properties"
@@ -69,13 +61,7 @@ export function HomePage() {
               </Button>
             </Flex>
           ) : (
-            <Flex
-              direction="column"
-              gap={2}
-              style={{
-                marginBlockStart: "var(--primitive-space-2)",
-              }}
-            >
+            <Flex direction="column" gap={2} className={styles.ctaGroup}>
               <Button
                 as={Anchor}
                 to="/sign-in"

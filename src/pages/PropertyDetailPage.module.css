@@ -1,0 +1,5 @@
+@layer components {
+  .modalDescription {
+    margin-block-end: var(--primitive-space-5);
+  }
+}

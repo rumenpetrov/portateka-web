@@ -15,6 +15,7 @@ import {
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { verifyEmailSchema } from "@/validators/authValidators";
+import styles from "./VerifyEmailPage.module.css";
 
 export function VerifyEmailPage() {
   const { t } = useI18n();
@@ -86,9 +87,7 @@ export function VerifyEmailPage() {
               <Flex
                 align="center"
                 gap={2}
-                style={{
-                  marginBlockEnd: "var(--primitive-space-4)",
-                }}
+                className={styles.verifying}
               >
                 <Spinner label={t.auth.verifyEmail.verifying} />
                 <Text as="span" variant="subtitle">

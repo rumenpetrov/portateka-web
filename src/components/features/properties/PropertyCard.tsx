@@ -12,6 +12,7 @@ import {
   Text,
 } from "@/components/ui";
 import { PreferredPropertyBadge } from "./PreferredPropertyBadge";
+import styles from "./PropertyCard.module.css";
 
 interface PropertyCardProps {
   property: PropertyItem;
@@ -54,10 +55,7 @@ export function PropertyCard({
           <Text
             variant="subtitle"
             tone="secondary"
-            style={{
-              whiteSpace: "pre-wrap",
-              overflowWrap: "anywhere",
-            }}
+            className={styles.description}
           >
             {property.description}
           </Text>
@@ -67,13 +65,7 @@ export function PropertyCard({
           <Text
             variant="caption"
             tone="muted"
-            style={{
-              marginBlockStart: "var(--primitive-space-3)",
-              paddingBlockStart: "var(--primitive-space-2)",
-              borderBlockStart: "1px dashed var(--theme-border-subtle)",
-              whiteSpace: "pre-wrap",
-              overflowWrap: "anywhere",
-            }}
+            className={styles.notes}
           >
             {property.notes}
           </Text>

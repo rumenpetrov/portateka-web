@@ -7,6 +7,7 @@ import { Anchor, Button, Fieldset, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { signInEmailSchema } from "@/validators/authValidators";
+import styles from "./SignInPage.module.css";
 
 export function SignInPage() {
   const { setLocale, t } = useI18n();
@@ -75,9 +76,7 @@ export function SignInPage() {
           <Flex
             direction="column"
             gap={3}
-            style={{
-              marginBlockStart: "var(--primitive-space-5)",
-            }}
+            className={styles.actions}
           >
             <Button
               type="submit"

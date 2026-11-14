@@ -29,6 +29,7 @@ import { SUPPORTED_LOCALES } from "@/i18n/types";
 import type { SupportedLocale } from "@/i18n/types";
 import { useTheme } from "@/theme/ThemeProvider";
 import type { ColorSchemePreference } from "@/theme/ThemeProvider";
+import styles from "./ProfilePage.module.css";
 
 export function ProfilePage() {
   const { locale, setLocale, t, formatDate } = useI18n();
@@ -190,12 +191,12 @@ export function ProfilePage() {
         <Text
           variant="subtitle"
           tone="secondary"
-          style={{ marginBlockEnd: "var(--primitive-space-4)" }}
+          className={styles.modalDescription}
         >
           {t.profile.dangerZone.deleteModalDescription}
         </Text>
 
-        <div style={{ marginBlockEnd: "var(--primitive-space-5)" }}>
+        <div className={styles.confirmField}>
           <Input
             id="profile-delete-confirm-input"
             type="text"

@@ -1,0 +1,13 @@
+@layer components {
+  .description,
+  .notes {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .notes {
+    margin-block-start: var(--primitive-space-3);
+    padding-block-start: var(--primitive-space-2);
+    border-block-start: 1px dashed var(--theme-border-subtle);
+  }
+}

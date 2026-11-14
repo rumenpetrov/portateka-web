@@ -24,6 +24,7 @@ import {
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
+import styles from "./PropertyDetailPage.module.css";
 
 export function PropertyDetailPage() {
   const { id = "" } = useParams<{ id: string }>();
@@ -173,7 +174,7 @@ export function PropertyDetailPage() {
         <Text
           variant="subtitle"
           tone="secondary"
-          style={{ marginBlockEnd: "var(--primitive-space-5)" }}
+          className={styles.modalDescription}
         >
           {t.properties.detail.deleteModalDescription}
         </Text>
