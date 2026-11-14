@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
+import { clsx } from "clsx";
 import { CheckCircle2, Info, X, XCircle } from "lucide-react";
+import styles from "./ToastViewport.module.css";
 
 export type ToastTone = "info" | "success" | "error";
 
@@ -17,11 +19,17 @@ export interface ToastViewportProps {
   srAnnouncementLabel: string;
 }
 
+const TONE_CLASSES: Record<ToastTone, string> = {
+  info: styles.info,
+  success: styles.success,
+  error: styles.error,
+};
+
 function ToastToneIcon({ tone }: { tone: ToastTone }) {
   const iconProps = {
     "aria-hidden": true as const,
     size: 18,
-    style: { flexShrink: 0 },
+    className: styles.icon,
   };
 
   switch (tone) {
@@ -88,21 +96,21 @@ export function ToastViewport({
         popover="manual"
         role="region"
         aria-label={regionLabel}
-        className="ui-toast-region"
+        className={styles.region}
       >
         {toasts.map((item) => (
           <div
             key={item.id}
             id={`toast-${item.id}`}
-            className={`ui-toast ui-toast--${item.tone}`}
+            className={clsx(styles.toast, TONE_CLASSES[item.tone])}
           >
-            <div className="ui-toast-content">
+            <div className={styles.content}>
               <ToastToneIcon tone={item.tone} />
               <span>{item.message}</span>
             </div>
             <button
               type="button"
-              className="ui-toast-close"
+              className={styles.close}
               aria-label={dismissLabel}
               onClick={() => onDismiss(item.id)}
             >

@@ -1,0 +1,21 @@
+@layer components {
+  .emptyState {
+    text-align: center;
+    padding: var(--primitive-space-8) var(--primitive-space-4);
+    border: 1px dashed var(--theme-border-default);
+    border-radius: var(--primitive-radius-lg);
+    background-color: var(--theme-bg-surface);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--primitive-space-3);
+  }
+
+  .description {
+    max-inline-size: 30rem;
+  }
+
+  .action {
+    margin-block-start: var(--primitive-space-2);
+  }
+}
