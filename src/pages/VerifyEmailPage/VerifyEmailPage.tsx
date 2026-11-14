@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { useVerifyEmailMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
 import {
@@ -65,7 +65,7 @@ export function VerifyEmailPage() {
     <AuthCard
       title={t.auth.verifyEmail.title}
       subtitle={t.auth.verifyEmail.subtitle}
-      footer={<Anchor to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>}
+      footer={<Anchor as={Link} to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>}
     >
       {verified ? (
         <Flex direction="column" gap={4}>
@@ -75,7 +75,7 @@ export function VerifyEmailPage() {
               <p>{t.auth.verifyEmail.successMessage}</p>
             </Flex>
           </Alert>
-          <Button as={Anchor} to="/sign-in" variant="primary" fullWidth>
+          <Button as={Link} to="/sign-in" variant="primary" fullWidth>
             {t.auth.verifyEmail.proceedToSignIn}
           </Button>
         </Flex>

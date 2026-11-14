@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import { useSignUpMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
@@ -48,7 +49,9 @@ export function SignUpPage() {
       footer={
         <>
           <span>{t.auth.signUp.hasAccountPrompt} </span>
-          <Anchor to="/sign-in">{t.auth.signUp.signInLink}</Anchor>
+          <Anchor as={Link} to="/sign-in">
+            {t.auth.signUp.signInLink}
+          </Anchor>
         </>
       }
     >
@@ -61,7 +64,7 @@ export function SignUpPage() {
             </Flex>
           </Alert>
           <Button
-            as={Anchor}
+            as={Link}
             to="/verify-email"
             variant="primary"
             fullWidth

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useSignInMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
@@ -42,7 +42,9 @@ export function SignInPage() {
       footer={
         <>
           <span>{t.auth.signIn.noAccountPrompt} </span>
-          <Anchor to="/sign-up">{t.auth.signIn.signUpLink}</Anchor>
+          <Anchor as={Link} to="/sign-up">
+            {t.auth.signIn.signUpLink}
+          </Anchor>
         </>
       }
     >
@@ -84,10 +86,10 @@ export function SignInPage() {
 
             <Text as="div" variant="subtitle">
               <Flex wrap justify="between" gap={2}>
-                <Anchor to="/forgot-password">
+                <Anchor as={Link} to="/forgot-password">
                   {t.auth.signIn.forgotPasswordLink}
                 </Anchor>
-                <Anchor to="/verify-email">
+                <Anchor as={Link} to="/verify-email">
                   {t.auth.signIn.needVerificationLink}
                 </Anchor>
               </Flex>

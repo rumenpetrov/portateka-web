@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, Star, Trash2 } from "lucide-react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import {
   useDeletePropertyMutation,
@@ -48,7 +48,7 @@ export function PropertyDetailPage() {
       <EmptyState
         title={t.errors.topLevel.NOT_FOUND.property}
         action={
-          <Button as={Anchor} to="/properties" variant="primary">
+          <Button as={Link} to="/properties" variant="primary">
             <ArrowLeft aria-hidden="true" size={16} />
             <span>{t.common.back}</span>
           </Button>
@@ -92,19 +92,14 @@ export function PropertyDetailPage() {
       <Flex wrap align="start" justify="between" gap={3}>
         <Flex direction="column" gap={1}>
           <Flex align="center" gap={2}>
-            <Flex
-              as={Anchor}
-              to="/properties"
-              tone="secondary"
-              inline
-              align="center"
-              gap={1}
-            >
-              <ArrowLeft aria-hidden="true" size={16} />
-              <Text as="span" variant="subtitle">
-                {t.nav.properties}
-              </Text>
-            </Flex>
+            <Anchor as={Link} to="/properties" tone="secondary">
+              <Flex as="span" inline align="center" gap={1}>
+                <ArrowLeft aria-hidden="true" size={16} />
+                <Text as="span" variant="subtitle">
+                  {t.nav.properties}
+                </Text>
+              </Flex>
+            </Anchor>
             <PreferredPropertyBadge isPreferred={isPreferred} />
           </Flex>
 

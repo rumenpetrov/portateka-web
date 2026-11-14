@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { useResetPasswordMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
@@ -35,7 +35,11 @@ export function ResetPasswordPage() {
     <AuthCard
       title={t.auth.resetPassword.title}
       subtitle={t.auth.resetPassword.subtitle}
-      footer={<Anchor to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>}
+      footer={
+        <Anchor as={Link} to="/sign-in">
+          {t.auth.forgotPassword.backToSignIn}
+        </Anchor>
+      }
     >
       {completed ? (
         <Flex direction="column" gap={4}>
@@ -45,7 +49,7 @@ export function ResetPasswordPage() {
               <p>{t.auth.resetPassword.successMessage}</p>
             </Flex>
           </Alert>
-          <Button as={Anchor} to="/sign-in" variant="primary" fullWidth>
+          <Button as={Link} to="/sign-in" variant="primary" fullWidth>
             {t.auth.resetPassword.proceedToSignIn}
           </Button>
         </Flex>

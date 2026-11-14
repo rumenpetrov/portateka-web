@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import { useForgotPasswordMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
 import { Alert, Anchor, Button, Fieldset, Flex, Input } from "@/components/ui";
@@ -31,7 +32,11 @@ export function ForgotPasswordPage() {
     <AuthCard
       title={t.auth.forgotPassword.title}
       subtitle={t.auth.forgotPassword.subtitle}
-      footer={<Anchor to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>}
+      footer={
+        <Anchor as={Link} to="/sign-in">
+          {t.auth.forgotPassword.backToSignIn}
+        </Anchor>
+      }
     >
       {sent ? (
         <Flex direction="column" gap={4}>
@@ -42,7 +47,7 @@ export function ForgotPasswordPage() {
             </Flex>
           </Alert>
           <Button
-            as={Anchor}
+            as={Link}
             to="/reset-password"
             variant="primary"
             fullWidth
