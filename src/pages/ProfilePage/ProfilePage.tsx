@@ -125,34 +125,36 @@ export function ProfilePage() {
 
       <Card>
         <CardContent>
-          <Select
-            id="profile-language-select"
-            label={t.preferences.languageLabel}
-            value={locale}
-            options={SUPPORTED_LOCALES.map((supportedLocale) => ({
-              value: supportedLocale,
-              label: t.preferences.languages[supportedLocale],
-            }))}
-            onChange={(e) => {
-              const next = e.target.value as SupportedLocale;
-              setLocale(next);
-              updateMeMutation.mutate({ locale: next });
-            }}
-          />
+          <Flex direction="column" gap={4}>
+            <Select
+              id="profile-language-select"
+              label={t.preferences.languageLabel}
+              value={locale}
+              options={SUPPORTED_LOCALES.map((supportedLocale) => ({
+                value: supportedLocale,
+                label: t.preferences.languages[supportedLocale],
+              }))}
+              onChange={(e) => {
+                const next = e.target.value as SupportedLocale;
+                setLocale(next);
+                updateMeMutation.mutate({ locale: next });
+              }}
+            />
 
-          <Select
-            id="profile-theme-select"
-            label={t.preferences.themeLabel}
-            value={preference}
-            options={[
-              { value: "system", label: t.preferences.themes.system },
-              { value: "light", label: t.preferences.themes.light },
-              { value: "dark", label: t.preferences.themes.dark },
-            ]}
-            onChange={(e) =>
-              setPreference(e.target.value as ColorSchemePreference)
-            }
-          />
+            <Select
+              id="profile-theme-select"
+              label={t.preferences.themeLabel}
+              value={preference}
+              options={[
+                { value: "system", label: t.preferences.themes.system },
+                { value: "light", label: t.preferences.themes.light },
+                { value: "dark", label: t.preferences.themes.dark },
+              ]}
+              onChange={(e) =>
+                setPreference(e.target.value as ColorSchemePreference)
+              }
+            />
+          </Flex>
         </CardContent>
       </Card>
 
