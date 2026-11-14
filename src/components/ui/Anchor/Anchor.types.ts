@@ -1,44 +1,19 @@
-import type {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ReactNode,
-} from "react";
-import type { LinkProps } from "react-router";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 export type AnchorTone = "accent" | "primary" | "secondary" | "muted" | "inherit";
 export type AnchorUnderline = "always" | "hover" | "none";
 
-interface AnchorBaseProps {
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown
+  ? Omit<T, K>
+  : never;
+
+interface AnchorOwnProps<C extends ElementType = "a"> {
+  as?: C;
   tone?: AnchorTone;
   underline?: AnchorUnderline;
-  children?: ReactNode;
   className?: string;
+  children?: ReactNode;
 }
 
-type AnchorAsLinkProps = AnchorBaseProps &
-  Omit<LinkProps, "className" | "children"> & {
-    as?: never;
-    href?: never;
-  };
-
-type AnchorAsExternalProps = AnchorBaseProps &
-  Omit<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    "className" | "children" | "href"
-  > & {
-    as?: "a";
-    href: string;
-    to?: never;
-  };
-
-type AnchorAsButtonProps = AnchorBaseProps &
-  Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children"> & {
-    as: "button";
-    to?: never;
-    href?: never;
-  };
-
-export type AnchorProps =
-  | AnchorAsLinkProps
-  | AnchorAsExternalProps
-  | AnchorAsButtonProps;
+export type AnchorProps<C extends ElementType = "a"> = AnchorOwnProps<C> &
+  DistributiveOmit<ComponentPropsWithoutRef<C>, keyof AnchorOwnProps<C>>;

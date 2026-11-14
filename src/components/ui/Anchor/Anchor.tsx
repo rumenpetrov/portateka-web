@@ -1,81 +1,69 @@
+import type { ComponentPropsWithoutRef, ElementType } from "react";
 import { clsx } from "clsx";
-import { Link } from "react-router";
 import styles from "./Anchor.module.css";
-import type { AnchorProps } from "./Anchor.types";
+import type { AnchorProps, AnchorTone, AnchorUnderline } from "./Anchor.types";
 
-export function Anchor(props: AnchorProps) {
-  const {
-    tone = "accent",
-    underline = "always",
-    className,
-    children,
-  } = props;
+const TONE_CLASSES: Record<Exclude<AnchorTone, "accent">, string> = {
+  primary: styles.tonePrimary,
+  secondary: styles.toneSecondary,
+  muted: styles.toneMuted,
+  inherit: styles.toneInherit,
+};
 
-  const anchorClassName = clsx(
+const UNDERLINE_CLASSES: Record<Exclude<AnchorUnderline, "always">, string> = {
+  hover: styles.underlineHover,
+  none: styles.underlineNone,
+};
+
+export function Anchor<C extends ElementType = "a">({
+  as,
+  tone = "accent",
+  underline = "always",
+  className,
+  children,
+  ...rest
+}: AnchorProps<C>) {
+  const Component = (as ?? "a") as ElementType;
+  const classes = clsx(
     styles.anchor,
-    props.as === "button" && styles.button,
-    underline === "hover" && styles.underlineHover,
-    underline === "none" && styles.underlineNone,
-    tone === "primary" && styles.tonePrimary,
-    tone === "secondary" && styles.toneSecondary,
-    tone === "muted" && styles.toneMuted,
-    tone === "inherit" && styles.toneInherit,
+    Component === "button" && styles.button,
+    underline !== "always" && UNDERLINE_CLASSES[underline],
+    tone !== "accent" && TONE_CLASSES[tone],
     className,
   );
 
-  if (props.as === "button") {
-    const {
-      as: _as,
-      type = "button",
-      tone: _tone,
-      underline: _underline,
-      className: _className,
-      children: _children,
-      ...rest
-    } = props;
+  if (Component === "button") {
+    const buttonRest = rest as ComponentPropsWithoutRef<"button">;
+    const { type = "button", ...otherButtonProps } = buttonRest;
 
     return (
-      <button type={type} className={anchorClassName} {...rest}>
+      <button type={type} className={classes} {...otherButtonProps}>
         {children}
       </button>
     );
   }
 
-  if (typeof props.href === "string") {
-    const {
-      as: _as,
-      href,
-      target,
-      rel,
-      tone: _tone,
-      underline: _underline,
-      className: _className,
-      children: _children,
-      ...rest
-    } = props;
-
+  if (Component === "a") {
+    const anchorRest = rest as ComponentPropsWithoutRef<"a">;
+    const { target, rel, ...otherAnchorProps } = anchorRest;
     const resolvedRel =
       target === "_blank" && !rel ? "noopener noreferrer" : rel;
 
     return (
-      <a href={href} target={target} rel={resolvedRel} className={anchorClassName} {...rest}>
+      <a
+        target={target}
+        rel={resolvedRel}
+        className={classes}
+        {...otherAnchorProps}
+      >
         {children}
       </a>
     );
   }
 
-  const {
-    as: _as,
-    tone: _tone,
-    underline: _underline,
-    className: _className,
-    children: _children,
-    ...rest
-  } = props;
-
   return (
-    <Link className={anchorClassName} {...rest}>
+    <Component className={classes} {...rest}>
       {children}
-    </Link>
+    </Component>
   );
 }

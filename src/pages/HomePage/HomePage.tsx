@@ -1,8 +1,8 @@
 import { ArrowRight, LogIn, UserPlus } from "lucide-react";
+import { Link } from "react-router";
 import { useAuthToken } from "@/api/auth.api";
 import {
   Alert,
-  Anchor,
   Badge,
   Button,
   Card,
@@ -51,7 +51,7 @@ export function HomePage() {
           {token ? (
             <Flex direction="column" className={styles.ctaGroup}>
               <Button
-                as={Anchor}
+                as={Link}
                 to="/properties"
                 variant="primary"
                 fullWidth
@@ -63,7 +63,7 @@ export function HomePage() {
           ) : (
             <Flex direction="column" gap={2} className={styles.ctaGroup}>
               <Button
-                as={Anchor}
+                as={Link}
                 to="/sign-in"
                 variant="primary"
                 fullWidth
@@ -71,7 +71,7 @@ export function HomePage() {
                 <LogIn aria-hidden="true" size={18} />
                 <span>{t.home.signInCta}</span>
               </Button>
-              <Button as={Anchor} to="/sign-up" fullWidth>
+              <Button as={Link} to="/sign-up" fullWidth>
                 <UserPlus aria-hidden="true" size={18} />
                 <span>{t.home.signUpCta}</span>
               </Button>

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
+import { Link } from "react-router";
 import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
 import { PropertyCard } from "@/components/features/properties/PropertyCard";
 import { useNotifications } from "@/notifications/NotificationProvider";
-import { Anchor, Button, EmptyState, Flex, LoadingState, Text } from "@/components/ui";
+import { Button, EmptyState, Flex, LoadingState, Text } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 import styles from "./PropertiesListPage.module.css";
 
@@ -51,7 +52,7 @@ export function PropertiesListPage() {
           </Text>
         </div>
 
-        <Button as={Anchor} to="/properties/new" variant="primary">
+        <Button as={Link} to="/properties/new" variant="primary">
           <Plus aria-hidden="true" size={18} />
           <span>{t.properties.createButton}</span>
         </Button>
@@ -62,7 +63,7 @@ export function PropertiesListPage() {
           title={t.properties.emptyTitle}
           description={t.properties.emptyDescription}
           action={
-            <Button as={Anchor} to="/properties/new" variant="primary">
+            <Button as={Link} to="/properties/new" variant="primary">
               <Plus aria-hidden="true" size={18} />
               <span>{t.properties.createButton}</span>
             </Button>

@@ -1,4 +1,5 @@
 import { ArrowRight, Star } from "lucide-react";
+import { Link } from "react-router";
 import { useI18n } from "@/i18n/I18nProvider";
 import {
   Anchor,
@@ -28,6 +29,7 @@ export function PropertyCard({
         <Flex direction="column" gap={1}>
           <Text variant="card-title">
             <Anchor
+              as={Link}
               to={`/properties/${property.id}`}
               tone="primary"
               underline="none"
@@ -85,7 +87,7 @@ export function PropertyCard({
         </Button>
 
         <Button
-          as={Anchor}
+          as={Link}
           to={`/properties/${property.id}`}
           variant="primary"
           size="sm"
