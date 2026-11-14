@@ -90,14 +90,8 @@ export function PropertyDetailPage() {
   return (
     <Flex direction="column" gap={5}>
       <Flex wrap align="start" justify="between" gap={3}>
-        <div>
-          <Flex
-            align="center"
-            gap={2}
-            style={{
-              marginBlockEnd: "var(--primitive-space-1)",
-            }}
-          >
+        <Flex direction="column" gap={1}>
+          <Flex align="center" gap={2}>
             <Flex
               as={Anchor}
               to="/properties"
@@ -116,15 +110,11 @@ export function PropertyDetailPage() {
 
           <Text variant="page-title">{property.name}</Text>
 
-          <Text
-            variant="caption"
-            tone="muted"
-            style={{ marginBlockStart: "var(--primitive-space-1)" }}
-          >
+          <Text variant="caption" tone="muted">
             {t.properties.createdAtLabel}: {formatDate(property.createdAt)} ·{" "}
             {t.properties.updatedAtLabel}: {formatDate(property.updatedAt)}
           </Text>
-        </div>
+        </Flex>
 
         <Flex wrap gap={2}>
           <Button

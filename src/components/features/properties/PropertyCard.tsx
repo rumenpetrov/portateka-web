@@ -8,6 +8,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
+  Flex,
   Text,
 } from "@/components/ui";
 import { PreferredPropertyBadge } from "./PreferredPropertyBadge";
@@ -30,7 +31,7 @@ export function PropertyCard({
   return (
     <Card as="article">
       <CardHeader>
-        <div>
+        <Flex direction="column" gap={1}>
           <Text variant="card-title">
             <Anchor
               to={`/properties/${property.id}`}
@@ -40,14 +41,10 @@ export function PropertyCard({
               {property.name}
             </Anchor>
           </Text>
-          <Text
-            variant="caption"
-            tone="muted"
-            style={{ marginBlockStart: "var(--primitive-space-1)" }}
-          >
+          <Text variant="caption" tone="muted">
             {t.properties.createdAtLabel}: {formatDate(property.createdAt)}
           </Text>
-        </div>
+        </Flex>
 
         <PreferredPropertyBadge isPreferred={isPreferred} />
       </CardHeader>

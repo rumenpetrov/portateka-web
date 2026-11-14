@@ -84,18 +84,14 @@ export function ProfilePage() {
 
       <Card>
         <CardHeader>
-          <div>
+          <Flex direction="column" gap={1}>
             <Text variant="card-title">{user.email}</Text>
             {user.createdAt ? (
-              <Text
-                variant="caption"
-                tone="muted"
-                style={{ marginBlockStart: "var(--primitive-space-1)" }}
-              >
+              <Text variant="caption" tone="muted">
                 {t.profile.memberSinceLabel}: {formatDate(user.createdAt)}
               </Text>
             ) : null}
-          </div>
+          </Flex>
 
           <Badge variant={user.emailVerified ? "success" : "warning"}>
             {user.emailVerified
@@ -114,16 +110,12 @@ export function ProfilePage() {
 
       <Card>
         <CardHeader>
-          <div>
+          <Flex direction="column" gap={1}>
             <Text variant="card-title">{t.profile.changePassword.title}</Text>
-            <Text
-              variant="caption"
-              tone="muted"
-              style={{ marginBlockStart: "var(--primitive-space-1)" }}
-            >
+            <Text variant="caption" tone="muted">
               {t.profile.changePassword.subtitle}
             </Text>
-          </div>
+          </Flex>
         </CardHeader>
 
         <CardContent>
@@ -166,18 +158,14 @@ export function ProfilePage() {
 
       <Card>
         <CardHeader>
-          <div>
+          <Flex direction="column" gap={1}>
             <Text variant="card-title" tone="danger">
               {t.profile.dangerZone.title}
             </Text>
-            <Text
-              variant="caption"
-              tone="muted"
-              style={{ marginBlockStart: "var(--primitive-space-1)" }}
-            >
+            <Text variant="caption" tone="muted">
               {t.profile.dangerZone.subtitle}
             </Text>
-          </div>
+          </Flex>
         </CardHeader>
 
         <CardContent>
