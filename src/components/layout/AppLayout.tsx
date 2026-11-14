@@ -7,6 +7,7 @@ import type { SupportedLocale } from "@/i18n/types";
 import { Button, Flex } from "@/components/ui";
 import { BrandLogo } from "./BrandLogo";
 import { TopControls } from "./TopControls";
+import styles from "./AppLayout.module.css";
 
 export function AppLayout() {
   const { setLocale, t } = useI18n();
@@ -29,27 +30,27 @@ export function AppLayout() {
   };
 
   return (
-    <div className="app-shell">
-      <header className="app-header">
-        <div className="app-header-inner">
+    <div className={styles.shell}>
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
           <Flex align="center" gap={6}>
             <BrandLogo />
 
             <nav
               aria-label={t.nav.mainNavigation}
-              className="app-desktop-nav"
+              className={styles.desktopNav}
             >
               <NavLink
                 to="/properties"
                 end
-                className="app-desktop-nav-item"
+                className={styles.desktopNavItem}
               >
                 <Building2 aria-hidden="true" size={16} />
                 <span>{t.nav.properties}</span>
               </NavLink>
               <NavLink
                 to="/profile"
-                className="app-desktop-nav-item"
+                className={styles.desktopNavItem}
               >
                 <User aria-hidden="true" size={16} />
                 <span>{t.nav.profile}</span>
@@ -59,7 +60,7 @@ export function AppLayout() {
 
           <Flex align="center" gap={2}>
             <TopControls />
-            <div className="app-desktop-nav">
+            <div className={styles.desktopNav}>
               <Button variant="secondary" size="sm" onClick={handleSignOut}>
                 <LogOut aria-hidden="true" size={16} />
                 <span>{t.nav.signOut}</span>
@@ -69,22 +70,22 @@ export function AppLayout() {
         </div>
       </header>
 
-      <main className="app-main">
+      <main className={styles.main}>
         <Outlet />
       </main>
 
-      <nav aria-label={t.nav.mainNavigation} className="app-bottom-nav">
-        <NavLink to="/properties" end className="app-bottom-nav-item">
+      <nav aria-label={t.nav.mainNavigation} className={styles.bottomNav}>
+        <NavLink to="/properties" end className={styles.bottomNavItem}>
           <Building2 aria-hidden="true" size={20} />
           <span>{t.nav.properties}</span>
         </NavLink>
-        <NavLink to="/profile" className="app-bottom-nav-item">
+        <NavLink to="/profile" className={styles.bottomNavItem}>
           <User aria-hidden="true" size={20} />
           <span>{t.nav.profile}</span>
         </NavLink>
         <button
           type="button"
-          className="app-bottom-nav-item"
+          className={styles.bottomNavItem}
           onClick={handleSignOut}
         >
           <LogOut aria-hidden="true" size={20} />

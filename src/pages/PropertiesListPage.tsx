@@ -6,6 +6,7 @@ import { PropertyCard } from "@/components/features/properties/PropertyCard";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
 import { Anchor, Button, EmptyState, Flex, LoadingState, Text } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
+import styles from "./PropertiesListPage.module.css";
 
 export function PropertiesListPage() {
   const { t } = useI18n();
@@ -68,7 +69,7 @@ export function PropertiesListPage() {
           }
         />
       ) : (
-        <div className="property-grid">
+        <div className={styles.grid}>
           {properties.map((property) => (
             <PropertyCard
               key={property.id}

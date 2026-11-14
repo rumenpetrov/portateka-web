@@ -1,0 +1,34 @@
+@layer components {
+  .shell {
+    min-block-size: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding-inline: var(--primitive-space-4);
+    padding-block-start: var(--primitive-space-3);
+    padding-block-end: calc(var(--primitive-space-6) + env(safe-area-inset-bottom, 0px));
+    box-sizing: border-box;
+  }
+
+  .header {
+    max-inline-size: 64rem;
+    inline-size: 100%;
+    margin-inline: auto;
+    padding-block: var(--primitive-space-2);
+  }
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    inline-size: 100%;
+    max-inline-size: 26rem;
+    margin-inline: auto;
+    padding-block-start: var(--primitive-space-3);
+
+    @media (min-width: 40rem) {
+      justify-content: center;
+      padding-block-start: 0;
+    }
+  }
+}

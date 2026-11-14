@@ -1,0 +1,7 @@
+@layer components {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(18.75rem, 100%), 1fr));
+    gap: var(--primitive-space-4);
+  }
+}
