@@ -4,7 +4,7 @@ import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
 import { PropertyCard } from "@/components/features/properties/PropertyCard";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Anchor, Button, EmptyState, Flex, Spinner, Text } from "@/components/ui";
+import { Anchor, Button, EmptyState, Flex, LoadingState, Text } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function PropertiesListPage() {
@@ -34,16 +34,7 @@ export function PropertiesListPage() {
   };
 
   if (propertiesQuery.isPending || meQuery.isPending) {
-    return (
-      <Flex
-        justify="center"
-        style={{
-          paddingBlock: "var(--primitive-space-10)",
-        }}
-      >
-        <Spinner label={t.common.loading} size="1.75rem" />
-      </Flex>
-    );
+    return <LoadingState label={t.common.loading} />;
   }
 
   const properties = propertiesQuery.data ?? [];

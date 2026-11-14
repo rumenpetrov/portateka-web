@@ -27,6 +27,9 @@ export type {
 export { Input } from "./Input";
 export type { InputProps } from "./Input";
 
+export { LoadingState } from "./LoadingState";
+export type { LoadingStateProps } from "./LoadingState";
+
 export { Modal } from "./Modal";
 export type { ModalProps } from "./Modal";
 

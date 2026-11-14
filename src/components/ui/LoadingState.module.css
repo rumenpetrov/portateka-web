@@ -1,0 +1,5 @@
+@layer components {
+  .root {
+    padding-block: var(--primitive-space-10);
+  }
+}
