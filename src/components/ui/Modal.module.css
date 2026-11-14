@@ -1,0 +1,43 @@
+@layer components {
+  .modal {
+    border: 1px solid var(--theme-border-default);
+    border-radius: var(--primitive-radius-lg);
+    background-color: var(--theme-bg-elevated);
+    color: var(--theme-text-primary);
+    box-shadow: var(--theme-shadow-md);
+    padding: var(--primitive-space-6);
+    max-inline-size: min(28rem, calc(100vw - 2rem));
+    inline-size: 100%;
+    box-sizing: border-box;
+  }
+
+  .header {
+    margin-block-end: var(--primitive-space-4);
+
+    & form {
+      display: flex;
+      margin: 0;
+      flex-shrink: 0;
+    }
+  }
+
+  .header .closeButton {
+    padding: 0;
+    inline-size: 2.25rem;
+    min-inline-size: 2.25rem;
+    block-size: 2.25rem;
+    min-block-size: 2.25rem;
+    flex-shrink: 0;
+
+    @media (pointer: coarse) {
+      inline-size: 2.5rem;
+      min-inline-size: 2.5rem;
+      block-size: 2.5rem;
+      min-block-size: 2.5rem;
+    }
+
+    & svg {
+      flex-shrink: 0;
+    }
+  }
+}
