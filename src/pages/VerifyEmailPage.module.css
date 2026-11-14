@@ -1,0 +1,5 @@
+@layer components {
+  .verifying {
+    margin-block-end: var(--primitive-space-4);
+  }
+}

@@ -1,0 +1,9 @@
+@layer components {
+  .headerBadge {
+    margin-block-end: var(--primitive-space-2);
+  }
+
+  .ctaGroup {
+    margin-block-start: var(--primitive-space-2);
+  }
+}
