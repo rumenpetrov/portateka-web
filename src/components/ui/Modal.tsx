@@ -2,6 +2,8 @@ import { useEffect, useId, useRef } from "react";
 import type { MouseEvent, ReactNode } from "react";
 import { X } from "lucide-react";
 import { Button } from "./Button";
+import { Flex } from "./Flex";
+import styles from "./Modal.module.css";
 import { Text } from "./Text";
 
 export interface ModalProps {
@@ -67,13 +69,13 @@ export function Modal({
   return (
     <dialog
       ref={dialogRef}
-      className="ui-modal"
+      className={styles.modal}
       aria-labelledby={titleId}
       onClose={handleClose}
       onClick={handleBackdropClick}
       {...({ closedby: "any" } as Record<string, string>)}
     >
-      <div className="ui-modal-header">
+      <Flex align="center" justify="between" gap={3} className={styles.header}>
         <Text id={titleId} variant="card-title">
           {title}
         </Text>
@@ -83,13 +85,13 @@ export function Modal({
             value="cancel"
             variant="ghost"
             size="sm"
-            className="ui-modal-close-btn"
+            className={styles.closeButton}
             aria-label={closeLabel}
           >
-            <X aria-hidden="true" size={18} style={{ flexShrink: 0 }} />
+            <X aria-hidden="true" size={18} />
           </Button>
         </form>
-      </div>
+      </Flex>
       <div>{children}</div>
     </dialog>
   );
