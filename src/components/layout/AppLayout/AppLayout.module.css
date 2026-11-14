@@ -89,7 +89,7 @@
     padding-block-end: calc(var(--primitive-space-1) + env(safe-area-inset-bottom, 0px));
     padding-inline: var(--primitive-space-2);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--primitive-space-1);
 
     @media (min-width: 48rem) {

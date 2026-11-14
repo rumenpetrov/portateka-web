@@ -3,18 +3,16 @@ import { Plus, RefreshCw } from "lucide-react";
 import { Link, useSearchParams } from "react-router";
 import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
-import { PropertyCard } from "@/components/features/properties/PropertyCard";
+import {
+  PropertyCard,
+  PropertyCardSkeleton,
+} from "@/components/features/properties/PropertyCard";
 import { useNotifications } from "@/notifications/NotificationProvider";
 import {
   Button,
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
   EmptyState,
   Flex,
   Pagination,
-  Skeleton,
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -130,28 +128,7 @@ export function PropertiesListPage() {
         <div className={styles.grid} role="status" aria-busy="true">
           <span className="visually-hidden">{t.common.loading}</span>
           {SKELETON_CARD_KEYS.map((key) => (
-            <Card key={key} as="article">
-              <CardHeader>
-                <Flex direction="column" gap={1}>
-                  <Skeleton variant="text" width="10rem" height="1.375rem" />
-                  <Skeleton variant="text" width="7.5rem" height="0.875rem" />
-                </Flex>
-
-                <Skeleton variant="circle" width="5rem" height="1.375rem" />
-              </CardHeader>
-
-              <CardContent>
-                <Flex direction="column" gap={2}>
-                  <Skeleton variant="text" width="100%" height="1rem" />
-                  <Skeleton variant="text" width="75%" height="0.875rem" />
-                </Flex>
-              </CardContent>
-
-              <CardFooter>
-                <Skeleton variant="rect" width="7.5rem" height="2rem" />
-                <Skeleton variant="rect" width="6.5rem" height="2rem" />
-              </CardFooter>
-            </Card>
+            <PropertyCardSkeleton key={key} />
           ))}
         </div>
       ) : propertiesQuery.isError ? (

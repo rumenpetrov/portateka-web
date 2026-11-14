@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Building2, LogOut, User } from "lucide-react";
+import { Building2, House, LogOut, User } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { useMeQuery, useSignOut } from "@/api/auth.api";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -43,6 +43,14 @@ export function AppLayout() {
               className={styles.desktopNav}
             >
               <NavLink
+                to="/"
+                end
+                className={styles.desktopNavItem}
+              >
+                <House aria-hidden="true" size={16} />
+                <span>{t.nav.home}</span>
+              </NavLink>
+              <NavLink
                 to="/properties"
                 end
                 className={styles.desktopNavItem}
@@ -81,6 +89,10 @@ export function AppLayout() {
       <Footer />
 
       <nav aria-label={t.nav.mainNavigation} className={styles.bottomNav}>
+        <NavLink to="/" end className={styles.bottomNavItem}>
+          <House aria-hidden="true" size={20} />
+          <span>{t.nav.home}</span>
+        </NavLink>
         <NavLink to="/properties" end className={styles.bottomNavItem}>
           <Building2 aria-hidden="true" size={20} />
           <span>{t.nav.properties}</span>

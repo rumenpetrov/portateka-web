@@ -49,6 +49,7 @@ export const bgBG: TranslationDictionary = {
   },
   nav: {
     mainNavigation: "Главна навигация",
+    home: "Начало",
     properties: "Имоти",
     newProperty: "Нов имот",
     profile: "Профил",

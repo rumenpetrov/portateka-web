@@ -86,6 +86,7 @@ export interface TranslationDictionary {
   };
   nav: {
     mainNavigation: string;
+    home: string;
     properties: string;
     newProperty: string;
     profile: string;
