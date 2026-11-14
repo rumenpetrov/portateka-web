@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Text } from "./Text";
 
 export interface EmptyStateProps {
   title: string;
@@ -9,24 +10,15 @@ export interface EmptyStateProps {
 export function EmptyState({ title, description, action }: EmptyStateProps) {
   return (
     <div className="ui-empty-state">
-      <h2
-        style={{
-          fontSize: "var(--primitive-text-lg)",
-          fontWeight: "var(--primitive-weight-semibold)",
-        }}
-      >
-        {title}
-      </h2>
+      <Text variant="card-title">{title}</Text>
       {description ? (
-        <p
-          style={{
-            color: "var(--theme-text-secondary)",
-            fontSize: "var(--primitive-text-sm)",
-            maxInlineSize: "30rem",
-          }}
+        <Text
+          variant="subtitle"
+          tone="secondary"
+          style={{ maxInlineSize: "30rem" }}
         >
           {description}
-        </p>
+        </Text>
       ) : null}
       {action ? (
         <div style={{ marginBlockStart: "var(--primitive-space-2)" }}>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForgotPasswordMutation } from "@/api/auth.api";
-import { Alert, Anchor, Button, Card, CardContent, Flex, Input } from "@/components/ui";
+import { Alert, Anchor, Button, Card, CardContent, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { forgotPasswordSchema } from "@/validators/authValidators";
@@ -30,23 +30,16 @@ export function ForgotPasswordPage() {
     <Card>
       <CardContent>
         <div style={{ marginBlockEnd: "var(--primitive-space-5)" }}>
-          <h1
-            style={{
-              fontSize: "var(--primitive-text-xl)",
-              fontWeight: "var(--primitive-weight-bold)",
-              marginBlockEnd: "var(--primitive-space-1)",
-            }}
+          <Text
+            variant="section-title"
+            as="h1"
+            style={{ marginBlockEnd: "var(--primitive-space-1)" }}
           >
             {t.auth.forgotPassword.title}
-          </h1>
-          <p
-            style={{
-              color: "var(--theme-text-secondary)",
-              fontSize: "var(--primitive-text-sm)",
-            }}
-          >
+          </Text>
+          <Text variant="subtitle" tone="secondary">
             {t.auth.forgotPassword.subtitle}
-          </p>
+          </Text>
         </div>
 
         {sent ? (
@@ -98,17 +91,18 @@ export function ForgotPasswordPage() {
           </form>
         )}
 
-        <div
+        <Text
+          as="div"
+          variant="subtitle"
+          align="center"
           style={{
             marginBlockStart: "var(--primitive-space-6)",
             paddingBlockStart: "var(--primitive-space-4)",
             borderBlockStart: "1px solid var(--theme-border-subtle)",
-            fontSize: "var(--primitive-text-sm)",
-            textAlign: "center",
           }}
         >
           <Anchor to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>
-        </div>
+        </Text>
       </CardContent>
     </Card>
   );

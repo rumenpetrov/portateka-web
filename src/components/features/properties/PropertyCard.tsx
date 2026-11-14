@@ -8,6 +8,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
+  Text,
 } from "@/components/ui";
 import { PreferredPropertyBadge } from "./PreferredPropertyBadge";
 
@@ -30,12 +31,7 @@ export function PropertyCard({
     <Card as="article">
       <CardHeader>
         <div>
-          <h2
-            style={{
-              fontSize: "var(--primitive-text-lg)",
-              fontWeight: "var(--primitive-weight-semibold)",
-            }}
-          >
+          <Text variant="card-title">
             <Anchor
               to={`/properties/${property.id}`}
               tone="primary"
@@ -43,16 +39,14 @@ export function PropertyCard({
             >
               {property.name}
             </Anchor>
-          </h2>
-          <p
-            style={{
-              fontSize: "var(--primitive-text-xs)",
-              color: "var(--theme-text-muted)",
-              marginBlockStart: "var(--primitive-space-1)",
-            }}
+          </Text>
+          <Text
+            variant="caption"
+            tone="muted"
+            style={{ marginBlockStart: "var(--primitive-space-1)" }}
           >
             {t.properties.createdAtLabel}: {formatDate(property.createdAt)}
-          </p>
+          </Text>
         </div>
 
         <PreferredPropertyBadge isPreferred={isPreferred} />
@@ -60,23 +54,23 @@ export function PropertyCard({
 
       <CardContent>
         {property.description ? (
-          <p
+          <Text
+            variant="subtitle"
+            tone="secondary"
             style={{
-              color: "var(--theme-text-secondary)",
-              fontSize: "var(--primitive-text-sm)",
               whiteSpace: "pre-wrap",
               overflowWrap: "anywhere",
             }}
           >
             {property.description}
-          </p>
+          </Text>
         ) : null}
 
         {property.notes ? (
-          <p
+          <Text
+            variant="caption"
+            tone="muted"
             style={{
-              color: "var(--theme-text-muted)",
-              fontSize: "var(--primitive-text-xs)",
               marginBlockStart: "var(--primitive-space-3)",
               paddingBlockStart: "var(--primitive-space-2)",
               borderBlockStart: "1px dashed var(--theme-border-subtle)",
@@ -85,7 +79,7 @@ export function PropertyCard({
             }}
           >
             {property.notes}
-          </p>
+          </Text>
         ) : null}
       </CardContent>
 
