@@ -369,53 +369,6 @@
   }
 
   /* ==========================================================================
-     Cards (Mobile-first padding, expanding on larger viewports)
-     ========================================================================== */
-  .ui-card {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--theme-bg-surface);
-    border: 1px solid var(--theme-border-default);
-    border-radius: var(--primitive-radius-lg);
-    box-shadow: var(--theme-shadow-sm);
-    padding: var(--primitive-space-4);
-
-    @media (min-width: 40rem) {
-      padding: var(--primitive-space-6);
-    }
-  }
-
-  .ui-card-content {
-    flex: 1 1 auto;
-  }
-
-  .ui-card-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--primitive-space-3);
-    margin-block-end: var(--primitive-space-4);
-  }
-
-  .ui-card-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--primitive-space-2);
-    margin-block-start: var(--primitive-space-5);
-    padding-block-start: var(--primitive-space-4);
-    border-block-start: 1px solid var(--theme-border-subtle);
-
-    @media (min-width: 32rem) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-end;
-      gap: var(--primitive-space-3);
-    }
-  }
-
-  /* ==========================================================================
      Badges (with contrast-color() for solid badges & relative color for subtle)
      ========================================================================== */
   .ui-badge {
