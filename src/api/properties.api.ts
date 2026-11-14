@@ -1,11 +1,19 @@
 import {
+  keepPreviousData,
   queryOptions,
   useMutation,
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { apiRequest } from "./client";
+import { apiPaginatedRequest, apiRequest } from "./client";
+import type {
+  PaginatedResponse,
+  PaginationMeta,
+  PaginationParams,
+} from "./client";
 import { queryKeys } from "./queryKeys";
+
+export type { PaginatedResponse, PaginationMeta, PaginationParams };
 
 export interface PropertyItem {
   id: string;
@@ -30,14 +38,19 @@ export interface UpdatePropertyInput {
 }
 
 export const propertyQueries = {
-  list: () =>
+  list: (params: PaginationParams = {}) =>
     queryOptions({
-      queryKey: queryKeys.properties.lists(),
+      queryKey: queryKeys.properties.list(params),
       queryFn: ({ signal }) =>
-        apiRequest<PropertyItem[]>("/api/properties", {
+        apiPaginatedRequest<PropertyItem>("/api/properties", {
+          params: {
+            page: params.page,
+            limit: params.limit,
+          },
           authenticated: true,
           signal,
         }),
+      placeholderData: keepPreviousData,
     }),
   detail: (id: string) =>
     queryOptions({
@@ -50,8 +63,8 @@ export const propertyQueries = {
     }),
 };
 
-export function usePropertiesQuery() {
-  return useQuery(propertyQueries.list());
+export function usePropertiesQuery(params: PaginationParams = {}) {
+  return useQuery(propertyQueries.list(params));
 }
 
 export function usePropertyQuery(id: string) {

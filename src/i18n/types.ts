@@ -18,6 +18,8 @@ export type FieldMachineCodeKey =
   | "required"
   | "invalid_type"
   | "too_long"
+  | "too_small"
+  | "too_big"
   | "invalid_uuid"
   | "already_exists"
   | "invalid_email"
@@ -72,6 +74,12 @@ export interface TranslationDictionary {
     notificationsRegion: string;
     dismissNotification: string;
     srAnnouncements: string;
+    pagination: {
+      navigationLabel: string;
+      previous: string;
+      next: string;
+      pageOf: (page: number, totalPages: number) => string;
+    };
   };
   nav: {
     mainNavigation: string;
