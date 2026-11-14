@@ -1,4 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { clsx } from "clsx";
+import styles from "./Badge.module.css";
 
 export type BadgeVariant =
   | "default"
@@ -13,24 +15,30 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   children: ReactNode;
 }
 
+const VARIANT_CLASSES: Record<Exclude<BadgeVariant, "default">, string> = {
+  primary: styles.primary,
+  success: styles.success,
+  warning: styles.warning,
+  danger: styles.danger,
+};
+
 export function Badge({
   variant = "default",
   solid = false,
-  className = "",
+  className,
   children,
   ...rest
 }: BadgeProps) {
-  const classes = [
-    "ui-badge",
-    variant !== "default" ? `ui-badge--${variant}` : "",
-    solid ? "ui-badge--solid" : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <span className={classes} {...rest}>
+    <span
+      className={clsx(
+        styles.badge,
+        variant !== "default" && VARIANT_CLASSES[variant],
+        solid && styles.solid,
+        className,
+      )}
+      {...rest}
+    >
       {children}
     </span>
   );

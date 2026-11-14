@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Text } from "./Text";
+import styles from "./EmptyState.module.css";
 
 export interface EmptyStateProps {
   title: string;
@@ -9,22 +10,18 @@ export interface EmptyStateProps {
 
 export function EmptyState({ title, description, action }: EmptyStateProps) {
   return (
-    <div className="ui-empty-state">
+    <div className={styles.emptyState}>
       <Text variant="card-title">{title}</Text>
       {description ? (
         <Text
           variant="subtitle"
           tone="secondary"
-          style={{ maxInlineSize: "30rem" }}
+          className={styles.description}
         >
           {description}
         </Text>
       ) : null}
-      {action ? (
-        <div style={{ marginBlockStart: "var(--primitive-space-2)" }}>
-          {action}
-        </div>
-      ) : null}
+      {action ? <div className={styles.action}>{action}</div> : null}
     </div>
   );
 }

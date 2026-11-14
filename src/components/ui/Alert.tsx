@@ -1,10 +1,12 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { clsx } from "clsx";
 import {
   AlertTriangle,
   CheckCircle2,
   Info,
   XCircle,
 } from "lucide-react";
+import styles from "./Alert.module.css";
 
 export type AlertVariant = "info" | "success" | "warning" | "danger";
 
@@ -13,11 +15,17 @@ export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
+const VARIANT_CLASSES: Record<Exclude<AlertVariant, "info">, string> = {
+  success: styles.success,
+  warning: styles.warning,
+  danger: styles.danger,
+};
+
 function AlertIcon({ variant }: { variant: AlertVariant }) {
   const iconProps = {
     "aria-hidden": true as const,
     size: 18,
-    style: { flexShrink: 0, marginBlockStart: "0.125rem" },
+    className: styles.icon,
   };
 
   switch (variant) {
@@ -38,26 +46,22 @@ function AlertIcon({ variant }: { variant: AlertVariant }) {
 
 export function Alert({
   variant = "info",
-  className = "",
+  className,
   children,
   ...rest
 }: AlertProps) {
-  const classes = [
-    "ui-alert",
-    variant !== "info" ? `ui-alert--${variant}` : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <div
       role={variant === "danger" ? "alert" : "status"}
-      className={classes}
+      className={clsx(
+        styles.alert,
+        variant !== "info" && VARIANT_CLASSES[variant],
+        className,
+      )}
       {...rest}
     >
       <AlertIcon variant={variant} />
-      <div style={{ flex: 1 }}>{children}</div>
+      <div className={styles.content}>{children}</div>
     </div>
   );
 }
