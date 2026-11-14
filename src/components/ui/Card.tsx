@@ -1,4 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { clsx } from "clsx";
+import styles from "./Card.module.css";
 
 interface CardProps extends HTMLAttributes<HTMLElement> {
   as?: "article" | "section" | "div";
@@ -7,48 +9,48 @@ interface CardProps extends HTMLAttributes<HTMLElement> {
 
 export function Card({
   as: Component = "section",
-  className = "",
+  className,
   children,
   ...rest
 }: CardProps) {
   return (
-    <Component className={`ui-card ${className}`.trim()} {...rest}>
+    <Component className={clsx(styles.card, className)} {...rest}>
       {children}
     </Component>
   );
 }
 
 export function CardHeader({
-  className = "",
+  className,
   children,
   ...rest
 }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={`ui-card-header ${className}`.trim()} {...rest}>
+    <div className={clsx(styles.header, className)} {...rest}>
       {children}
     </div>
   );
 }
 
 export function CardContent({
-  className = "",
+  className,
   children,
   ...rest
 }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={`ui-card-content ${className}`.trim()} {...rest}>
+    <div className={clsx(styles.content, className)} {...rest}>
       {children}
     </div>
   );
 }
 
 export function CardFooter({
-  className = "",
+  className,
   children,
   ...rest
 }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={`ui-card-footer ${className}`.trim()} {...rest}>
+    <div className={clsx(styles.footer, className)} {...rest}>
       {children}
     </div>
   );
