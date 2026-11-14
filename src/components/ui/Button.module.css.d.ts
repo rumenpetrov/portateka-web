@@ -6,17 +6,32 @@
  * https://npmjs.com/vite-css-modules
  */
 
+declare const btn: string;
+declare const primary: string;
+declare const danger: string;
+declare const ghost: string;
+declare const sm: string;
 declare const content: string;
 declare const fullWidth: string;
 
 export {
+	btn,
+	primary,
+	danger,
+	ghost,
+	sm,
 	content,
 	fullWidth
 };
 
 declare const __default_export__: {
+	btn: typeof btn;
+	primary: typeof primary;
+	danger: typeof danger;
+	ghost: typeof ghost;
+	sm: typeof sm;
 	content: typeof content;
 	fullWidth: typeof fullWidth;
 };
 export default __default_export__;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQnV0dG9uLm1vZHVsZS5jc3MuZC50cyIsInNvdXJjZXMiOlsiQnV0dG9uLm1vZHVsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Y0FDRTtjQU1BOzs7Q0FOQTtDQU1BOzs7O0NBTkE7Q0FNQTs7In0=
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQnV0dG9uLm1vZHVsZS5jc3MuZC50cyIsInNvdXJjZXMiOlsiQnV0dG9uLm1vZHVsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Y0FDRTtjQXlDRztjQVlBO2NBWUE7Y0FXSDtjQVdBO2NBTUE7OztDQTdGQTtDQXlDRztDQVlBO0NBWUE7Q0FXSDtDQVdBO0NBTUE7Ozs7Q0E3RkE7Q0F5Q0c7Q0FZQTtDQVlBO0NBV0g7Q0FXQTtDQU1BOzsifQ==

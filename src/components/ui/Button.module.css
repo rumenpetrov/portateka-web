@@ -1,4 +1,91 @@
 @layer components {
+  .btn {
+    --btn-bg: var(--theme-bg-surface);
+    --btn-fg: var(--theme-text-primary);
+    --btn-border: var(--theme-border-Control);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--primitive-space-2);
+    font: inherit;
+    font-size: var(--primitive-text-sm);
+    font-weight: var(--primitive-weight-medium);
+    padding-block: var(--primitive-space-2);
+    padding-inline: var(--primitive-space-4);
+    min-block-size: 2.75rem;
+    border-radius: var(--primitive-radius-md);
+    border: 1px solid var(--btn-border);
+    background-color: var(--btn-bg);
+    color: var(--btn-fg);
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition:
+      background-color var(--primitive-duration-fast) var(--primitive-easing-standard),
+      border-color var(--primitive-duration-fast) var(--primitive-easing-standard),
+      color var(--primitive-duration-fast) var(--primitive-easing-standard);
+
+    @media (pointer: coarse) {
+      min-block-size: 3rem;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: var(--theme-bg-subtle);
+      color: var(--btn-fg);
+    }
+
+    &:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    &.primary {
+      --btn-bg: var(--theme-accent);
+      --btn-border: transparent;
+      --btn-fg: contrast-color(var(--btn-bg));
+
+      &:hover:not(:disabled) {
+        --btn-bg: var(--theme-accent-hover);
+        background-color: var(--btn-bg);
+        color: var(--btn-fg);
+      }
+    }
+
+    &.danger {
+      --btn-bg: var(--theme-danger);
+      --btn-border: transparent;
+      --btn-fg: contrast-color(var(--btn-bg));
+
+      &:hover:not(:disabled) {
+        --btn-bg: var(--theme-danger-hover);
+        background-color: var(--btn-bg);
+        color: var(--btn-fg);
+      }
+    }
+
+    &.ghost {
+      --btn-bg: transparent;
+      --btn-border: transparent;
+
+      &:hover:not(:disabled) {
+        background-color: var(--theme-bg-subtle);
+        color: var(--btn-fg);
+      }
+    }
+  }
+
+  .sm {
+    min-block-size: 2.25rem;
+    padding-block: var(--primitive-space-1);
+    padding-inline: var(--primitive-space-3);
+    font-size: var(--primitive-text-xs);
+
+    @media (pointer: coarse) {
+      min-block-size: 2.5rem;
+    }
+  }
+
   .content {
     display: inline-flex;
     align-items: center;
