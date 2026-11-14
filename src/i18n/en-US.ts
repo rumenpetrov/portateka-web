@@ -47,6 +47,7 @@ export const enUS: TranslationDictionary = {
   },
   nav: {
     mainNavigation: "Main navigation",
+    home: "Home",
     properties: "Properties",
     newProperty: "New property",
     profile: "Profile",
