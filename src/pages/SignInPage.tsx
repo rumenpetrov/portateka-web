@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router";
 import { useSignInMutation } from "@/api/auth.api";
+import { AuthCard } from "@/components/features/auth/AuthCard";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Anchor, Button, Card, CardContent, Flex, Input, Text } from "@/components/ui";
+import { Anchor, Button, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { signInEmailSchema } from "@/validators/authValidators";
@@ -35,92 +36,71 @@ export function SignInPage() {
   });
 
   return (
-    <Card>
-      <CardContent>
-        <div style={{ marginBlockEnd: "var(--primitive-space-5)" }}>
-          <Text
-            variant="section-title"
-            as="h1"
-            style={{ marginBlockEnd: "var(--primitive-space-1)" }}
-          >
-            {t.auth.signIn.title}
-          </Text>
-          <Text variant="subtitle" tone="secondary">
-            {t.auth.signIn.subtitle}
-          </Text>
-        </div>
-
-        <form method="post" onSubmit={onSubmit} noValidate>
-          <fieldset className="ui-fieldset" disabled={signInMutation.isPending}>
-            <Input
-              id="sign-in-email"
-              type="email"
-              inputMode="email"
-              autoComplete="username"
-              spellCheck={false}
-              enterKeyHint="next"
-              required
-              label={t.auth.emailLabel}
-              placeholder={t.auth.emailPlaceholder}
-              error={getFieldError("email")}
-              {...register("email")}
-            />
-
-            <PasswordInput
-              id="sign-in-password"
-              autoComplete="current-password"
-              enterKeyHint="done"
-              required
-              label={t.auth.passwordLabel}
-              error={getFieldError("password")}
-              {...register("password")}
-            />
-
-            <Flex
-              direction="column"
-              gap={3}
-              style={{
-                marginBlockStart: "var(--primitive-space-5)",
-              }}
-            >
-              <Button
-                type="submit"
-                variant="primary"
-                fullWidth
-                isLoading={signInMutation.isPending}
-              >
-                {t.auth.signIn.submit}
-              </Button>
-
-              <Text as="div" variant="subtitle">
-                <Flex wrap justify="between" gap={2}>
-                  <Anchor to="/forgot-password">
-                    {t.auth.signIn.forgotPasswordLink}
-                  </Anchor>
-                  <Anchor to="/verify-email">
-                    {t.auth.signIn.needVerificationLink}
-                  </Anchor>
-                </Flex>
-              </Text>
-            </Flex>
-          </fieldset>
-        </form>
-
-        <Text
-          as="div"
-          variant="subtitle"
-          tone="secondary"
-          align="center"
-          style={{
-            marginBlockStart: "var(--primitive-space-6)",
-            paddingBlockStart: "var(--primitive-space-4)",
-            borderBlockStart: "1px solid var(--theme-border-subtle)",
-          }}
-        >
+    <AuthCard
+      title={t.auth.signIn.title}
+      subtitle={t.auth.signIn.subtitle}
+      footer={
+        <>
           <span>{t.auth.signIn.noAccountPrompt} </span>
           <Anchor to="/sign-up">{t.auth.signIn.signUpLink}</Anchor>
-        </Text>
-      </CardContent>
-    </Card>
+        </>
+      }
+    >
+      <form method="post" onSubmit={onSubmit} noValidate>
+        <fieldset className="ui-fieldset" disabled={signInMutation.isPending}>
+          <Input
+            id="sign-in-email"
+            type="email"
+            inputMode="email"
+            autoComplete="username"
+            spellCheck={false}
+            enterKeyHint="next"
+            required
+            label={t.auth.emailLabel}
+            placeholder={t.auth.emailPlaceholder}
+            error={getFieldError("email")}
+            {...register("email")}
+          />
+
+          <PasswordInput
+            id="sign-in-password"
+            autoComplete="current-password"
+            enterKeyHint="done"
+            required
+            label={t.auth.passwordLabel}
+            error={getFieldError("password")}
+            {...register("password")}
+          />
+
+          <Flex
+            direction="column"
+            gap={3}
+            style={{
+              marginBlockStart: "var(--primitive-space-5)",
+            }}
+          >
+            <Button
+              type="submit"
+              variant="primary"
+              fullWidth
+              isLoading={signInMutation.isPending}
+            >
+              {t.auth.signIn.submit}
+            </Button>
+
+            <Text as="div" variant="subtitle">
+              <Flex wrap justify="between" gap={2}>
+                <Anchor to="/forgot-password">
+                  {t.auth.signIn.forgotPasswordLink}
+                </Anchor>
+                <Anchor to="/verify-email">
+                  {t.auth.signIn.needVerificationLink}
+                </Anchor>
+              </Flex>
+            </Text>
+          </Flex>
+        </fieldset>
+      </form>
+    </AuthCard>
   );
 }
