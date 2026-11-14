@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useCreatePropertyMutation } from "@/api/properties.api";
 import { PropertyForm } from "@/components/features/properties/PropertyForm";
 import type { PropertyFormValues } from "@/components/features/properties/PropertyForm";
-import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { useNotifications } from "@/notifications/NotificationProvider";
 import { Card, CardContent, Flex, Text } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 

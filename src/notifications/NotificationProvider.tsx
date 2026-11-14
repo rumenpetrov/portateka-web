@@ -18,7 +18,7 @@ import type {
   GlobalNotificationListener,
   NotificationContextValue,
   NotificationProviderProps,
-} from "./NotificationProvider.types";
+} from "./types";
 
 const NotificationContext = createContext<NotificationContextValue | null>(
   null,
