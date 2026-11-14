@@ -23,6 +23,12 @@ interface ButtonOwnProps<C extends ElementType = "button"> {
 export type ButtonProps<C extends ElementType = "button"> = ButtonOwnProps<C> &
   DistributiveOmit<ComponentPropsWithoutRef<C>, keyof ButtonOwnProps<C>>;
 
+const VARIANT_CLASSES: Record<Exclude<ButtonVariant, "secondary">, string> = {
+  primary: styles.primary,
+  ghost: styles.ghost,
+  danger: styles.danger,
+};
+
 export function Button<C extends ElementType = "button">({
   as,
   variant = "secondary",
@@ -35,9 +41,9 @@ export function Button<C extends ElementType = "button">({
 }: ButtonProps<C>) {
   const Component = (as ?? "button") as ElementType;
   const classes = clsx(
-    "ui-btn",
-    variant !== "secondary" && `ui-btn--${variant}`,
-    size === "sm" && "ui-btn--sm",
+    styles.btn,
+    variant !== "secondary" && VARIANT_CLASSES[variant],
+    size === "sm" && styles.sm,
     fullWidth && styles.fullWidth,
     className,
   );
