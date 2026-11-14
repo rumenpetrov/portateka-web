@@ -19,9 +19,9 @@ import {
   CardHeader,
   Flex,
   Input,
+  LoadingState,
   Modal,
   Select,
-  Spinner,
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -46,16 +46,7 @@ export function ProfilePage() {
   const [confirmText, setConfirmText] = useState("");
 
   if (meQuery.isPending || propertiesQuery.isPending) {
-    return (
-      <Flex
-        justify="center"
-        style={{
-          paddingBlock: "var(--primitive-space-10)",
-        }}
-      >
-        <Spinner label={t.common.loading} size="1.75rem" />
-      </Flex>
-    );
+    return <LoadingState label={t.common.loading} />;
   }
 
   const user = meQuery.data;
