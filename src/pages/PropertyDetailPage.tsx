@@ -24,7 +24,6 @@ import {
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
-import styles from "./PropertyDetailPage.module.css";
 
 export function PropertyDetailPage() {
   const { id = "" } = useParams<{ id: string }>();
@@ -171,29 +170,27 @@ export function PropertyDetailPage() {
         closeLabel={t.common.close}
         onClose={() => setDeleteModalOpen(false)}
       >
-        <Text
-          variant="subtitle"
-          tone="secondary"
-          className={styles.modalDescription}
-        >
-          {t.properties.detail.deleteModalDescription}
-        </Text>
+        <Flex direction="column" gap={5}>
+          <Text variant="subtitle" tone="secondary">
+            {t.properties.detail.deleteModalDescription}
+          </Text>
 
-        <Flex direction="column" gap={2}>
-          <Button
-            variant="danger"
-            isLoading={deletePropertyMutation.isPending}
-            onClick={handleConfirmDelete}
-          >
-            <Trash2 aria-hidden="true" size={16} />
-            <span>{t.properties.detail.deleteConfirmButton}</span>
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => setDeleteModalOpen(false)}
-          >
-            {t.common.cancel}
-          </Button>
+          <Flex direction="column" gap={2}>
+            <Button
+              variant="danger"
+              isLoading={deletePropertyMutation.isPending}
+              onClick={handleConfirmDelete}
+            >
+              <Trash2 aria-hidden="true" size={16} />
+              <span>{t.properties.detail.deleteConfirmButton}</span>
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => setDeleteModalOpen(false)}
+            >
+              {t.common.cancel}
+            </Button>
+          </Flex>
         </Flex>
       </Modal>
     </Flex>

@@ -8,7 +8,6 @@ import { updateMeSchema } from "@/validators/authValidators";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
 import { Button, Fieldset, Input, Select } from "@/components/ui";
 import type { SelectOption } from "@/components/ui";
-import styles from "./ProfileForm.module.css";
 
 interface ProfileFormProps {
   user: UserProfile;
@@ -98,7 +97,6 @@ export function ProfileForm({ user, properties }: ProfileFormProps) {
           variant="primary"
           fullWidth
           isLoading={updateMeMutation.isPending}
-          className={styles.submit}
         >
           {t.profile.saveChanges}
         </Button>

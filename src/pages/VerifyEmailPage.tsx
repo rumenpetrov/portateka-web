@@ -15,7 +15,6 @@ import {
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { verifyEmailSchema } from "@/validators/authValidators";
-import styles from "./VerifyEmailPage.module.css";
 
 export function VerifyEmailPage() {
   const { t } = useI18n();
@@ -84,11 +83,7 @@ export function VerifyEmailPage() {
         <form method="post" onSubmit={onSubmit} noValidate>
           <Fieldset disabled={verifyMutation.isPending}>
             {verifyMutation.isPending && initialUrlToken ? (
-              <Flex
-                align="center"
-                gap={2}
-                className={styles.verifying}
-              >
+              <Flex align="center" gap={2}>
                 <Spinner label={t.auth.verifyEmail.verifying} />
                 <Text as="span" variant="subtitle">
                   {t.auth.verifyEmail.verifying}

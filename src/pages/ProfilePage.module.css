@@ -1,9 +1,0 @@
-@layer components {
-  .modalDescription {
-    margin-block-end: var(--primitive-space-4);
-  }
-
-  .confirmField {
-    margin-block-end: var(--primitive-space-5);
-  }
-}

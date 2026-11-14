@@ -15,7 +15,6 @@ import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/types";
 import { signUpEmailSchema } from "@/validators/authValidators";
-import styles from "./SignUpPage.module.css";
 
 export function SignUpPage() {
   const { locale, t } = useI18n();
@@ -140,7 +139,6 @@ export function SignUpPage() {
               variant="primary"
               fullWidth
               isLoading={signUpMutation.isPending}
-              className={styles.submit}
             >
               {t.auth.signUp.submit}
             </Button>

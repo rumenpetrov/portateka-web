@@ -7,7 +7,6 @@ import { Anchor, Button, Fieldset, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { signInEmailSchema } from "@/validators/authValidators";
-import styles from "./SignInPage.module.css";
 
 export function SignInPage() {
   const { setLocale, t } = useI18n();
@@ -73,11 +72,7 @@ export function SignInPage() {
             {...register("password")}
           />
 
-          <Flex
-            direction="column"
-            gap={3}
-            className={styles.actions}
-          >
+          <Flex direction="column" gap={3}>
             <Button
               type="submit"
               variant="primary"
