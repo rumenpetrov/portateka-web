@@ -15,6 +15,12 @@ export { Card, CardContent, CardFooter, CardHeader } from "./Card";
 export { EmptyState } from "./EmptyState";
 export type { EmptyStateProps } from "./EmptyState";
 
+export { Field } from "./Field";
+export type { FieldControlProps, FieldProps } from "./Field";
+
+export { Fieldset } from "./Fieldset";
+export type { FieldsetProps } from "./Fieldset";
+
 export { Flex } from "./Flex";
 export type {
   FlexAlign,

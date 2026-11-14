@@ -6,6 +6,7 @@ import {
   Alert,
   Anchor,
   Button,
+  Fieldset,
   Flex,
   Input,
   Spinner,
@@ -80,10 +81,7 @@ export function VerifyEmailPage() {
         </Flex>
       ) : (
         <form method="post" onSubmit={onSubmit} noValidate>
-          <fieldset
-            className="ui-fieldset"
-            disabled={verifyMutation.isPending}
-          >
+          <Fieldset disabled={verifyMutation.isPending}>
             {verifyMutation.isPending && initialUrlToken ? (
               <Flex
                 align="center"
@@ -120,7 +118,7 @@ export function VerifyEmailPage() {
             >
               {t.auth.verifyEmail.submit}
             </Button>
-          </fieldset>
+          </Fieldset>
         </form>
       )}
     </AuthCard>

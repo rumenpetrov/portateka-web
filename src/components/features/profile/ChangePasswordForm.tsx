@@ -1,7 +1,7 @@
 import { useChangePasswordMutation } from "@/api/auth.api";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Button } from "@/components/ui";
+import { Button, Fieldset } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { changePasswordSchema } from "@/validators/authValidators";
@@ -31,10 +31,7 @@ export function ChangePasswordForm() {
 
   return (
     <form method="post" onSubmit={onSubmit} noValidate>
-      <fieldset
-        className="ui-fieldset"
-        disabled={changePasswordMutation.isPending}
-      >
+      <Fieldset disabled={changePasswordMutation.isPending}>
         <PasswordInput
           id="profile-current-password"
           autoComplete="current-password"
@@ -67,7 +64,7 @@ export function ChangePasswordForm() {
         >
           {t.profile.changePassword.submit}
         </Button>
-      </fieldset>
+      </Fieldset>
     </form>
   );
 }

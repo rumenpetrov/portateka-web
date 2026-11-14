@@ -1,0 +1,39 @@
+@layer components {
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--primitive-space-1);
+    margin-block-end: var(--primitive-space-4);
+  }
+
+  .label {
+    font-size: var(--primitive-text-sm);
+    font-weight: var(--primitive-weight-medium);
+    color: var(--theme-text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--primitive-space-1);
+  }
+
+  .requiredMark {
+    color: var(--theme-danger);
+  }
+
+  .hint {
+    font-size: var(--primitive-text-xs);
+    color: var(--theme-text-secondary);
+  }
+
+  .error {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--primitive-space-1);
+    font-size: var(--primitive-text-xs);
+    font-weight: var(--primitive-weight-medium);
+    color: var(--theme-danger);
+  }
+
+  .errorIcon {
+    flex-shrink: 0;
+  }
+}

@@ -3,7 +3,7 @@ import { useSignInMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Anchor, Button, Flex, Input, Text } from "@/components/ui";
+import { Anchor, Button, Fieldset, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { signInEmailSchema } from "@/validators/authValidators";
@@ -47,7 +47,7 @@ export function SignInPage() {
       }
     >
       <form method="post" onSubmit={onSubmit} noValidate>
-        <fieldset className="ui-fieldset" disabled={signInMutation.isPending}>
+        <Fieldset disabled={signInMutation.isPending}>
           <Input
             id="sign-in-email"
             type="email"
@@ -99,7 +99,7 @@ export function SignInPage() {
               </Flex>
             </Text>
           </Flex>
-        </fieldset>
+        </Fieldset>
       </form>
     </AuthCard>
   );

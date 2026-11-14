@@ -6,6 +6,7 @@ import {
   Alert,
   Anchor,
   Button,
+  Fieldset,
   Flex,
   Input,
   Select,
@@ -70,10 +71,7 @@ export function SignUpPage() {
         </Flex>
       ) : (
         <form method="post" onSubmit={onSubmit} noValidate>
-          <fieldset
-            className="ui-fieldset"
-            disabled={signUpMutation.isPending}
-          >
+          <Fieldset disabled={signUpMutation.isPending}>
             <Input
               id="sign-up-first-name"
               type="text"
@@ -147,7 +145,7 @@ export function SignUpPage() {
             >
               {t.auth.signUp.submit}
             </Button>
-          </fieldset>
+          </Fieldset>
         </form>
       )}
     </AuthCard>

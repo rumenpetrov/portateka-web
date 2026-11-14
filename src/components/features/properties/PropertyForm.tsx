@@ -3,7 +3,7 @@ import type { z } from "zod";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { createPropertySchema } from "@/validators/propertyValidators";
-import { Button, Flex, Input, Textarea } from "@/components/ui";
+import { Button, Fieldset, Flex, Input, Textarea } from "@/components/ui";
 
 export type PropertyFormValues = z.output<typeof createPropertySchema>;
 
@@ -56,7 +56,7 @@ export function PropertyForm({
 
   return (
     <form method="post" onSubmit={handleFormSubmit} noValidate>
-      <fieldset className="ui-fieldset" disabled={isSubmitting}>
+      <Fieldset disabled={isSubmitting}>
         <Input
           id="property-name"
           type="text"
@@ -107,7 +107,7 @@ export function PropertyForm({
             </Button>
           ) : null}
         </Flex>
-      </fieldset>
+      </Fieldset>
     </form>
   );
 }

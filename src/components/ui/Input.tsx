@@ -1,6 +1,7 @@
-import { useId } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
-import { AlertCircle } from "lucide-react";
+import { Field } from "./Field";
+import controlStyles from "./FormControl.module.css";
+import styles from "./Input.module.css";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -16,77 +17,26 @@ export function Input({
   endAdornment,
   id,
   required,
-  className = "",
+  className,
   ...rest
 }: InputProps) {
-  const generatedId = useId();
-  const inputId = id ?? generatedId;
-  const hintId = `${inputId}-hint`;
-  const errorId = `${inputId}-error`;
-
-  const describedByIds: string[] = [];
-  if (hint) {
-    describedByIds.push(hintId);
-  }
-  if (error) {
-    describedByIds.push(errorId);
-  }
-
   return (
-    <div className={`ui-field ${className}`.trim()}>
-      <label htmlFor={inputId} className="ui-label">
-        <span>{label}</span>
-        {required ? (
-          <span aria-hidden="true" className="ui-required-mark">
-            *
-          </span>
-        ) : null}
-      </label>
-
-      <div
-        style={{
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          inlineSize: "100%",
-        }}
-      >
-        <input
-          id={inputId}
-          required={required}
-          aria-invalid={error ? "true" : undefined}
-          aria-describedby={
-            describedByIds.length > 0 ? describedByIds.join(" ") : undefined
-          }
-          className="ui-control"
-          {...rest}
-        />
-        {endAdornment ? (
-          <div
-            style={{
-              position: "absolute",
-              insetInlineEnd: "var(--primitive-space-2)",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {endAdornment}
-          </div>
-        ) : null}
-      </div>
-
-      {hint ? (
-        <span id={hintId} className="ui-field-hint">
-          {hint}
-        </span>
-      ) : null}
-
-      {error ? (
-        <span id={errorId} className="ui-field-error" role="alert">
-          <AlertCircle aria-hidden="true" size={15} style={{ flexShrink: 0 }} />
-          <span>{error}</span>
-        </span>
-      ) : null}
-    </div>
+    <Field
+      label={label}
+      hint={hint}
+      error={error}
+      id={id}
+      required={required}
+      className={className}
+    >
+      {(controlProps) => (
+        <div className={styles.wrap}>
+          <input className={controlStyles.control} {...controlProps} {...rest} />
+          {endAdornment ? (
+            <div className={styles.endAdornment}>{endAdornment}</div>
+          ) : null}
+        </div>
+      )}
+    </Field>
   );
 }
