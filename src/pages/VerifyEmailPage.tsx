@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 import { useVerifyEmailMutation } from "@/api/auth.api";
+import { AuthCard } from "@/components/features/auth/AuthCard";
 import {
   Alert,
   Anchor,
   Button,
-  Card,
-  CardContent,
   Flex,
   Input,
   Spinner,
@@ -62,92 +61,68 @@ export function VerifyEmailPage() {
   });
 
   return (
-    <Card>
-      <CardContent>
-        <div style={{ marginBlockEnd: "var(--primitive-space-5)" }}>
-          <Text
-            variant="section-title"
-            as="h1"
-            style={{ marginBlockEnd: "var(--primitive-space-1)" }}
-          >
-            {t.auth.verifyEmail.title}
-          </Text>
-          <Text variant="subtitle" tone="secondary">
-            {t.auth.verifyEmail.subtitle}
-          </Text>
-        </div>
-
-        {verified ? (
-          <Flex direction="column" gap={4}>
-            <Alert variant="success">
+    <AuthCard
+      title={t.auth.verifyEmail.title}
+      subtitle={t.auth.verifyEmail.subtitle}
+      footer={<Anchor to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>}
+    >
+      {verified ? (
+        <Flex direction="column" gap={4}>
+          <Alert variant="success">
+            <Flex direction="column" gap={1}>
               <strong>{t.auth.verifyEmail.successTitle}</strong>
-              <p style={{ marginBlockStart: "var(--primitive-space-1)" }}>
-                {t.auth.verifyEmail.successMessage}
-              </p>
-            </Alert>
-            <Button as={Anchor} to="/sign-in" variant="primary" fullWidth>
-              {t.auth.verifyEmail.proceedToSignIn}
-            </Button>
-          </Flex>
-        ) : (
-          <form method="post" onSubmit={onSubmit} noValidate>
-            <fieldset
-              className="ui-fieldset"
-              disabled={verifyMutation.isPending}
-            >
-              {verifyMutation.isPending && initialUrlToken ? (
-                <Flex
-                  align="center"
-                  gap={2}
-                  style={{
-                    marginBlockEnd: "var(--primitive-space-4)",
-                  }}
-                >
-                  <Spinner label={t.auth.verifyEmail.verifying} />
-                  <Text as="span" variant="subtitle">
-                    {t.auth.verifyEmail.verifying}
-                  </Text>
-                </Flex>
-              ) : null}
-
-              <Input
-                id="verify-email-token"
-                type="text"
-                autoComplete="off"
-                spellCheck={false}
-                enterKeyHint="done"
-                required
-                label={t.auth.tokenLabel}
-                hint={t.auth.tokenHint}
-                error={getFieldError("token")}
-                {...register("token")}
-              />
-
-              <Button
-                type="submit"
-                variant="primary"
-                fullWidth
-                isLoading={verifyMutation.isPending}
+              <p>{t.auth.verifyEmail.successMessage}</p>
+            </Flex>
+          </Alert>
+          <Button as={Anchor} to="/sign-in" variant="primary" fullWidth>
+            {t.auth.verifyEmail.proceedToSignIn}
+          </Button>
+        </Flex>
+      ) : (
+        <form method="post" onSubmit={onSubmit} noValidate>
+          <fieldset
+            className="ui-fieldset"
+            disabled={verifyMutation.isPending}
+          >
+            {verifyMutation.isPending && initialUrlToken ? (
+              <Flex
+                align="center"
+                gap={2}
+                style={{
+                  marginBlockEnd: "var(--primitive-space-4)",
+                }}
               >
-                {t.auth.verifyEmail.submit}
-              </Button>
-            </fieldset>
-          </form>
-        )}
+                <Spinner label={t.auth.verifyEmail.verifying} />
+                <Text as="span" variant="subtitle">
+                  {t.auth.verifyEmail.verifying}
+                </Text>
+              </Flex>
+            ) : null}
 
-        <Text
-          as="div"
-          variant="subtitle"
-          align="center"
-          style={{
-            marginBlockStart: "var(--primitive-space-6)",
-            paddingBlockStart: "var(--primitive-space-4)",
-            borderBlockStart: "1px solid var(--theme-border-subtle)",
-          }}
-        >
-          <Anchor to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>
-        </Text>
-      </CardContent>
-    </Card>
+            <Input
+              id="verify-email-token"
+              type="text"
+              autoComplete="off"
+              spellCheck={false}
+              enterKeyHint="done"
+              required
+              label={t.auth.tokenLabel}
+              hint={t.auth.tokenHint}
+              error={getFieldError("token")}
+              {...register("token")}
+            />
+
+            <Button
+              type="submit"
+              variant="primary"
+              fullWidth
+              isLoading={verifyMutation.isPending}
+            >
+              {t.auth.verifyEmail.submit}
+            </Button>
+          </fieldset>
+        </form>
+      )}
+    </AuthCard>
   );
 }

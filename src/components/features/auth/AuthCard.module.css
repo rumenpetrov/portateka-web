@@ -1,0 +1,11 @@
+@layer components {
+  .header {
+    margin-block-end: var(--primitive-space-5);
+  }
+
+  .footer {
+    margin-block-start: var(--primitive-space-6);
+    padding-block-start: var(--primitive-space-4);
+    border-block-start: 1px solid var(--theme-border-subtle);
+  }
+}
