@@ -10,7 +10,7 @@ import {
 import { usePropertiesQuery } from "@/api/properties.api";
 import { ChangePasswordForm } from "@/components/features/profile/ChangePasswordForm";
 import { ProfileForm } from "@/components/features/profile/ProfileForm";
-import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { useNotifications } from "@/notifications/NotificationProvider";
 import {
   Badge,
   Button,

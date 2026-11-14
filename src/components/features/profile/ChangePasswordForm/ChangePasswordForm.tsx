@@ -1,6 +1,6 @@
 import { useChangePasswordMutation } from "@/api/auth.api";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
-import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { useNotifications } from "@/notifications/NotificationProvider";
 import { Button, Fieldset } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";

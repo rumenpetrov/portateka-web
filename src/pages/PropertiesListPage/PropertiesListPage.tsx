@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
 import { PropertyCard } from "@/components/features/properties/PropertyCard";
-import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { useNotifications } from "@/notifications/NotificationProvider";
 import { Anchor, Button, EmptyState, Flex, LoadingState, Text } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 import styles from "./PropertiesListPage.module.css";

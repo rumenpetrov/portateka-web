@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useSignInMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
-import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { useNotifications } from "@/notifications/NotificationProvider";
 import { Anchor, Button, Fieldset, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";

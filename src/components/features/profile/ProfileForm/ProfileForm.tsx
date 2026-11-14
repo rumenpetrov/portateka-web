@@ -3,7 +3,7 @@ import { useUpdateMeMutation } from "@/api/auth.api";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { updateMeSchema } from "@/validators/authValidators";
-import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { useNotifications } from "@/notifications/NotificationProvider";
 import { Button, Fieldset, Input, Select } from "@/components/ui";
 import type { SelectOption } from "@/components/ui";
 import type { ProfileFormProps } from "./ProfileForm.types";

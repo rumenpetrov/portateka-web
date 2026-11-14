@@ -10,7 +10,7 @@ import {
 import { PreferredPropertyBadge } from "@/components/features/properties/PreferredPropertyBadge";
 import { PropertyForm } from "@/components/features/properties/PropertyForm";
 import type { PropertyFormValues } from "@/components/features/properties/PropertyForm";
-import { useNotifications } from "@/components/notifications/NotificationProvider";
+import { useNotifications } from "@/notifications/NotificationProvider";
 import {
   Anchor,
   Button,
