@@ -22,6 +22,7 @@ import {
   Modal,
   Select,
   Spinner,
+  Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 import { SUPPORTED_LOCALES } from "@/i18n/types";
@@ -84,45 +85,24 @@ export function ProfilePage() {
   return (
     <Flex direction="column" gap={6}>
       <div>
-        <h1
-          style={{
-            fontSize: "var(--primitive-text-2xl)",
-            fontWeight: "var(--primitive-weight-bold)",
-          }}
-        >
-          {t.profile.title}
-        </h1>
-        <p
-          style={{
-            color: "var(--theme-text-secondary)",
-            fontSize: "var(--primitive-text-sm)",
-          }}
-        >
+        <Text variant="page-title">{t.profile.title}</Text>
+        <Text variant="subtitle" tone="secondary">
           {t.profile.subtitle}
-        </p>
+        </Text>
       </div>
 
       <Card>
         <CardHeader>
           <div>
-            <h2
-              style={{
-                fontSize: "var(--primitive-text-lg)",
-                fontWeight: "var(--primitive-weight-semibold)",
-              }}
-            >
-              {user.email}
-            </h2>
+            <Text variant="card-title">{user.email}</Text>
             {user.createdAt ? (
-              <p
-                style={{
-                  fontSize: "var(--primitive-text-xs)",
-                  color: "var(--theme-text-muted)",
-                  marginBlockStart: "var(--primitive-space-1)",
-                }}
+              <Text
+                variant="caption"
+                tone="muted"
+                style={{ marginBlockStart: "var(--primitive-space-1)" }}
               >
                 {t.profile.memberSinceLabel}: {formatDate(user.createdAt)}
-              </p>
+              </Text>
             ) : null}
           </div>
 
@@ -144,23 +124,14 @@ export function ProfilePage() {
       <Card>
         <CardHeader>
           <div>
-            <h2
-              style={{
-                fontSize: "var(--primitive-text-lg)",
-                fontWeight: "var(--primitive-weight-semibold)",
-              }}
-            >
-              {t.profile.changePassword.title}
-            </h2>
-            <p
-              style={{
-                fontSize: "var(--primitive-text-xs)",
-                color: "var(--theme-text-muted)",
-                marginBlockStart: "var(--primitive-space-1)",
-              }}
+            <Text variant="card-title">{t.profile.changePassword.title}</Text>
+            <Text
+              variant="caption"
+              tone="muted"
+              style={{ marginBlockStart: "var(--primitive-space-1)" }}
             >
               {t.profile.changePassword.subtitle}
-            </p>
+            </Text>
           </div>
         </CardHeader>
 
@@ -205,24 +176,16 @@ export function ProfilePage() {
       <Card>
         <CardHeader>
           <div>
-            <h2
-              style={{
-                fontSize: "var(--primitive-text-lg)",
-                fontWeight: "var(--primitive-weight-semibold)",
-                color: "var(--theme-danger)",
-              }}
-            >
+            <Text variant="card-title" tone="danger">
               {t.profile.dangerZone.title}
-            </h2>
-            <p
-              style={{
-                fontSize: "var(--primitive-text-xs)",
-                color: "var(--theme-text-muted)",
-                marginBlockStart: "var(--primitive-space-1)",
-              }}
+            </Text>
+            <Text
+              variant="caption"
+              tone="muted"
+              style={{ marginBlockStart: "var(--primitive-space-1)" }}
             >
               {t.profile.dangerZone.subtitle}
-            </p>
+            </Text>
           </div>
         </CardHeader>
 
@@ -245,15 +208,13 @@ export function ProfilePage() {
         closeLabel={t.common.close}
         onClose={handleCloseDeleteModal}
       >
-        <p
-          style={{
-            color: "var(--theme-text-secondary)",
-            fontSize: "var(--primitive-text-sm)",
-            marginBlockEnd: "var(--primitive-space-4)",
-          }}
+        <Text
+          variant="subtitle"
+          tone="secondary"
+          style={{ marginBlockEnd: "var(--primitive-space-4)" }}
         >
           {t.profile.dangerZone.deleteModalDescription}
-        </p>
+        </Text>
 
         <div style={{ marginBlockEnd: "var(--primitive-space-5)" }}>
           <Input

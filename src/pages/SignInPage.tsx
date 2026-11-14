@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useSignInMutation } from "@/api/auth.api";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Anchor, Button, Card, CardContent, Flex, Input } from "@/components/ui";
+import { Anchor, Button, Card, CardContent, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { signInEmailSchema } from "@/validators/authValidators";
@@ -38,23 +38,16 @@ export function SignInPage() {
     <Card>
       <CardContent>
         <div style={{ marginBlockEnd: "var(--primitive-space-5)" }}>
-          <h1
-            style={{
-              fontSize: "var(--primitive-text-xl)",
-              fontWeight: "var(--primitive-weight-bold)",
-              marginBlockEnd: "var(--primitive-space-1)",
-            }}
+          <Text
+            variant="section-title"
+            as="h1"
+            style={{ marginBlockEnd: "var(--primitive-space-1)" }}
           >
             {t.auth.signIn.title}
-          </h1>
-          <p
-            style={{
-              color: "var(--theme-text-secondary)",
-              fontSize: "var(--primitive-text-sm)",
-            }}
-          >
+          </Text>
+          <Text variant="subtitle" tone="secondary">
             {t.auth.signIn.subtitle}
-          </p>
+          </Text>
         </div>
 
         <form method="post" onSubmit={onSubmit} noValidate>
@@ -99,38 +92,34 @@ export function SignInPage() {
                 {t.auth.signIn.submit}
               </Button>
 
-              <Flex
-                wrap
-                justify="between"
-                gap={2}
-                style={{
-                  fontSize: "var(--primitive-text-sm)",
-                }}
-              >
-                <Anchor to="/forgot-password">
-                  {t.auth.signIn.forgotPasswordLink}
-                </Anchor>
-                <Anchor to="/verify-email">
-                  {t.auth.signIn.needVerificationLink}
-                </Anchor>
-              </Flex>
+              <Text as="div" variant="subtitle">
+                <Flex wrap justify="between" gap={2}>
+                  <Anchor to="/forgot-password">
+                    {t.auth.signIn.forgotPasswordLink}
+                  </Anchor>
+                  <Anchor to="/verify-email">
+                    {t.auth.signIn.needVerificationLink}
+                  </Anchor>
+                </Flex>
+              </Text>
             </Flex>
           </fieldset>
         </form>
 
-        <div
+        <Text
+          as="div"
+          variant="subtitle"
+          tone="secondary"
+          align="center"
           style={{
             marginBlockStart: "var(--primitive-space-6)",
             paddingBlockStart: "var(--primitive-space-4)",
             borderBlockStart: "1px solid var(--theme-border-subtle)",
-            fontSize: "var(--primitive-text-sm)",
-            textAlign: "center",
-            color: "var(--theme-text-secondary)",
           }}
         >
           <span>{t.auth.signIn.noAccountPrompt} </span>
           <Anchor to="/sign-up">{t.auth.signIn.signUpLink}</Anchor>
-        </div>
+        </Text>
       </CardContent>
     </Card>
   );

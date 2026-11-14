@@ -21,6 +21,7 @@ import {
   Flex,
   Modal,
   Spinner,
+  Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 
@@ -113,35 +114,25 @@ export function PropertyDetailPage() {
               inline
               align="center"
               gap={1}
-              style={{
-                fontSize: "var(--primitive-text-sm)",
-              }}
             >
               <ArrowLeft aria-hidden="true" size={16} />
-              <span>{t.nav.properties}</span>
+              <Text as="span" variant="subtitle">
+                {t.nav.properties}
+              </Text>
             </Flex>
             <PreferredPropertyBadge isPreferred={isPreferred} />
           </Flex>
 
-          <h1
-            style={{
-              fontSize: "var(--primitive-text-2xl)",
-              fontWeight: "var(--primitive-weight-bold)",
-            }}
-          >
-            {property.name}
-          </h1>
+          <Text variant="page-title">{property.name}</Text>
 
-          <p
-            style={{
-              fontSize: "var(--primitive-text-xs)",
-              color: "var(--theme-text-muted)",
-              marginBlockStart: "var(--primitive-space-1)",
-            }}
+          <Text
+            variant="caption"
+            tone="muted"
+            style={{ marginBlockStart: "var(--primitive-space-1)" }}
           >
             {t.properties.createdAtLabel}: {formatDate(property.createdAt)} ·{" "}
             {t.properties.updatedAtLabel}: {formatDate(property.updatedAt)}
-          </p>
+          </Text>
         </div>
 
         <Flex wrap gap={2}>
@@ -176,14 +167,7 @@ export function PropertyDetailPage() {
 
       <Card>
         <CardHeader>
-          <h2
-            style={{
-              fontSize: "var(--primitive-text-lg)",
-              fontWeight: "var(--primitive-weight-semibold)",
-            }}
-          >
-            {t.properties.detail.editSectionTitle}
-          </h2>
+          <Text variant="card-title">{t.properties.detail.editSectionTitle}</Text>
         </CardHeader>
         <CardContent>
           <PropertyForm
@@ -205,15 +189,13 @@ export function PropertyDetailPage() {
         closeLabel={t.common.close}
         onClose={() => setDeleteModalOpen(false)}
       >
-        <p
-          style={{
-            color: "var(--theme-text-secondary)",
-            fontSize: "var(--primitive-text-sm)",
-            marginBlockEnd: "var(--primitive-space-5)",
-          }}
+        <Text
+          variant="subtitle"
+          tone="secondary"
+          style={{ marginBlockEnd: "var(--primitive-space-5)" }}
         >
           {t.properties.detail.deleteModalDescription}
-        </p>
+        </Text>
 
         <Flex direction="column" gap={2}>
           <Button

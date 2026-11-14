@@ -35,6 +35,9 @@ export type { SelectOption, SelectProps } from "./Select";
 
 export { Spinner } from "./Spinner";
 
+export { Text } from "./Text";
+export type { TextAlign, TextProps, TextTone, TextVariant } from "./Text";
+
 export { Textarea } from "./Textarea";
 export type { TextareaProps } from "./Textarea";
 

@@ -1,0 +1,59 @@
+@layer components {
+  .pageTitle {
+    font-size: var(--primitive-text-2xl);
+    font-weight: var(--primitive-weight-bold);
+  }
+
+  .sectionTitle {
+    font-size: var(--primitive-text-xl);
+    font-weight: var(--primitive-weight-bold);
+  }
+
+  .cardTitle {
+    font-size: var(--primitive-text-lg);
+    font-weight: var(--primitive-weight-semibold);
+  }
+
+  .body {
+    font-size: var(--primitive-text-md);
+    font-weight: var(--primitive-weight-regular);
+  }
+
+  .subtitle {
+    font-size: var(--primitive-text-sm);
+    font-weight: var(--primitive-weight-regular);
+  }
+
+  .caption {
+    font-size: var(--primitive-text-xs);
+    font-weight: var(--primitive-weight-regular);
+  }
+
+  .tonePrimary {
+    color: var(--theme-text-primary);
+  }
+
+  .toneSecondary {
+    color: var(--theme-text-secondary);
+  }
+
+  .toneMuted {
+    color: var(--theme-text-muted);
+  }
+
+  .toneDanger {
+    color: var(--theme-danger);
+  }
+
+  .alignStart {
+    text-align: start;
+  }
+
+  .alignCenter {
+    text-align: center;
+  }
+
+  .alignEnd {
+    text-align: end;
+  }
+}

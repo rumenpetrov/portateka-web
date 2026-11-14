@@ -4,7 +4,7 @@ import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
 import { PropertyCard } from "@/components/features/properties/PropertyCard";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Anchor, Button, EmptyState, Flex, Spinner } from "@/components/ui";
+import { Anchor, Button, EmptyState, Flex, Spinner, Text } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function PropertiesListPage() {
@@ -53,22 +53,10 @@ export function PropertiesListPage() {
     <Flex direction="column" gap={6}>
       <Flex wrap align="center" justify="between" gap={3}>
         <div>
-          <h1
-            style={{
-              fontSize: "var(--primitive-text-2xl)",
-              fontWeight: "var(--primitive-weight-bold)",
-            }}
-          >
-            {t.properties.listTitle}
-          </h1>
-          <p
-            style={{
-              color: "var(--theme-text-secondary)",
-              fontSize: "var(--primitive-text-sm)",
-            }}
-          >
+          <Text variant="page-title">{t.properties.listTitle}</Text>
+          <Text variant="subtitle" tone="secondary">
             {t.properties.listSubtitle}
-          </p>
+          </Text>
         </div>
 
         <Button as={Anchor} to="/properties/new" variant="primary">

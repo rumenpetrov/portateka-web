@@ -2,6 +2,7 @@ import { useEffect, useId, useRef } from "react";
 import type { MouseEvent, ReactNode } from "react";
 import { X } from "lucide-react";
 import { Button } from "./Button";
+import { Text } from "./Text";
 
 export interface ModalProps {
   open: boolean;
@@ -73,15 +74,9 @@ export function Modal({
       {...({ closedby: "any" } as Record<string, string>)}
     >
       <div className="ui-modal-header">
-        <h2
-          id={titleId}
-          style={{
-            fontSize: "var(--primitive-text-lg)",
-            fontWeight: "var(--primitive-weight-semibold)",
-          }}
-        >
+        <Text id={titleId} variant="card-title">
           {title}
-        </h2>
+        </Text>
         <form method="dialog">
           <Button
             type="submit"

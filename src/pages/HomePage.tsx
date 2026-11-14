@@ -9,6 +9,7 @@ import {
   CardContent,
   CardHeader,
   Flex,
+  Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 
@@ -29,23 +30,14 @@ export function HomePage() {
               {t.app.betaBadge}
             </Badge>
           </div>
-          <h1
-            style={{
-              fontSize: "var(--primitive-text-2xl)",
-              fontWeight: "var(--primitive-weight-bold)",
-            }}
-          >
-            {t.home.title}
-          </h1>
-          <p
-            style={{
-              color: "var(--theme-text-secondary)",
-              fontSize: "var(--primitive-text-sm)",
-              marginBlockStart: "var(--primitive-space-1)",
-            }}
+          <Text variant="page-title">{t.home.title}</Text>
+          <Text
+            variant="subtitle"
+            tone="secondary"
+            style={{ marginBlockStart: "var(--primitive-space-1)" }}
           >
             {t.home.subtitle}
-          </p>
+          </Text>
         </div>
       </CardHeader>
 
@@ -55,8 +47,8 @@ export function HomePage() {
             <Flex direction="column" gap={2}>
               <strong>{t.home.betaWarningTitle}</strong>
               <p>{t.home.betaWarningMessage}</p>
-              <p style={{ fontWeight: "var(--primitive-weight-medium)" }}>
-                {t.home.betaDataLossNote}
+              <p>
+                <strong>{t.home.betaDataLossNote}</strong>
               </p>
             </Flex>
           </Alert>
