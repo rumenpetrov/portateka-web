@@ -28,6 +28,10 @@ export const enUS: TranslationDictionary = {
     delete: "Delete",
     confirm: "Confirm",
     back: "Back",
+    retry: "Try again",
+    errorTitle: "Unable to load data",
+    offlineBanner:
+      "You are currently offline. Some features and up-to-date data may be unavailable.",
     showPassword: "Show password",
     hidePassword: "Hide password",
     showPasswordWarning: "Warning: this displays your password on the screen.",
@@ -49,6 +53,10 @@ export const enUS: TranslationDictionary = {
     signIn: "Sign in",
     signUp: "Create account",
     signOut: "Sign out",
+  },
+  footer: {
+    copyright: (year) => `© ${year} Portateka`,
+    installApp: "Install application (PWA)",
   },
   preferences: {
     languageLabel: "Language",

@@ -19,6 +19,8 @@ interface ThemeContextValue {
 }
 
 const STORAGE_KEY = "color-scheme";
+const THEME_COLOR_LIGHT = "#faf8fc";
+const THEME_COLOR_DARK = "#111318";
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
@@ -54,6 +56,21 @@ function syncMetaColorScheme(preference: ColorSchemePreference): void {
     document.head.appendChild(meta);
   }
   meta.content = preference === "system" ? "light dark" : preference;
+
+  const lightThemeMeta = document.querySelector<HTMLMetaElement>(
+    'meta[name="theme-color"][media="(prefers-color-scheme: light)"]',
+  );
+  const darkThemeMeta = document.querySelector<HTMLMetaElement>(
+    'meta[name="theme-color"][media="(prefers-color-scheme: dark)"]',
+  );
+  if (lightThemeMeta) {
+    lightThemeMeta.content =
+      preference === "dark" ? THEME_COLOR_DARK : THEME_COLOR_LIGHT;
+  }
+  if (darkThemeMeta) {
+    darkThemeMeta.content =
+      preference === "light" ? THEME_COLOR_LIGHT : THEME_COLOR_DARK;
+  }
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

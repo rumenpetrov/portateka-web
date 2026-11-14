@@ -1,0 +1,26 @@
+@layer components {
+  .banner {
+    background-color: var(--theme-warning-subtle);
+    border-block-end: 1px solid oklch(from var(--theme-warning) l c h / 0.35);
+    color: var(--theme-text-primary);
+    padding-block: var(--primitive-space-2);
+    padding-inline: var(--primitive-space-4);
+    font-size: var(--primitive-text-sm);
+    font-weight: var(--primitive-weight-medium);
+  }
+
+  .inner {
+    max-inline-size: 64rem;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--primitive-space-2);
+    text-align: center;
+  }
+
+  .icon {
+    color: var(--theme-warning);
+    flex-shrink: 0;
+  }
+}

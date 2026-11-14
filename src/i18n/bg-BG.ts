@@ -29,6 +29,10 @@ export const bgBG: TranslationDictionary = {
     delete: "Изтрий",
     confirm: "Потвърди",
     back: "Назад",
+    retry: "Опитай отново",
+    errorTitle: "Неуспешно зареждане на данни",
+    offlineBanner:
+      "В момента сте офлайн. Някои функции и актуални данни може да са недостъпни.",
     showPassword: "Покажи паролата",
     hidePassword: "Скрий паролата",
     showPasswordWarning:
@@ -51,6 +55,10 @@ export const bgBG: TranslationDictionary = {
     signIn: "Вход",
     signUp: "Регистрация",
     signOut: "Изход",
+  },
+  footer: {
+    copyright: (year) => `© ${year} Портатека`,
+    installApp: "Инсталирай приложението (PWA)",
   },
   preferences: {
     languageLabel: "Език",

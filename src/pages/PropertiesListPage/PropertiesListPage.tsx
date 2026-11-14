@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, RefreshCw } from "lucide-react";
 import { Link, useSearchParams } from "react-router";
 import { useMeQuery, useUpdateMeMutation } from "@/api/auth.api";
 import { usePropertiesQuery } from "@/api/properties.api";
@@ -18,6 +18,7 @@ import {
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
+import type { ApiErrorShape } from "@/i18n/types";
 import {
   PROPERTIES_PAGE_LIMIT,
   parsePageParam,
@@ -27,7 +28,7 @@ import styles from "./PropertiesListPage.module.css";
 const SKELETON_CARD_KEYS = [0, 1, 2] as const;
 
 export function PropertiesListPage() {
-  const { t } = useI18n();
+  const { t, translateApiError } = useI18n();
   const { notifySuccess } = useNotifications();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parsePageParam(searchParams.get("page"));
@@ -106,7 +107,7 @@ export function PropertiesListPage() {
     }
   };
 
-  const isLoading = propertiesQuery.isPending || meQuery.isPending;
+  const isLoading = propertiesQuery.isPending;
   const preferredPropertyId = meQuery.data?.preferredPropertyId ?? null;
 
   return (
@@ -153,6 +154,29 @@ export function PropertiesListPage() {
             </Card>
           ))}
         </div>
+      ) : propertiesQuery.isError ? (
+        <EmptyState
+          title={t.common.errorTitle}
+          description={translateApiError(
+            propertiesQuery.error as ApiErrorShape | undefined,
+          )}
+          action={
+            <Button
+              type="button"
+              variant="primary"
+              isLoading={propertiesQuery.isFetching}
+              onClick={() => {
+                void propertiesQuery.refetch();
+                if (meQuery.isError) {
+                  void meQuery.refetch();
+                }
+              }}
+            >
+              <RefreshCw aria-hidden="true" size={16} />
+              <span>{t.common.retry}</span>
+            </Button>
+          }
+        />
       ) : properties.length === 0 ? (
         <EmptyState
           title={t.properties.emptyTitle}
