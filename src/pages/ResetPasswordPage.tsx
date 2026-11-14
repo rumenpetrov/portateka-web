@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router";
 import { useResetPasswordMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
-import { Alert, Anchor, Button, Flex, Input } from "@/components/ui";
+import { Alert, Anchor, Button, Fieldset, Flex, Input } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { resetPasswordSchema } from "@/validators/authValidators";
@@ -51,10 +51,7 @@ export function ResetPasswordPage() {
         </Flex>
       ) : (
         <form method="post" onSubmit={onSubmit} noValidate>
-          <fieldset
-            className="ui-fieldset"
-            disabled={resetMutation.isPending}
-          >
+          <Fieldset disabled={resetMutation.isPending}>
             <Input
               id="reset-password-token"
               type="text"
@@ -87,7 +84,7 @@ export function ResetPasswordPage() {
             >
               {t.auth.resetPassword.submit}
             </Button>
-          </fieldset>
+          </Fieldset>
         </form>
       )}
     </AuthCard>

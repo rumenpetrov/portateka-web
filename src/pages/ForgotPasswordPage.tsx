@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForgotPasswordMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
-import { Alert, Anchor, Button, Flex, Input } from "@/components/ui";
+import { Alert, Anchor, Button, Fieldset, Flex, Input } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { forgotPasswordSchema } from "@/validators/authValidators";
@@ -52,10 +52,7 @@ export function ForgotPasswordPage() {
         </Flex>
       ) : (
         <form method="post" onSubmit={onSubmit} noValidate>
-          <fieldset
-            className="ui-fieldset"
-            disabled={forgotMutation.isPending}
-          >
+          <Fieldset disabled={forgotMutation.isPending}>
             <Input
               id="forgot-password-email"
               type="email"
@@ -78,7 +75,7 @@ export function ForgotPasswordPage() {
             >
               {t.auth.forgotPassword.submit}
             </Button>
-          </fieldset>
+          </Fieldset>
         </form>
       )}
     </AuthCard>

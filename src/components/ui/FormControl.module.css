@@ -1,0 +1,40 @@
+@layer components {
+  .control {
+    font: inherit;
+    font-size: max(1rem, 1em);
+    line-height: 1.4;
+    padding-block: var(--primitive-space-2);
+    padding-inline: var(--primitive-space-3);
+    min-block-size: 2.75rem;
+    inline-size: 100%;
+    box-sizing: border-box;
+    border-radius: var(--primitive-radius-md);
+    border: 1px solid var(--theme-border-Control);
+    background-color: var(--theme-bg-surface);
+    color: var(--theme-text-primary);
+    transition: border-color var(--primitive-duration-fast) var(--primitive-easing-standard);
+
+    @media (pointer: coarse) {
+      min-block-size: 3.125rem;
+    }
+
+    &::placeholder {
+      color: var(--theme-text-muted);
+    }
+
+    &:is([aria-invalid="true"], :user-invalid) {
+      border-color: var(--theme-danger);
+    }
+
+    &:disabled {
+      background-color: var(--theme-bg-subtle);
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+  }
+
+  .textarea {
+    min-block-size: 5.5rem;
+    resize: vertical;
+  }
+}

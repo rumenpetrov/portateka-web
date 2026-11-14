@@ -6,7 +6,7 @@ import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { updateMeSchema } from "@/validators/authValidators";
 import { useNotifications } from "@/components/notifications/NotificationProvider";
-import { Button, Input, Select } from "@/components/ui";
+import { Button, Fieldset, Input, Select } from "@/components/ui";
 import type { SelectOption } from "@/components/ui";
 
 interface ProfileFormProps {
@@ -55,7 +55,7 @@ export function ProfileForm({ user, properties }: ProfileFormProps) {
 
   return (
     <form method="post" onSubmit={onSubmit} noValidate>
-      <fieldset className="ui-fieldset" disabled={updateMeMutation.isPending}>
+      <Fieldset disabled={updateMeMutation.isPending}>
         <Input
           id="profile-first-name"
           type="text"
@@ -103,7 +103,7 @@ export function ProfileForm({ user, properties }: ProfileFormProps) {
         >
           {t.profile.saveChanges}
         </Button>
-      </fieldset>
+      </Fieldset>
     </form>
   );
 }
