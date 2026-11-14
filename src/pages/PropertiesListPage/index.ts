@@ -1,0 +1,1 @@
+export { PropertiesListPage } from "./PropertiesListPage";

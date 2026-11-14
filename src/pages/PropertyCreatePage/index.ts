@@ -1,0 +1,1 @@
+export { PropertyCreatePage } from "./PropertyCreatePage";
