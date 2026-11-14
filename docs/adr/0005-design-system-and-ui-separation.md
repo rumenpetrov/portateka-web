@@ -18,7 +18,10 @@ The showcase application requires a minimal, high-impact design system supportin
    - `ToastViewport` uses the Popover API (`popover="manual"`) inside a top-layer stack with `ariaNotify()` + a pre-populated `aria-live="assertive"` live region.
 4. **Pure UI Primitives (`src/components/ui/`) vs. Feature Components (`src/components/features/`):**
    - Components in `src/components/ui/` accept only presentation props (using `@layer components` CSS Modules and `as?: C` polymorphism where needed) and never import from `react-router`, `src/api/`, `src/i18n/`, `src/notifications/`, or domain modules. See ADR `0010` for the CSS Module, folder layout, and primitive boundary rules.
+5. **Loading States (`Skeleton` vs. `Spinner`):**
+   - Query-driven page/section loading (`isPending`) renders static `useI18n()` headers/navigation immediately and uses layout-matched `<Skeleton />` shapes (`aria-hidden="true"`, `--theme-bg-subtle` pulse with `@media (prefers-reduced-motion: reduce)`) inside a `role="status"` + `aria-busy="true"` container with a single `.visually-hidden` loading announcement.
+   - `<Spinner />` is reserved for inline action/mutation feedback (`Button` `isLoading`, token verification).
 
 ## Consequences
-- **Positive:** Single source of truth for all tokens; zero-JS focus trapping and `Esc` handling for modals; automatic WCAG foreground contrast calculation via `contrast-color()`.
+- **Positive:** Single source of truth for all tokens; zero-JS focus trapping and `Esc` handling for modals; automatic WCAG foreground contrast calculation via `contrast-color()`; layout-matched skeleton placeholders prevent cumulative layout shift (CLS) on initial query fetches.
 - **Negative / Trade-offs:** Newer CSS/HTML features (`contrast-color()`, `closedby`, `ariaNotify()`) require the lightweight CSS/JS fallbacks included in `tokens.css`, `Modal.tsx`, and `ToastViewport.tsx`.

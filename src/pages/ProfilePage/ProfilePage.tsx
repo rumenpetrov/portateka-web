@@ -19,9 +19,9 @@ import {
   CardHeader,
   Flex,
   Input,
-  LoadingState,
   Modal,
   Select,
+  Skeleton,
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -46,7 +46,106 @@ export function ProfilePage() {
   const [confirmText, setConfirmText] = useState("");
 
   if (meQuery.isPending || propertiesQuery.isPending) {
-    return <LoadingState label={t.common.loading} />;
+    return (
+      <Flex direction="column" gap={6}>
+        <div>
+          <Text variant="page-title">{t.profile.title}</Text>
+          <Text variant="subtitle" tone="secondary">
+            {t.profile.subtitle}
+          </Text>
+        </div>
+
+        <Flex direction="column" gap={6} role="status" aria-busy="true">
+          <span className="visually-hidden">{t.common.loading}</span>
+
+          <Card>
+            <CardHeader>
+              <Flex direction="column" gap={1}>
+                <Skeleton variant="text" width="12rem" height="1.375rem" />
+                <Skeleton variant="text" width="9rem" height="0.875rem" />
+              </Flex>
+
+              <Skeleton variant="circle" width="5.5rem" height="1.375rem" />
+            </CardHeader>
+
+            <CardContent>
+              <Flex direction="column" gap={4}>
+                <Flex direction="column" gap={1}>
+                  <Skeleton variant="text" width="6rem" height="1rem" />
+                  <Skeleton variant="rect" width="100%" height="2.75rem" />
+                </Flex>
+
+                <Flex direction="column" gap={1}>
+                  <Skeleton variant="text" width="6rem" height="1rem" />
+                  <Skeleton variant="rect" width="100%" height="2.75rem" />
+                </Flex>
+
+                <Flex direction="column" gap={1}>
+                  <Skeleton variant="text" width="9rem" height="1rem" />
+                  <Skeleton variant="rect" width="100%" height="2.75rem" />
+                </Flex>
+
+                <Skeleton variant="rect" width="100%" height="2.75rem" />
+              </Flex>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <Flex direction="column" gap={1}>
+                <Skeleton variant="text" width="10rem" height="1.375rem" />
+                <Skeleton variant="text" width="14rem" height="0.875rem" />
+              </Flex>
+            </CardHeader>
+
+            <CardContent>
+              <Flex direction="column" gap={4}>
+                <Flex direction="column" gap={1}>
+                  <Skeleton variant="text" width="8rem" height="1rem" />
+                  <Skeleton variant="rect" width="100%" height="2.75rem" />
+                </Flex>
+
+                <Flex direction="column" gap={1}>
+                  <Skeleton variant="text" width="7rem" height="1rem" />
+                  <Skeleton variant="rect" width="100%" height="2.75rem" />
+                </Flex>
+
+                <Skeleton variant="rect" width="100%" height="2.75rem" />
+              </Flex>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent>
+              <Flex direction="column" gap={4}>
+                <Flex direction="column" gap={1}>
+                  <Skeleton variant="text" width="5rem" height="1rem" />
+                  <Skeleton variant="rect" width="100%" height="2.75rem" />
+                </Flex>
+
+                <Flex direction="column" gap={1}>
+                  <Skeleton variant="text" width="5rem" height="1rem" />
+                  <Skeleton variant="rect" width="100%" height="2.75rem" />
+                </Flex>
+              </Flex>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <Flex direction="column" gap={1}>
+                <Skeleton variant="text" width="8rem" height="1.375rem" />
+                <Skeleton variant="text" width="16rem" height="0.875rem" />
+              </Flex>
+            </CardHeader>
+
+            <CardContent>
+              <Skeleton variant="rect" width="100%" height="2.75rem" />
+            </CardContent>
+          </Card>
+        </Flex>
+      </Flex>
+    );
   }
 
   const user = meQuery.data;

@@ -133,6 +133,7 @@
     --theme-scrollbar-thumb: var(--theme-border-Control);
     accent-color: var(--theme-accent);
     scrollbar-color: var(--theme-scrollbar-thumb) var(--theme-scrollbar-track);
+    scrollbar-gutter: stable;
   }
 }
 
@@ -167,6 +168,11 @@
     &:hover {
       color: var(--theme-accent-hover);
     }
+  }
+
+  ::selection {
+    background-color: var(--theme-accent);
+    color: contrast-color(var(--theme-accent));
   }
 
   :focus-visible {

@@ -1,0 +1,32 @@
+@layer components {
+  .skeleton {
+    display: block;
+    inline-size: 100%;
+    block-size: 1rem;
+    background-color: var(--theme-bg-subtle);
+    border-radius: var(--primitive-radius-sm);
+    animation: pulse 1.6s var(--primitive-easing-standard) infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  .rect {
+    border-radius: var(--primitive-radius-md);
+  }
+
+  .circle {
+    border-radius: var(--primitive-radius-pill);
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.45;
+    }
+  }
+}
