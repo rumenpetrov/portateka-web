@@ -224,6 +224,11 @@ export function ProfilePage() {
                 {t.profile.memberSinceLabel}: {formatDate(user.createdAt)}
               </Text>
             ) : null}
+            {user.lastLoginAt ? (
+              <Text variant="caption" tone="muted">
+                {t.profile.lastLoginLabel}: {formatDate(user.lastLoginAt)}
+              </Text>
+            ) : null}
           </Flex>
 
           <Badge variant={user.emailVerified ? "success" : "warning"}>
