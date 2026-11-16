@@ -22,6 +22,7 @@ export interface UserProfile {
   emailVerified: boolean;
   preferredPropertyId: string | null;
   locale: SupportedLocale;
+  lastLoginAt?: string | null;
   createdAt?: string;
   updatedAt?: string;
 }

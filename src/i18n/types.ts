@@ -221,6 +221,7 @@ export interface TranslationDictionary {
     saveChanges: string;
     updatedNotification: string;
     memberSinceLabel: string;
+    lastLoginLabel: string;
     changePassword: {
       title: string;
       subtitle: string;

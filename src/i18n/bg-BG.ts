@@ -200,6 +200,7 @@ export const bgBG: TranslationDictionary = {
     saveChanges: "Запази профила",
     updatedNotification: "Профилът е обновен успешно.",
     memberSinceLabel: "Регистриран на",
+    lastLoginLabel: "Последен вход",
     changePassword: {
       title: "Смяна на парола",
       subtitle: "Обновете паролата на профила си с текущата си парола.",

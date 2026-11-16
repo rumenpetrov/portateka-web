@@ -197,6 +197,7 @@ export const enUS: TranslationDictionary = {
     saveChanges: "Save profile",
     updatedNotification: "Profile updated successfully.",
     memberSinceLabel: "Member since",
+    lastLoginLabel: "Last login",
     changePassword: {
       title: "Change password",
       subtitle: "Update your account password using your current password.",
