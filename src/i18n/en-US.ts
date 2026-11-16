@@ -32,6 +32,9 @@ export const enUS: TranslationDictionary = {
     errorTitle: "Unable to load data",
     offlineBanner:
       "You are currently offline. Some features and up-to-date data may be unavailable.",
+    pwaUpdateBanner: "A new version of Portateka is available.",
+    pwaUpdateRefresh: "Refresh",
+    pwaUpdateDismiss: "Dismiss update notice",
     showPassword: "Show password",
     hidePassword: "Hide password",
     showPasswordWarning: "Warning: this displays your password on the screen.",
@@ -95,7 +98,6 @@ export const enUS: TranslationDictionary = {
       noAccountPrompt: "Don't have an account?",
       signUpLink: "Create an account",
       needVerificationLink: "Have a verification token?",
-      welcomeNotification: "Signed in successfully.",
     },
     signUp: {
       title: "Create your account",

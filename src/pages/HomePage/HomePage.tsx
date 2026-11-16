@@ -64,24 +64,14 @@ export function HomePage() {
 
             {token ? (
               <Flex direction="column" className={styles.ctaGroup}>
-                <Button
-                  as={Link}
-                  to="/properties"
-                  variant="primary"
-                  fullWidth
-                >
+                <Button as={Link} to="/properties" variant="primary" fullWidth>
                   <span>{t.home.goToProperties}</span>
                   <ArrowRight aria-hidden="true" size={18} />
                 </Button>
               </Flex>
             ) : (
               <Flex direction="column" gap={2} className={styles.ctaGroup}>
-                <Button
-                  as={Link}
-                  to="/sign-in"
-                  variant="primary"
-                  fullWidth
-                >
+                <Button as={Link} to="/sign-in" variant="primary" fullWidth>
                   <LogIn aria-hidden="true" size={18} />
                   <span>{t.home.signInCta}</span>
                 </Button>

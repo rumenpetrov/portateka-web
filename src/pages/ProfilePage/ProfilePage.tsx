@@ -165,8 +165,7 @@ export function ProfilePage() {
           title={t.common.errorTitle}
           description={translateApiError(
             (meQuery.error ?? propertiesQuery.error) as
-              | ApiErrorShape
-              | undefined,
+              ApiErrorShape | undefined,
           )}
           action={
             <Button

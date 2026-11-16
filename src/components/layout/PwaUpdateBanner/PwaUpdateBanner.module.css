@@ -1,0 +1,39 @@
+@layer components {
+  .banner {
+    background-color: oklch(from var(--theme-accent) l c h / 0.12);
+    border-block-end: 1px solid oklch(from var(--theme-accent) l c h / 0.35);
+    color: var(--theme-text-primary);
+    padding-block: var(--primitive-space-2);
+    padding-inline: var(--primitive-space-4);
+    font-size: var(--primitive-text-sm);
+    font-weight: var(--primitive-weight-medium);
+  }
+
+  .inner {
+    max-inline-size: 64rem;
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--primitive-space-3);
+    text-align: center;
+  }
+
+  .message {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--primitive-space-2);
+  }
+
+  .icon {
+    color: var(--theme-accent);
+    flex-shrink: 0;
+  }
+
+  .actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--primitive-space-2);
+  }
+}

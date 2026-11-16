@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
       }),
       react(),
       VitePWA({
-        registerType: "autoUpdate",
+        registerType: "prompt",
         injectRegister: "auto",
         includeAssets: [
           "logo.svg",
@@ -62,8 +62,6 @@ export default defineConfig(({ mode }) => {
           navigateFallback: "/index.html",
           navigateFallbackDenylist: [/^\/api(?:\/|$)/, /^\/health(?:\/|$)/],
           cleanupOutdatedCaches: true,
-          clientsClaim: true,
-          skipWaiting: true,
         },
       }),
     ],

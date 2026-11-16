@@ -71,6 +71,9 @@ export interface TranslationDictionary {
     retry: string;
     errorTitle: string;
     offlineBanner: string;
+    pwaUpdateBanner: string;
+    pwaUpdateRefresh: string;
+    pwaUpdateDismiss: string;
     showPassword: string;
     hidePassword: string;
     showPasswordWarning: string;
@@ -129,7 +132,6 @@ export interface TranslationDictionary {
       noAccountPrompt: string;
       signUpLink: string;
       needVerificationLink: string;
-      welcomeNotification: string;
     };
     signUp: {
       title: string;
