@@ -74,12 +74,13 @@ src/
 ├── api/            # Fetch client, React Query keys, types, and domain API modules (auth, properties)
 ├── components/
 │   ├── features/   # Domain-specific components (auth, profile, properties tabs & modals)
-│   ├── layout/     # AppLayout, AuthLayout, TopControls, BrandLogo
+│   ├── layout/     # AppLayout, AuthLayout, TopControls, BrandLogo, OfflineBanner, PwaUpdateBanner
 │   └── ui/         # Pure polymorphic UI primitives (Anchor, Button, Input, Modal, Card, etc.)
 ├── hooks/          # Shared hooks (e.g. useAppForm wrapper for React Hook Form + Zod)
 ├── i18n/           # Locale dictionaries (bg-BG, en-US) and I18nProvider
 ├── notifications/  # Toast notification context & global error notification bridge
 ├── pages/          # Route-level page components
+├── pwa/            # Singleton service-worker update store (registerSW + useSyncExternalStore)
 ├── theme/          # Design tokens & cascade layers (tokens.css) and ThemeProvider (light/dark/system)
 └── validators/     # Zod schemas mapped to i18n validation keys
 ```
