@@ -33,6 +33,9 @@ export const bgBG: TranslationDictionary = {
     errorTitle: "Неуспешно зареждане на данни",
     offlineBanner:
       "В момента сте офлайн. Някои функции и актуални данни може да са недостъпни.",
+    pwaUpdateBanner: "Налична е нова версия на Портатека.",
+    pwaUpdateRefresh: "Обнови",
+    pwaUpdateDismiss: "Затвори известието за обновление",
     showPassword: "Покажи паролата",
     hidePassword: "Скрий паролата",
     showPasswordWarning:
@@ -98,7 +101,6 @@ export const bgBG: TranslationDictionary = {
       noAccountPrompt: "Нямате профил?",
       signUpLink: "Създайте профил",
       needVerificationLink: "Имате код за потвърждение на имейл?",
-      welcomeNotification: "Успешно влязохте в профила си.",
     },
     signUp: {
       title: "Създаване на профил",

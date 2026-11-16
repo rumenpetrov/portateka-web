@@ -8,6 +8,7 @@ import { Button, Flex } from "@/components/ui";
 import { BrandLogo } from "../BrandLogo";
 import { Footer } from "../Footer";
 import { OfflineBanner } from "../OfflineBanner";
+import { PwaUpdateBanner } from "../PwaUpdateBanner";
 import { TopControls } from "../TopControls";
 import styles from "./AppLayout.module.css";
 
@@ -80,6 +81,7 @@ export function AppLayout() {
         </div>
       </header>
 
+      <PwaUpdateBanner />
       <OfflineBanner />
 
       <main className={styles.main}>

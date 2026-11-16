@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router";
 import { useSignInMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
 import { PasswordInput } from "@/components/features/auth/PasswordInput";
-import { useNotifications } from "@/notifications/NotificationProvider";
 import { Anchor, Button, Fieldset, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -10,7 +9,6 @@ import { signInEmailSchema } from "@/validators/authValidators";
 
 export function SignInPage() {
   const { setLocale, t } = useI18n();
-  const { notifySuccess } = useNotifications();
   const navigate = useNavigate();
   const signInMutation = useSignInMutation();
 
@@ -28,7 +26,6 @@ export function SignInPage() {
       if (output.user.locale) {
         setLocale(output.user.locale);
       }
-      notifySuccess(t.auth.signIn.welcomeNotification);
       navigate("/properties", { replace: true });
     } catch (err) {
       applyServerErrors(err);
