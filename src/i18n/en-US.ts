@@ -188,14 +188,10 @@ export const enUS: TranslationDictionary = {
   },
   profile: {
     title: "Account Profile",
-    subtitle: "Manage your personal details and default preferred property.",
+    subtitle: "Manage your personal details and account settings.",
     accountInfoTitle: "Personal information",
     emailVerifiedBadge: "Verified",
     emailUnverifiedBadge: "Unverified",
-    preferredPropertyLabel: "Preferred property",
-    noPreferredPropertyOption: "None selected",
-    preferredPropertyHint:
-      "Choose your primary property or clear the selection.",
     saveChanges: "Save profile",
     updatedNotification: "Profile updated successfully.",
     memberSinceLabel: "Member since",

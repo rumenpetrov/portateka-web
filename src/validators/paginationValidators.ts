@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const DEFAULT_PAGE_SIZE = 20;
 export const MAX_PAGE_SIZE = 100;
-export const PROPERTIES_PAGE_LIMIT = 9;
+export const PROPERTIES_PAGE_LIMIT = 8;
 
 const coerceEmptyStringToNaN = (val: unknown) => {
   if (typeof val === "string" && val.trim() === "") {

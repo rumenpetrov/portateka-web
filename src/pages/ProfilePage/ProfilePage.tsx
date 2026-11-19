@@ -7,7 +7,6 @@ import {
   useSignOut,
   useUpdateMeMutation,
 } from "@/api/auth.api";
-import { usePropertiesQuery } from "@/api/properties.api";
 import { ChangePasswordForm } from "@/components/features/profile/ChangePasswordForm";
 import { ProfileForm } from "@/components/features/profile/ProfileForm";
 import { useNotifications } from "@/notifications/NotificationProvider";
@@ -30,7 +29,6 @@ import { SUPPORTED_LOCALES } from "@/i18n/types";
 import type { ApiErrorShape, SupportedLocale } from "@/i18n/types";
 import { useTheme } from "@/theme/ThemeProvider";
 import type { ColorSchemePreference } from "@/theme/ThemeProvider";
-import { MAX_PAGE_SIZE } from "@/validators/paginationValidators";
 
 export function ProfilePage() {
   const { locale, setLocale, t, formatDate, translateApiError } = useI18n();
@@ -40,14 +38,13 @@ export function ProfilePage() {
   const signOut = useSignOut();
 
   const meQuery = useMeQuery();
-  const propertiesQuery = usePropertiesQuery({ limit: MAX_PAGE_SIZE });
   const deleteMeMutation = useDeleteMeMutation();
   const updateMeMutation = useUpdateMeMutation();
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [confirmText, setConfirmText] = useState("");
 
-  if (meQuery.isPending || propertiesQuery.isPending) {
+  if (meQuery.isPending) {
     return (
       <Flex direction="column" gap={6}>
         <div>
@@ -79,11 +76,6 @@ export function ProfilePage() {
 
                 <Flex direction="column" gap={1}>
                   <Skeleton variant="text" width="6rem" height="1rem" />
-                  <Skeleton variant="rect" width="100%" height="2.75rem" />
-                </Flex>
-
-                <Flex direction="column" gap={1}>
-                  <Skeleton variant="text" width="9rem" height="1rem" />
                   <Skeleton variant="rect" width="100%" height="2.75rem" />
                 </Flex>
 
@@ -164,17 +156,15 @@ export function ProfilePage() {
         <EmptyState
           title={t.common.errorTitle}
           description={translateApiError(
-            (meQuery.error ?? propertiesQuery.error) as
-              ApiErrorShape | undefined,
+            meQuery.error as ApiErrorShape | undefined,
           )}
           action={
             <Button
               type="button"
               variant="primary"
-              isLoading={meQuery.isFetching || propertiesQuery.isFetching}
+              isLoading={meQuery.isFetching}
               onClick={() => {
                 void meQuery.refetch();
-                void propertiesQuery.refetch();
               }}
             >
               <RefreshCw aria-hidden="true" size={16} />
@@ -238,10 +228,7 @@ export function ProfilePage() {
         </CardHeader>
 
         <CardContent>
-          <ProfileForm
-            user={user}
-            properties={propertiesQuery.data?.data ?? []}
-          />
+          <ProfileForm user={user} />
         </CardContent>
       </Card>
 

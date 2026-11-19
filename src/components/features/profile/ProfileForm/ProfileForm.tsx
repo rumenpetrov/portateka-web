@@ -4,11 +4,10 @@ import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
 import { updateMeSchema } from "@/validators/authValidators";
 import { useNotifications } from "@/notifications/NotificationProvider";
-import { Button, Fieldset, Input, Select } from "@/components/ui";
-import type { SelectOption } from "@/components/ui";
+import { Button, Fieldset, Input } from "@/components/ui";
 import type { ProfileFormProps } from "./ProfileForm.types";
 
-export function ProfileForm({ user, properties }: ProfileFormProps) {
+export function ProfileForm({ user }: ProfileFormProps) {
   const { t } = useI18n();
   const { notifySuccess } = useNotifications();
   const updateMeMutation = useUpdateMeMutation();
@@ -18,7 +17,6 @@ export function ProfileForm({ user, properties }: ProfileFormProps) {
       defaultValues: {
         firstName: user.firstName,
         lastName: user.lastName,
-        preferredPropertyId: user.preferredPropertyId,
       },
     });
 
@@ -26,17 +24,8 @@ export function ProfileForm({ user, properties }: ProfileFormProps) {
     reset({
       firstName: user.firstName,
       lastName: user.lastName,
-      preferredPropertyId: user.preferredPropertyId,
     });
   }, [user, reset]);
-
-  const propertyOptions: SelectOption[] = [
-    { value: "", label: t.profile.noPreferredPropertyOption },
-    ...properties.map((prop) => ({
-      value: prop.id,
-      label: prop.name,
-    })),
-  ];
 
   const onSubmit = handleSubmit(async (values) => {
     try {
@@ -65,22 +54,10 @@ export function ProfileForm({ user, properties }: ProfileFormProps) {
           id="profile-last-name"
           type="text"
           autoComplete="family-name"
-          enterKeyHint="next"
+          enterKeyHint="done"
           label={t.auth.lastNameLabel}
           error={getFieldError("lastName")}
           {...register("lastName", {
-            setValueAs: (v: string | null) =>
-              typeof v === "string" && v.trim() === "" ? null : v,
-          })}
-        />
-
-        <Select
-          id="profile-preferred-property"
-          label={t.profile.preferredPropertyLabel}
-          hint={t.profile.preferredPropertyHint}
-          options={propertyOptions}
-          error={getFieldError("preferredPropertyId")}
-          {...register("preferredPropertyId", {
             setValueAs: (v: string | null) =>
               typeof v === "string" && v.trim() === "" ? null : v,
           })}
