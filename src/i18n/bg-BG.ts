@@ -191,14 +191,10 @@ export const bgBG: TranslationDictionary = {
   },
   profile: {
     title: "Профил",
-    subtitle: "Управлявайте личните си данни и предпочитания си имот.",
+    subtitle: "Управлявайте личните си данни и настройките на профила си.",
     accountInfoTitle: "Лична информация",
     emailVerifiedBadge: "Потвърден",
     emailUnverifiedBadge: "Непотвърден",
-    preferredPropertyLabel: "Предпочитан имот",
-    noPreferredPropertyOption: "Няма избран",
-    preferredPropertyHint:
-      "Изберете основния си имот или изчистете текущия избор.",
     saveChanges: "Запази профила",
     updatedNotification: "Профилът е обновен успешно.",
     memberSinceLabel: "Регистриран на",

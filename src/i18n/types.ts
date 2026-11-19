@@ -217,9 +217,6 @@ export interface TranslationDictionary {
     accountInfoTitle: string;
     emailVerifiedBadge: string;
     emailUnverifiedBadge: string;
-    preferredPropertyLabel: string;
-    noPreferredPropertyOption: string;
-    preferredPropertyHint: string;
     saveChanges: string;
     updatedNotification: string;
     memberSinceLabel: string;
