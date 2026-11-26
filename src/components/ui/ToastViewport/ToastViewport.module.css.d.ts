@@ -7,7 +7,6 @@
  */
 
 declare const region: string;
-declare const _popoverOpen: string;
 declare const toast: string;
 declare const success: string;
 declare const error: string;
@@ -18,7 +17,6 @@ declare const close: string;
 
 export {
 	region,
-	_popoverOpen as ":popover-open",
 	toast,
 	success,
 	error,
@@ -30,7 +28,6 @@ export {
 
 declare const __default_export__: {
 	region: typeof region;
-	":popover-open": typeof _popoverOpen;
 	toast: typeof toast;
 	success: typeof success;
 	error: typeof error;
@@ -40,4 +37,4 @@ declare const __default_export__: {
 	close: typeof close;
 };
 export default __default_export__;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVG9hc3RWaWV3cG9ydC5tb2R1bGUuY3NzLmQudHMiLCJzb3VyY2VzIjpbIlRvYXN0Vmlld3BvcnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztjQUNFO2NBZXlCO2NBT3pCO2NBZ0JHO2NBSUE7Y0FJQTtjQUtIO2NBUUE7Y0FJQTs7O0NBL0RBO0NBZXlCO0NBT3pCO0NBZ0JHO0NBSUE7Q0FJQTtDQUtIO0NBUUE7Q0FJQTs7OztDQS9EQTs7Q0FzQkE7Q0FnQkc7Q0FJQTtDQUlBO0NBS0g7Q0FRQTtDQUlBOzsifQ==
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVG9hc3RWaWV3cG9ydC5tb2R1bGUuY3NzLmQudHMiLCJzb3VyY2VzIjpbIlRvYXN0Vmlld3BvcnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztjQUNFO2NBc0JBO2NBZ0JHO2NBSUE7Y0FJQTtjQUtIO2NBUUE7Y0FJQTs7O0NBL0RBO0NBc0JBO0NBZ0JHO0NBSUE7Q0FJQTtDQUtIO0NBUUE7Q0FJQTs7OztDQS9EQTtDQXNCQTtDQWdCRztDQUlBO0NBSUE7Q0FLSDtDQVFBO0NBSUE7OyJ9

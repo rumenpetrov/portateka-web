@@ -63,7 +63,7 @@ Web app where you organize and manage your property portfolio information.
 | `npm run dev`       | Generate CSS Module types and start Astro dev server at `http://localhost:5173`             |
 | `npm run build`     | Generate CSS Module types, run `astro check`, `tsc --noEmit`, and build static site to `dist/` |
 | `npm run deploy`    | Deploy the built `dist/` static assets and `worker/index.ts` router to Cloudflare Workers  |
-| `npm run preview`   | Locally preview the production build from `dist/`                                           |
+| `npm run preview`   | Locally preview the built `dist/` site through `worker/index.ts` via Wrangler at `http://localhost:5173` |
 | `npm run typecheck` | Generate CSS Module types and run `astro check` + `tsc --noEmit` without emitting           |
 
 ---
