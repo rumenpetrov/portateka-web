@@ -77,6 +77,7 @@ export interface TranslationDictionary {
     betaWarningMessage: string;
     betaDataLossNote: string;
     goToProperties: string;
+    openAppCta: string;
     signInCta: string;
     signUpCta: string;
   };

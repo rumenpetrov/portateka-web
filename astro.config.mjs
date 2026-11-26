@@ -34,7 +34,8 @@ export default defineConfig({
         if (
           pathname === "/" ||
           pathname === "/404" ||
-          pathname === "/404.html"
+          pathname === "/404.html" ||
+          /^\/(?:en-US|bg-BG)\/404(?:\.html|\/)?$/i.test(pathname)
         ) {
           return false;
         }

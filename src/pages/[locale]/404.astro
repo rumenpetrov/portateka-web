@@ -1,0 +1,31 @@
+---
+import { PublicNotFoundView } from "@/components/astro/PublicNotFoundView";
+import { getDictionary } from "@/i18n/dictionaries";
+import { buildLocalizedPath } from "@/i18n/localeRouting";
+import { SUPPORTED_LOCALES } from "@/i18n/types";
+import type { SupportedLocale } from "@/i18n/types";
+import PublicLayout from "@/layouts/PublicLayout.astro";
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const { locale } = Astro.params as { locale: SupportedLocale };
+const t = getDictionary(locale);
+---
+
+<PublicLayout
+  locale={locale}
+  title={t.seo.routes.notFound.title}
+  description={t.seo.routes.notFound.description}
+  indexable={false}
+>
+  <PublicNotFoundView
+    title={t.notFound.title}
+    description={t.notFound.description}
+    backHomeLabel={t.notFound.backHome}
+    backHomeHref={buildLocalizedPath(locale, "/")}
+  />
+</PublicLayout>

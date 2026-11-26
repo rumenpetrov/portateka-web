@@ -71,6 +71,7 @@ export const enUS: TranslationDictionary = {
     betaDataLossNote:
       "Important: Please do not store critical or irreplaceable information here yet, as database resets or updates during beta testing may result in data loss.",
     goToProperties: "Go to My Properties",
+    openAppCta: "Open App",
     signInCta: "Sign in",
     signUpCta: "Create an account",
   },

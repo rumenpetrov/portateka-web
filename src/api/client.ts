@@ -1,6 +1,6 @@
 import type { ApiErrorShape } from "@/i18n/types";
 
-const TOKEN_STORAGE_KEY = "portateka_token";
+export const TOKEN_STORAGE_KEY = "portateka_token";
 
 type TokenListener = () => void;
 const tokenListeners = new Set<TokenListener>();

@@ -1,0 +1,139 @@
+---
+import "@/theme/tokens.css";
+import { pwaInfo } from "virtual:pwa-info";
+import { getDictionary } from "@/i18n/dictionaries";
+import { buildCanonicalUrl } from "@/i18n/localeRouting";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/types";
+import type { SupportedLocale } from "@/i18n/types";
+import {
+  COLOR_SCHEME_STORAGE_KEY,
+  THEME_COLOR_DARK,
+  THEME_COLOR_LIGHT,
+} from "@/theme/colorScheme";
+
+interface Props {
+  locale: SupportedLocale;
+  title: string;
+  description: string;
+  indexable?: boolean;
+  canonicalSubpath?: string;
+}
+
+const {
+  locale,
+  title,
+  description,
+  indexable = false,
+  canonicalSubpath,
+} = Astro.props;
+
+const t = getDictionary(locale);
+const isIndexable = indexable && canonicalSubpath !== undefined;
+const canonicalUrl = isIndexable
+  ? buildCanonicalUrl(locale, canonicalSubpath)
+  : undefined;
+const ogLocale = locale.replace("-", "_");
+const alternateLocales = SUPPORTED_LOCALES.filter((item) => item !== locale);
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <style is:inline>@layer tokens, base, components, utilities;</style>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#faf8fc"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#111318"
+    />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {pwaInfo?.webManifest?.linkTag && (
+      <Fragment set:html={pwaInfo.webManifest.linkTag} />
+    )}
+
+    {isIndexable && canonicalUrl ? (
+      <>
+        <link rel="canonical" href={canonicalUrl} />
+        {SUPPORTED_LOCALES.map((supportedLocale) => (
+          <link
+            rel="alternate"
+            hreflang={supportedLocale}
+            href={buildCanonicalUrl(supportedLocale, canonicalSubpath)}
+          />
+        ))}
+        <link
+          rel="alternate"
+          hreflang="x-default"
+          href={buildCanonicalUrl(DEFAULT_LOCALE, canonicalSubpath)}
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={t.app.name} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:locale" content={ogLocale} />
+        {alternateLocales.map((altLocale) => (
+          <meta
+            property="og:locale:alternate"
+            content={altLocale.replace("-", "_")}
+          />
+        ))}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+      </>
+    ) : (
+      <meta name="robots" content="noindex, nofollow" />
+    )}
+
+    <script
+      is:inline
+      define:vars={{
+        storageKey: COLOR_SCHEME_STORAGE_KEY,
+        lightColor: THEME_COLOR_LIGHT,
+        darkColor: THEME_COLOR_DARK,
+      }}
+    >
+      try {
+        const storedScheme = localStorage.getItem(storageKey);
+        const meta = document.querySelector('meta[name="color-scheme"]');
+        if (meta && (storedScheme === "light" || storedScheme === "dark")) {
+          meta.content = storedScheme;
+        }
+        if (storedScheme === "light" || storedScheme === "dark") {
+          const themeColor = storedScheme === "dark" ? darkColor : lightColor;
+          const themeMetas = document.querySelectorAll('meta[name="theme-color"]');
+          for (const themeMeta of themeMetas) {
+            themeMeta.setAttribute("content", themeColor);
+          }
+        }
+      } catch {
+        // Ignore storage access errors in restricted contexts
+      }
+    </script>
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @layer utilities {
+    [hidden] {
+      display: none !important;
+    }
+  }
+</style>

@@ -7,8 +7,7 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { bgBG } from "./bg-BG";
-import { enUS } from "./en-US";
+import { DICTIONARIES } from "./dictionaries";
 import {
   buildLocalizedPath,
   detectBrowserLocale,
@@ -22,11 +21,6 @@ import type {
   SupportedLocale,
   TranslationDictionary,
 } from "./types";
-
-const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
-  "en-US": enUS,
-  "bg-BG": bgBG,
-};
 
 export function translateFieldMachineCode(
   field: string,

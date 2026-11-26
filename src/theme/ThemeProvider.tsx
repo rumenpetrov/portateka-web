@@ -7,9 +7,18 @@ import {
   useState,
 } from "react";
 import type { ReactNode } from "react";
+import {
+  COLOR_SCHEME_STORAGE_KEY,
+  computeToggledColorScheme,
+  getSystemScheme,
+  persistColorScheme,
+  readStoredColorScheme,
+  resolveColorScheme,
+  syncMetaColorScheme,
+} from "./colorScheme";
+import type { ColorSchemePreference, ResolvedColorScheme } from "./colorScheme";
 
-export type ColorSchemePreference = "system" | "light" | "dark";
-export type ResolvedColorScheme = "light" | "dark";
+export type { ColorSchemePreference, ResolvedColorScheme };
 
 interface ThemeContextValue {
   preference: ColorSchemePreference;
@@ -18,68 +27,14 @@ interface ThemeContextValue {
   toggleScheme: () => void;
 }
 
-const STORAGE_KEY = "color-scheme";
-const THEME_COLOR_LIGHT = "#faf8fc";
-const THEME_COLOR_DARK = "#111318";
-
 const ThemeContext = createContext<ThemeContextValue | null>(null);
-
-function getSystemScheme(): ResolvedColorScheme {
-  if (typeof window === "undefined") {
-    return "light";
-  }
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
-function readStoredPreference(): ColorSchemePreference {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw === "light" || raw === "dark") {
-      return raw;
-    }
-  } catch {
-    // Ignore storage access errors
-  }
-  return "system";
-}
-
-function syncMetaColorScheme(preference: ColorSchemePreference): void {
-  if (typeof document === "undefined") {
-    return;
-  }
-  let meta = document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]');
-  if (!meta) {
-    meta = document.createElement("meta");
-    meta.name = "color-scheme";
-    document.head.appendChild(meta);
-  }
-  meta.content = preference === "system" ? "light dark" : preference;
-
-  const lightThemeMeta = document.querySelector<HTMLMetaElement>(
-    'meta[name="theme-color"][media="(prefers-color-scheme: light)"]',
-  );
-  const darkThemeMeta = document.querySelector<HTMLMetaElement>(
-    'meta[name="theme-color"][media="(prefers-color-scheme: dark)"]',
-  );
-  if (lightThemeMeta) {
-    lightThemeMeta.content =
-      preference === "dark" ? THEME_COLOR_DARK : THEME_COLOR_LIGHT;
-  }
-  if (darkThemeMeta) {
-    darkThemeMeta.content =
-      preference === "light" ? THEME_COLOR_LIGHT : THEME_COLOR_DARK;
-  }
-}
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [preference, setPreferenceState] = useState<ColorSchemePreference>(
-    readStoredPreference,
+    readStoredColorScheme,
   );
-  const [systemScheme, setSystemScheme] = useState<ResolvedColorScheme>(
-    getSystemScheme,
-  );
+  const [systemScheme, setSystemScheme] =
+    useState<ResolvedColorScheme>(getSystemScheme);
 
   useEffect(() => {
     syncMetaColorScheme(preference);
@@ -92,7 +47,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     };
 
     const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === STORAGE_KEY) {
+      if (event.key === COLOR_SCHEME_STORAGE_KEY) {
         const next: ColorSchemePreference =
           event.newValue === "light" || event.newValue === "dark"
             ? event.newValue
@@ -113,34 +68,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const setPreference = useCallback((next: ColorSchemePreference) => {
     setPreferenceState(next);
-    syncMetaColorScheme(next);
-    try {
-      if (next === "system") {
-        localStorage.removeItem(STORAGE_KEY);
-      } else {
-        localStorage.setItem(STORAGE_KEY, next);
-      }
-    } catch {
-      // Ignore storage access errors
-    }
+    persistColorScheme(next);
   }, []);
 
-  const resolvedScheme: ResolvedColorScheme =
-    preference === "system" ? systemScheme : preference;
+  const resolvedScheme = resolveColorScheme(preference, systemScheme);
 
-  // Follow modern-web-guidance dark-mode-toggle rule:
-  // If toggling to the opposite of what is currently rendered matches the system preference,
-  // remove the stored override so the site returns to tracking the system default.
   const toggleScheme = useCallback(() => {
-    const currentRendered = preference === "system" ? systemScheme : preference;
-    const target: ResolvedColorScheme =
-      currentRendered === "dark" ? "light" : "dark";
-
-    if (target === systemScheme) {
-      setPreference("system");
-    } else {
-      setPreference(target);
-    }
+    setPreference(computeToggledColorScheme(preference, systemScheme));
   }, [preference, systemScheme, setPreference]);
 
   const value = useMemo<ThemeContextValue>(
