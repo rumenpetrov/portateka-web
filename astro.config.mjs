@@ -1,5 +1,3 @@
-import { existsSync } from "node:fs";
-import { join } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
@@ -12,109 +10,23 @@ const env = loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), "");
 const apiTarget = env.API_TARGET_URL || "http://localhost:8787";
 
 /** @returns {import("vite").Plugin} */
-function hybridRoutingDevPlugin() {
+function spaDevRewritePlugin() {
   const spaRoutePattern = /^\/(?:en-US|bg-BG)\/app(?:\/.*)?$/i;
-  const localizedSubpathPattern = /^\/(en-US|bg-BG)\/(.+)$/i;
-  const rootDir = fileURLToPath(new URL(".", import.meta.url));
-
-  /**
-   * @param {string} rawLocale
-   * @returns {"en-US" | "bg-BG"}
-   */
-  function toCanonicalLocale(rawLocale) {
-    if (rawLocale.toLowerCase() === "bg-bg") {
-      return "bg-BG";
-    }
-    return "en-US";
-  }
-
-  /**
-   * @param {string} pathname
-   * @param {boolean} isPreview
-   * @returns {boolean}
-   */
-  function localizedPublicRouteExists(pathname, isPreview) {
-    const match = localizedSubpathPattern.exec(pathname);
-    if (!match) {
-      return true;
-    }
-
-    const rawLocale = match[1] ?? "";
-    const subpath = (match[2] ?? "").replace(/\/+$/, "");
-    if (/^(?:app|404)(?:\/|$)/i.test(subpath)) {
-      return true;
-    }
-
-    if (isPreview) {
-      const distDir = join(rootDir, "dist");
-      const cleanPath = `/${toCanonicalLocale(rawLocale)}/${subpath}`;
-      return (
-        existsSync(join(distDir, cleanPath)) ||
-        existsSync(join(distDir, `${cleanPath}.html`)) ||
-        existsSync(join(distDir, cleanPath, "index.html"))
-      );
-    }
-
-    const publicFile = join(rootDir, "public", pathname);
-    if (existsSync(publicFile)) {
-      return true;
-    }
-
-    const pagesLocaleDir = join(rootDir, "src", "pages", "[locale]");
-    return (
-      existsSync(join(pagesLocaleDir, `${subpath}.astro`)) ||
-      existsSync(join(pagesLocaleDir, subpath, "index.astro"))
-    );
-  }
-
-  /**
-   * @param {boolean} isPreview
-   * @returns {import("vite").Connect.NextHandleFunction}
-   */
-  function createRoutingMiddleware(isPreview) {
-    const appTarget = isPreview ? "/app.html" : "/app";
-    const notFoundSuffix = isPreview ? "/404.html" : "/404";
-
-    return (req, res, next) => {
-      const url = req.url ?? "";
-      const queryIndex = url.indexOf("?");
-      const pathname = queryIndex === -1 ? url : url.slice(0, queryIndex);
-      const query = queryIndex === -1 ? "" : url.slice(queryIndex);
-
-      if (spaRoutePattern.test(pathname)) {
-        req.url = `${appTarget}${query}`;
-        next();
-        return;
-      }
-
-      const localeMatch = localizedSubpathPattern.exec(pathname);
-      if (localeMatch && !localizedPublicRouteExists(pathname, isPreview)) {
-        const canonicalLocale = toCanonicalLocale(localeMatch[1] ?? "");
-        req.url = `/${canonicalLocale}${notFoundSuffix}`;
-        if (isPreview) {
-          res.statusCode = 404;
-        } else {
-          const originalWriteHead = res.writeHead.bind(res);
-          res.writeHead = /** @type {typeof res.writeHead} */ (
-            (statusCode, ...rest) => {
-              const nextStatus = statusCode === 200 ? 404 : statusCode;
-              return originalWriteHead(nextStatus, ...rest);
-            }
-          );
-        }
-      }
-
-      next();
-    };
-  }
 
   return {
-    name: "hybrid-routing-dev",
+    name: "spa-dev-rewrite",
     configureServer(server) {
-      server.middlewares.use(createRoutingMiddleware(false));
-    },
-    configurePreviewServer(server) {
-      server.middlewares.use(createRoutingMiddleware(true));
+      server.middlewares.use((req, _res, next) => {
+        const url = req.url ?? "";
+        const queryIndex = url.indexOf("?");
+        const pathname = queryIndex === -1 ? url : url.slice(0, queryIndex);
+        const query = queryIndex === -1 ? "" : url.slice(queryIndex);
+
+        if (spaRoutePattern.test(pathname)) {
+          req.url = `/app${query}`;
+        }
+        next();
+      });
     },
   };
 }
@@ -213,7 +125,7 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [...cssConfig.plugins, hybridRoutingDevPlugin()],
+    plugins: [...cssConfig.plugins, spaDevRewritePlugin()],
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),

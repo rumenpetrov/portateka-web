@@ -24,7 +24,7 @@
     "dev": "npm run css:types && astro dev",
     "build": "npm run css:types && astro check && tsc --noEmit && astro build",
     "deploy": "wrangler deploy",
-    "preview": "astro preview",
+    "preview": "wrangler dev --port 5173",
     "typecheck": "npm run css:types && astro check && tsc --noEmit"
   },
   "dependencies": {

@@ -14,7 +14,7 @@
     overflow: visible;
     pointer-events: none;
 
-    &:where(:popover-open, .\:popover-open) {
+    &:popover-open {
       display: flex;
       flex-direction: column;
       gap: var(--primitive-space-2);
