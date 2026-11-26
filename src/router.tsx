@@ -20,17 +20,17 @@ import {
   replaceLocaleInUrl,
 } from "@/i18n/localeRouting";
 import type { SeoRouteKey } from "@/i18n/types";
-import { ForgotPasswordPage } from "@/pages/ForgotPasswordPage";
-import { HomePage } from "@/pages/HomePage";
-import { NotFoundPage } from "@/pages/NotFoundPage";
-import { ProfilePage } from "@/pages/ProfilePage";
-import { PropertiesListPage } from "@/pages/PropertiesListPage";
-import { PropertyCreatePage } from "@/pages/PropertyCreatePage";
-import { PropertyDetailPage } from "@/pages/PropertyDetailPage";
-import { ResetPasswordPage } from "@/pages/ResetPasswordPage";
-import { SignInPage } from "@/pages/SignInPage";
-import { SignUpPage } from "@/pages/SignUpPage";
-import { VerifyEmailPage } from "@/pages/VerifyEmailPage";
+import { ForgotPasswordPage } from "@/spa/pages/ForgotPasswordPage";
+import { HomePage } from "@/spa/pages/HomePage";
+import { NotFoundPage } from "@/spa/pages/NotFoundPage";
+import { ProfilePage } from "@/spa/pages/ProfilePage";
+import { PropertiesListPage } from "@/spa/pages/PropertiesListPage";
+import { PropertyCreatePage } from "@/spa/pages/PropertyCreatePage";
+import { PropertyDetailPage } from "@/spa/pages/PropertyDetailPage";
+import { ResetPasswordPage } from "@/spa/pages/ResetPasswordPage";
+import { SignInPage } from "@/spa/pages/SignInPage";
+import { SignUpPage } from "@/spa/pages/SignUpPage";
+import { VerifyEmailPage } from "@/spa/pages/VerifyEmailPage";
 
 function RequireAuth() {
   const token = useAuthToken();
