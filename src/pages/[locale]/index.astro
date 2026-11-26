@@ -1,0 +1,50 @@
+---
+import { TOKEN_STORAGE_KEY } from "@/api/client";
+import { PublicHomeCard } from "@/components/astro/PublicHomeCard";
+import { getDictionary } from "@/i18n/dictionaries";
+import { SUPPORTED_LOCALES } from "@/i18n/types";
+import type { SupportedLocale } from "@/i18n/types";
+import PublicLayout from "@/layouts/PublicLayout.astro";
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const { locale } = Astro.params as { locale: SupportedLocale };
+const t = getDictionary(locale);
+const seo = t.seo.routes.home;
+---
+
+<PublicLayout
+  locale={locale}
+  title={seo.title}
+  description={seo.description}
+  indexable={true}
+  canonicalSubpath="/"
+  localeSwitchSubpath="/"
+>
+  <PublicHomeCard locale={locale} t={t} />
+
+  <script is:inline define:vars={{ tokenKey: TOKEN_STORAGE_KEY }}>
+    (() => {
+      try {
+        const token = localStorage.getItem(tokenKey);
+        if (!token) {
+          return;
+        }
+        const guest = document.querySelector("[data-auth-guest]");
+        const user = document.querySelector("[data-auth-user]");
+        if (guest) {
+          guest.setAttribute("hidden", "");
+        }
+        if (user) {
+          user.removeAttribute("hidden");
+        }
+      } catch {
+        // Ignore storage access errors in restricted contexts
+      }
+    })();
+  </script>
+</PublicLayout>

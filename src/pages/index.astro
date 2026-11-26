@@ -1,0 +1,34 @@
+---
+import { getDictionary } from "@/i18n/dictionaries";
+import { DEFAULT_LOCALE } from "@/i18n/types";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const t = getDictionary(DEFAULT_LOCALE);
+---
+
+<BaseLayout
+  locale={DEFAULT_LOCALE}
+  title={t.app.name}
+  description={t.seo.routes.home.description}
+  indexable={false}
+>
+  <script>
+    import {
+      buildLocalizedPath,
+      detectBrowserLocale,
+    } from "@/i18n/localeRouting";
+
+    const targetLocale = detectBrowserLocale();
+    window.location.replace(
+      `${buildLocalizedPath(targetLocale, "/")}${window.location.search}${window.location.hash}`,
+    );
+  </script>
+
+  <noscript>
+    <main style="padding: 2rem; text-align: center;">
+      <p>
+        <a href="/en-US">English (US)</a> · <a href="/bg-BG">Български (BG)</a>
+      </p>
+    </main>
+  </noscript>
+</BaseLayout>

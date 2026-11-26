@@ -1,0 +1,23 @@
+---
+import { PublicNotFoundView } from "@/components/astro/PublicNotFoundView";
+import { getDictionary } from "@/i18n/dictionaries";
+import { buildLocalizedPath } from "@/i18n/localeRouting";
+import { DEFAULT_LOCALE } from "@/i18n/types";
+import PublicLayout from "@/layouts/PublicLayout.astro";
+
+const t = getDictionary(DEFAULT_LOCALE);
+---
+
+<PublicLayout
+  locale={DEFAULT_LOCALE}
+  title={t.seo.routes.notFound.title}
+  description={t.seo.routes.notFound.description}
+  indexable={false}
+>
+  <PublicNotFoundView
+    title={t.notFound.title}
+    description={t.notFound.description}
+    backHomeLabel={t.notFound.backHome}
+    backHomeHref={buildLocalizedPath(DEFAULT_LOCALE, "/")}
+  />
+</PublicLayout>

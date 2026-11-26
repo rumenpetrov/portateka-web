@@ -1,0 +1,161 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { PublicTopControlsView } from "@/components/astro/PublicTopControlsView";
+import authStyles from "@/components/layout/AuthLayout/AuthLayout.module.css";
+import { BrandLogoView } from "@/components/layout/BrandLogo";
+import footerStyles from "@/components/layout/Footer/Footer.module.css";
+import { Text } from "@/components/ui";
+import flexStyles from "@/components/ui/Flex/Flex.module.css";
+import { getDictionary } from "@/i18n/dictionaries";
+import { buildLocalizedPath } from "@/i18n/localeRouting";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/types";
+import type { SupportedLocale } from "@/i18n/types";
+
+interface Props {
+  locale: SupportedLocale;
+  title: string;
+  description: string;
+  indexable?: boolean;
+  canonicalSubpath?: string;
+  localeSwitchSubpath?: string;
+}
+
+const {
+  locale,
+  title,
+  description,
+  indexable = false,
+  canonicalSubpath,
+  localeSwitchSubpath,
+} = Astro.props;
+
+const t = getDictionary(locale);
+const currentYear = new Date().getFullYear();
+
+const currentLocaleIndex = SUPPORTED_LOCALES.indexOf(locale);
+const nextLocale: SupportedLocale =
+  SUPPORTED_LOCALES[(currentLocaleIndex + 1) % SUPPORTED_LOCALES.length] ??
+  DEFAULT_LOCALE;
+const nextLocaleShortCode =
+  nextLocale.split("-")[0]?.toUpperCase() ?? nextLocale;
+const nextLocaleUrl =
+  localeSwitchSubpath !== undefined
+    ? buildLocalizedPath(nextLocale, localeSwitchSubpath)
+    : undefined;
+const nextLocaleAriaLabel = `${t.preferences.languageLabel}: ${t.preferences.languages[nextLocale]}`;
+---
+
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={description}
+  indexable={indexable}
+  canonicalSubpath={canonicalSubpath}
+>
+  <div class={authStyles.shell}>
+    <header
+      class:list={[
+        authStyles.header,
+        flexStyles.flex,
+        flexStyles.alignCenter,
+        flexStyles.justifyBetween,
+        flexStyles.gap3,
+      ]}
+    >
+      <BrandLogoView
+        href={buildLocalizedPath(locale, "/")}
+        name={t.app.name}
+        betaBadge={t.app.betaBadge}
+      />
+      <PublicTopControlsView
+        nextLocaleUrl={nextLocaleUrl}
+        nextLocale={nextLocale}
+        nextLocaleShortCode={nextLocaleShortCode}
+        nextLocaleAriaLabel={nextLocaleAriaLabel}
+        themeToggleToDarkLabel={t.preferences.themeToggleToDark}
+        themeToggleToLightLabel={t.preferences.themeToggleToLight}
+      />
+    </header>
+
+    <main class={authStyles.main}>
+      <slot />
+    </main>
+
+    <footer class={footerStyles.footer}>
+      <div class={footerStyles.inner}>
+        <Text as="span" variant="caption" tone="muted">
+          {t.footer.copyright(currentYear)}
+        </Text>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    import {
+      COLOR_SCHEME_STORAGE_KEY,
+      computeToggledColorScheme,
+      getSystemScheme,
+      persistColorScheme,
+      readStoredColorScheme,
+      resolveColorScheme,
+      syncMetaColorScheme,
+    } from "@/theme/colorScheme";
+    import type { ColorSchemePreference } from "@/theme/colorScheme";
+
+    function syncThemeUI(preference: ColorSchemePreference): void {
+      syncMetaColorScheme(preference);
+      const resolved = resolveColorScheme(preference, getSystemScheme());
+      const toggleButton = document.querySelector<HTMLButtonElement>(
+        "[data-theme-toggle]",
+      );
+      if (!toggleButton) {
+        return;
+      }
+
+      const toDarkLabel =
+        toggleButton.getAttribute("data-label-to-dark") ?? "";
+      const toLightLabel =
+        toggleButton.getAttribute("data-label-to-light") ?? "";
+      toggleButton.setAttribute(
+        "aria-label",
+        resolved === "dark" ? toLightLabel : toDarkLabel,
+      );
+
+      const lightIcon = toggleButton.querySelector('[data-theme-icon="light"]');
+      const darkIcon = toggleButton.querySelector('[data-theme-icon="dark"]');
+      if (lightIcon) {
+        lightIcon.toggleAttribute("hidden", resolved !== "dark");
+      }
+      if (darkIcon) {
+        darkIcon.toggleAttribute("hidden", resolved === "dark");
+      }
+    }
+
+    syncThemeUI(readStoredColorScheme());
+
+    const toggleButton = document.querySelector<HTMLButtonElement>(
+      "[data-theme-toggle]",
+    );
+    if (toggleButton) {
+      toggleButton.addEventListener("click", () => {
+        const next = computeToggledColorScheme(
+          readStoredColorScheme(),
+          getSystemScheme(),
+        );
+        persistColorScheme(next);
+        syncThemeUI(next);
+      });
+    }
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    mediaQuery.addEventListener("change", () => {
+      syncThemeUI(readStoredColorScheme());
+    });
+
+    window.addEventListener("storage", (event) => {
+      if (event.key === COLOR_SCHEME_STORAGE_KEY) {
+        syncThemeUI(readStoredColorScheme());
+      }
+    });
+  </script>
+</BaseLayout>
