@@ -25,7 +25,8 @@ export function PropertyCard({
   isUpdatingPreferred = false,
   onTogglePreferred,
 }: PropertyCardProps) {
-  const { t, formatDate } = useI18n();
+  const { localizePath, t, formatDate } = useI18n();
+  const detailPath = localizePath(`/properties/${property.id}`);
 
   return (
     <Card as="article">
@@ -34,7 +35,7 @@ export function PropertyCard({
           <Text variant="card-title">
             <Anchor
               as={Link}
-              to={`/properties/${property.id}`}
+              to={detailPath}
               tone="primary"
               underline="none"
             >
@@ -94,7 +95,7 @@ export function PropertyCard({
 
         <Button
           as={Link}
-          to={`/properties/${property.id}`}
+          to={detailPath}
           variant="primary"
           size="sm"
         >

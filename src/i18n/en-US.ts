@@ -1,6 +1,62 @@
 import type { TranslationDictionary } from "./types";
 
 export const enUS: TranslationDictionary = {
+  seo: {
+    routes: {
+      home: {
+        title: "Portateka — Property Portfolio Management",
+        description:
+          "Organize and manage your property portfolio information in one simple workspace.",
+      },
+      signIn: {
+        title: "Sign in | Portateka",
+        description:
+          "Sign in to your Portateka account to manage your properties and preferences.",
+      },
+      signUp: {
+        title: "Create account | Portateka",
+        description:
+          "Create a free Portateka account to organize and manage your property portfolio.",
+      },
+      forgotPassword: {
+        title: "Reset your password | Portateka",
+        description:
+          "Request a password reset link for your Portateka account.",
+      },
+      verifyEmail: {
+        title: "Verify your email | Portateka",
+        description:
+          "Confirm your email address to activate sign-in on your Portateka account.",
+      },
+      resetPassword: {
+        title: "Choose a new password | Portateka",
+        description: "Set a new password for your Portateka account.",
+      },
+      properties: {
+        title: "My Properties | Portateka",
+        description:
+          "View, organize, and select your preferred property across your portfolio.",
+      },
+      propertyCreate: {
+        title: "Add property | Portateka",
+        description: "Add a new property entry to your Portateka portfolio.",
+      },
+      propertyDetail: {
+        title: "Property details | Portateka",
+        description: "View or update property details in Portateka.",
+      },
+      profile: {
+        title: "Account Profile | Portateka",
+        description:
+          "Manage your personal details, language, theme, and security settings.",
+      },
+      notFound: {
+        title: "Page not found | Portateka",
+        description:
+          "The requested page could not be found in Portateka.",
+      },
+    },
+  },
   app: {
     name: "Portateka",
     tagline: "Property Portfolio Management",

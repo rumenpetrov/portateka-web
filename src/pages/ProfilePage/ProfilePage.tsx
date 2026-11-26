@@ -31,7 +31,8 @@ import { useTheme } from "@/theme/ThemeProvider";
 import type { ColorSchemePreference } from "@/theme/ThemeProvider";
 
 export function ProfilePage() {
-  const { locale, setLocale, t, formatDate, translateApiError } = useI18n();
+  const { locale, localizePath, setLocale, t, formatDate, translateApiError } =
+    useI18n();
   const { preference, setPreference } = useTheme();
   const { notifySuccess } = useNotifications();
   const navigate = useNavigate();
@@ -192,7 +193,7 @@ export function ProfilePage() {
     handleCloseDeleteModal();
     signOut();
     notifySuccess(t.profile.dangerZone.deletedNotification);
-    navigate("/", { replace: true });
+    navigate(localizePath("/"), { replace: true });
   };
 
   return (

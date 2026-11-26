@@ -42,7 +42,29 @@ export interface ApiErrorShape {
   params?: Record<string, string>;
 }
 
+export type SeoRouteKey =
+  | "home"
+  | "signIn"
+  | "signUp"
+  | "forgotPassword"
+  | "verifyEmail"
+  | "resetPassword"
+  | "properties"
+  | "propertyCreate"
+  | "propertyDetail"
+  | "profile"
+  | "notFound";
+
 export interface TranslationDictionary {
+  seo: {
+    routes: Record<
+      SeoRouteKey,
+      {
+        title: string;
+        description: string;
+      }
+    >;
+  };
   app: {
     name: string;
     tagline: string;

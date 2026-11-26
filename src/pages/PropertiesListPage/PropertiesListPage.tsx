@@ -26,7 +26,7 @@ import styles from "./PropertiesListPage.module.css";
 const SKELETON_CARD_KEYS = [0, 1, 2] as const;
 
 export function PropertiesListPage() {
-  const { t, translateApiError } = useI18n();
+  const { localizePath, t, translateApiError } = useI18n();
   const { notifySuccess } = useNotifications();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parsePageParam(searchParams.get("page"));
@@ -118,7 +118,7 @@ export function PropertiesListPage() {
           </Text>
         </div>
 
-        <Button as={Link} to="/properties/new" variant="primary">
+        <Button as={Link} to={localizePath("/properties/new")} variant="primary">
           <Plus aria-hidden="true" size={18} />
           <span>{t.properties.createButton}</span>
         </Button>
@@ -159,7 +159,11 @@ export function PropertiesListPage() {
           title={t.properties.emptyTitle}
           description={t.properties.emptyDescription}
           action={
-            <Button as={Link} to="/properties/new" variant="primary">
+            <Button
+              as={Link}
+              to={localizePath("/properties/new")}
+              variant="primary"
+            >
               <Plus aria-hidden="true" size={18} />
               <span>{t.properties.createButton}</span>
             </Button>

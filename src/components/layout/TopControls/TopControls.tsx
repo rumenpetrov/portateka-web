@@ -1,4 +1,5 @@
 import { Globe, Moon, Sun } from "lucide-react";
+import { Link } from "react-router";
 import { useAuthToken, useUpdateMeMutation } from "@/api/auth.api";
 import { useI18n } from "@/i18n/I18nProvider";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/types";
@@ -7,7 +8,7 @@ import { useTheme } from "@/theme/ThemeProvider";
 import { Button, Flex } from "@/components/ui";
 
 export function TopControls() {
-  const { locale, setLocale, t } = useI18n();
+  const { locale, getLocaleSwitchUrl, t } = useI18n();
   const { resolvedScheme, toggleScheme } = useTheme();
   const token = useAuthToken();
   const updateMeMutation = useUpdateMeMutation();
@@ -18,13 +19,13 @@ export function TopControls() {
     DEFAULT_LOCALE;
   const nextLocaleShortCode =
     nextLocale.split("-")[0]?.toUpperCase() ?? nextLocale;
+  const nextLocaleUrl = getLocaleSwitchUrl(nextLocale);
   const themeActionLabel =
     resolvedScheme === "dark"
       ? t.preferences.themeToggleToLight
       : t.preferences.themeToggleToDark;
 
-  const handleToggleLocale = () => {
-    setLocale(nextLocale);
+  const handlePersistLocale = () => {
     if (token) {
       updateMeMutation.mutate({ locale: nextLocale });
     }
@@ -33,10 +34,14 @@ export function TopControls() {
   return (
     <Flex align="center" gap={2}>
       <Button
+        as={Link}
+        to={nextLocaleUrl}
+        replace
+        hrefLang={nextLocale}
         variant="ghost"
         size="sm"
         aria-label={`${t.preferences.languageLabel}: ${t.preferences.languages[nextLocale]}`}
-        onClick={handleToggleLocale}
+        onClick={handlePersistLocale}
       >
         <Globe aria-hidden="true" size={16} />
         <span>{nextLocaleShortCode}</span>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
+  <url>
+    <loc>https://portateka.rpetrov.dev/en-US</loc>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://portateka.rpetrov.dev/en-US" />
+    <xhtml:link rel="alternate" hreflang="bg-BG" href="https://portateka.rpetrov.dev/bg-BG" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portateka.rpetrov.dev/en-US" />
+  </url>
+  <url>
+    <loc>https://portateka.rpetrov.dev/bg-BG</loc>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://portateka.rpetrov.dev/en-US" />
+    <xhtml:link rel="alternate" hreflang="bg-BG" href="https://portateka.rpetrov.dev/bg-BG" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portateka.rpetrov.dev/en-US" />
+  </url>
+  <url>
+    <loc>https://portateka.rpetrov.dev/en-US/sign-in</loc>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://portateka.rpetrov.dev/en-US/sign-in" />
+    <xhtml:link rel="alternate" hreflang="bg-BG" href="https://portateka.rpetrov.dev/bg-BG/sign-in" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portateka.rpetrov.dev/en-US/sign-in" />
+  </url>
+  <url>
+    <loc>https://portateka.rpetrov.dev/bg-BG/sign-in</loc>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://portateka.rpetrov.dev/en-US/sign-in" />
+    <xhtml:link rel="alternate" hreflang="bg-BG" href="https://portateka.rpetrov.dev/bg-BG/sign-in" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portateka.rpetrov.dev/en-US/sign-in" />
+  </url>
+  <url>
+    <loc>https://portateka.rpetrov.dev/en-US/sign-up</loc>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://portateka.rpetrov.dev/en-US/sign-up" />
+    <xhtml:link rel="alternate" hreflang="bg-BG" href="https://portateka.rpetrov.dev/bg-BG/sign-up" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portateka.rpetrov.dev/en-US/sign-up" />
+  </url>
+  <url>
+    <loc>https://portateka.rpetrov.dev/bg-BG/sign-up</loc>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://portateka.rpetrov.dev/en-US/sign-up" />
+    <xhtml:link rel="alternate" hreflang="bg-BG" href="https://portateka.rpetrov.dev/bg-BG/sign-up" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portateka.rpetrov.dev/en-US/sign-up" />
+  </url>
+</urlset>

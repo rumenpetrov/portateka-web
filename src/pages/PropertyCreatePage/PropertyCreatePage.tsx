@@ -7,7 +7,7 @@ import { Card, CardContent, Flex, Text } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function PropertyCreatePage() {
-  const { t } = useI18n();
+  const { localizePath, t } = useI18n();
   const { notifySuccess } = useNotifications();
   const navigate = useNavigate();
   const createMutation = useCreatePropertyMutation();
@@ -19,7 +19,7 @@ export function PropertyCreatePage() {
     try {
       await createMutation.mutateAsync(values);
       notifySuccess(t.properties.create.createdNotification);
-      navigate("/properties", { replace: true });
+      navigate(localizePath("/properties"), { replace: true });
     } catch (err) {
       applyServerErrors(err);
     }
@@ -40,7 +40,7 @@ export function PropertyCreatePage() {
             submitLabel={t.properties.create.submit}
             isSubmitting={createMutation.isPending}
             onSubmit={handleCreate}
-            onCancel={() => navigate("/properties")}
+            onCancel={() => navigate(localizePath("/properties"))}
           />
         </CardContent>
       </Card>

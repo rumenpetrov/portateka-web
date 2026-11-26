@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useSignUpMutation } from "@/api/auth.api";
 import { AuthCard } from "@/components/features/auth/AuthCard";
@@ -18,20 +18,32 @@ import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/types";
 import { signUpEmailSchema } from "@/validators/authValidators";
 
 export function SignUpPage() {
-  const { locale, t } = useI18n();
+  const { locale, localizePath, t } = useI18n();
   const signUpMutation = useSignUpMutation();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { register, handleSubmit, getFieldError, applyServerErrors } =
-    useAppForm(signUpEmailSchema, {
-      defaultValues: {
-        firstName: "",
-        lastName: undefined,
-        email: "",
-        password: "",
-        locale: locale || DEFAULT_LOCALE,
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    getFieldError,
+    applyServerErrors,
+    setValue,
+    formState,
+  } = useAppForm(signUpEmailSchema, {
+    defaultValues: {
+      firstName: "",
+      lastName: undefined,
+      email: "",
+      password: "",
+      locale: locale || DEFAULT_LOCALE,
+    },
+  });
+
+  useEffect(() => {
+    if (!formState.dirtyFields.locale) {
+      setValue("locale", locale || DEFAULT_LOCALE, { shouldDirty: false });
+    }
+  }, [locale, formState.dirtyFields.locale, setValue]);
 
   const onSubmit = handleSubmit(async (values) => {
     try {
@@ -49,7 +61,7 @@ export function SignUpPage() {
       footer={
         <>
           <span>{t.auth.signUp.hasAccountPrompt} </span>
-          <Anchor as={Link} to="/sign-in">
+          <Anchor as={Link} to={localizePath("/sign-in")}>
             {t.auth.signUp.signInLink}
           </Anchor>
         </>
@@ -65,7 +77,7 @@ export function SignUpPage() {
           </Alert>
           <Button
             as={Link}
-            to="/verify-email"
+            to={localizePath("/verify-email")}
             variant="primary"
             fullWidth
           >

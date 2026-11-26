@@ -17,7 +17,7 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { verifyEmailSchema } from "@/validators/authValidators";
 
 export function VerifyEmailPage() {
-  const { t } = useI18n();
+  const { localizePath, t } = useI18n();
   const [searchParams] = useSearchParams();
   const initialUrlToken = searchParams.get("token") ?? "";
 
@@ -65,7 +65,7 @@ export function VerifyEmailPage() {
     <AuthCard
       title={t.auth.verifyEmail.title}
       subtitle={t.auth.verifyEmail.subtitle}
-      footer={<Anchor as={Link} to="/sign-in">{t.auth.forgotPassword.backToSignIn}</Anchor>}
+      footer={<Anchor as={Link} to={localizePath("/sign-in")}>{t.auth.forgotPassword.backToSignIn}</Anchor>}
     >
       {verified ? (
         <Flex direction="column" gap={4}>
@@ -75,7 +75,7 @@ export function VerifyEmailPage() {
               <p>{t.auth.verifyEmail.successMessage}</p>
             </Flex>
           </Alert>
-          <Button as={Link} to="/sign-in" variant="primary" fullWidth>
+          <Button as={Link} to={localizePath("/sign-in")} variant="primary" fullWidth>
             {t.auth.verifyEmail.proceedToSignIn}
           </Button>
         </Flex>
