@@ -9,20 +9,19 @@ While the web application supports client-side localization for UI copy and API 
 ## Decision
 
 ### 1. Source of Truth & Precedence Hierarchy
-The user language precedence is strictly defined as follows:
-1. **Authenticated user (highest priority / single source of truth):** The persisted `users.locale` on the server is the authoritative source of truth.
-   - Upon sign-in (`POST /api/auth/sign-in/email`), the server returns `user.locale`, and the client immediately synchronizes the active UI locale to match the server preference.
-   - When an authenticated session is restored from an existing token (page reload), `AppLayout` observes `useMeQuery` data and aligns the client locale with `user.locale` whenever the server value loads or changes, overriding any stale local device storage without fighting subsequent user-initiated toggles.
-2. **Guest user (unauthenticated):** The client's `localStorage` (`portateka_locale`, falling back to `DEFAULT_LOCALE`) dictates the UI copy.
-3. **Registration (`POST /api/auth/sign-up/email`):**
-   - The sign-up form pre-fills the language selection with the active UI locale (falling back to `DEFAULT_LOCALE`).
+The user language precedence is defined as follows (updated alongside [ADR 0012](./0012-locale-prefixed-url-routing-and-seo.md) when migrating from `localStorage` to locale-prefixed URLs):
+1. **Direct URL navigation (highest priority for rendering):** All application routes live under `/:locale/...` (`en-US`, `bg-BG`). Navigating directly to `/bg-BG/properties` or `/en-US/properties` renders in the URL locale without forcing a redirect or mutating `users.locale`.
+2. **Sign-in (`POST /api/auth/sign-in/email`):** The server returns `user.locale`, and the client redirects immediately to `/:user.locale/properties` so the authenticated session lands in the user's preferred language.
+3. **Unprefixed entry (`/` or legacy unprefixed paths):** Without `localStorage`, unprefixed paths detect the best match from `navigator.languages` (exact BCP 47 match first, then primary language prefix, fallback `DEFAULT_LOCALE`) and replace-redirect to `/:detectedLocale/...`.
+4. **Registration (`POST /api/auth/sign-up/email`):**
+   - The sign-up form pre-fills the language selection with the active URL locale (falling back to `DEFAULT_LOCALE`), staying synced if the user switches language before editing the field.
    - Options are generated from `SUPPORTED_LOCALES` with no option for an empty language field in the UI.
-   - The chosen locale is explicitly included in the sign-up payload so the verification email is delivered in that language.
+   - The chosen locale is explicitly included in the sign-up payload so the verification email is delivered in that language and links directly to `/:locale/verify-email`.
 
 ### 2. Bidirectional Updates
-When an authenticated user toggles or changes their language (via `TopControls` in the header or the language selector on `ProfilePage`):
-- The client UI updates immediately (`setLocale`), updating `<html lang="...">` and `localStorage`.
-- In the background, `PATCH /api/auth/me` is invoked with `{ locale }` via `useUpdateMeMutation` to update `users.locale` on the server and keep the React Query cache synchronized.
+When a user switches language explicitly:
+- **`TopControls` header toggle:** Renders a crawlable `<Link replace>` to the alternate locale URL (preserving subpath, query string, and hash). When authenticated, clicking it also fires `PATCH /api/auth/me` with `{ locale }` in the background.
+- **`ProfilePage` language selector:** Navigates (`replace: true`) to the new locale URL via `setLocale` and fires `PATCH /api/auth/me` with `{ locale }` in the background.
 
 ### 3. Type-Safe Constants & Errors
 `SUPPORTED_LOCALES` and `DEFAULT_LOCALE` in `src/i18n/types.ts` are used across components, `I18nProvider`, and `src/validators/authValidators.ts` (avoiding hardcoded locale strings in UI or validation logic). The shared validation schemas (`signUpEmailSchema`, `updateMeSchema`) validate `locale` against `SUPPORTED_LOCALES` (`z.enum(SUPPORTED_LOCALES, { error: "invalid_locale" })`), keeping `src/validators/authValidators.ts` mirrored with `portateka-api` (ADR 0008). Any invalid value is rejected with the machine code `invalid_locale`, which is translated by the type-safe dictionary (`t.errors.fields.invalid_locale`).

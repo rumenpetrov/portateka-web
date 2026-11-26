@@ -1,9 +1,7 @@
-import { useEffect, useRef } from "react";
 import { Building2, House, LogOut, User } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router";
-import { useMeQuery, useSignOut } from "@/api/auth.api";
+import { useSignOut } from "@/api/auth.api";
 import { useI18n } from "@/i18n/I18nProvider";
-import type { SupportedLocale } from "@/i18n/types";
 import { Button, Flex } from "@/components/ui";
 import { BrandLogo } from "../BrandLogo";
 import { Footer } from "../Footer";
@@ -13,23 +11,13 @@ import { TopControls } from "../TopControls";
 import styles from "./AppLayout.module.css";
 
 export function AppLayout() {
-  const { setLocale, t } = useI18n();
-  const meQuery = useMeQuery();
+  const { localizePath, t } = useI18n();
   const signOut = useSignOut();
   const navigate = useNavigate();
-  const syncedServerLocaleRef = useRef<SupportedLocale | null>(null);
-
-  useEffect(() => {
-    const serverLocale = meQuery.data?.locale;
-    if (serverLocale && syncedServerLocaleRef.current !== serverLocale) {
-      syncedServerLocaleRef.current = serverLocale;
-      setLocale(serverLocale);
-    }
-  }, [meQuery.data?.locale, setLocale]);
 
   const handleSignOut = () => {
     signOut();
-    navigate("/sign-in", { replace: true });
+    navigate(localizePath("/sign-in"), { replace: true });
   };
 
   return (
@@ -44,7 +32,7 @@ export function AppLayout() {
               className={styles.desktopNav}
             >
               <NavLink
-                to="/"
+                to={localizePath("/")}
                 end
                 className={styles.desktopNavItem}
               >
@@ -52,7 +40,7 @@ export function AppLayout() {
                 <span>{t.nav.home}</span>
               </NavLink>
               <NavLink
-                to="/properties"
+                to={localizePath("/properties")}
                 end
                 className={styles.desktopNavItem}
               >
@@ -60,7 +48,7 @@ export function AppLayout() {
                 <span>{t.nav.properties}</span>
               </NavLink>
               <NavLink
-                to="/profile"
+                to={localizePath("/profile")}
                 className={styles.desktopNavItem}
               >
                 <User aria-hidden="true" size={16} />
@@ -91,15 +79,22 @@ export function AppLayout() {
       <Footer />
 
       <nav aria-label={t.nav.mainNavigation} className={styles.bottomNav}>
-        <NavLink to="/" end className={styles.bottomNavItem}>
+        <NavLink to={localizePath("/")} end className={styles.bottomNavItem}>
           <House aria-hidden="true" size={20} />
           <span>{t.nav.home}</span>
         </NavLink>
-        <NavLink to="/properties" end className={styles.bottomNavItem}>
+        <NavLink
+          to={localizePath("/properties")}
+          end
+          className={styles.bottomNavItem}
+        >
           <Building2 aria-hidden="true" size={20} />
           <span>{t.nav.properties}</span>
         </NavLink>
-        <NavLink to="/profile" className={styles.bottomNavItem}>
+        <NavLink
+          to={localizePath("/profile")}
+          className={styles.bottomNavItem}
+        >
           <User aria-hidden="true" size={20} />
           <span>{t.nav.profile}</span>
         </NavLink>

@@ -8,7 +8,7 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { forgotPasswordSchema } from "@/validators/authValidators";
 
 export function ForgotPasswordPage() {
-  const { t } = useI18n();
+  const { localizePath, t } = useI18n();
   const forgotMutation = useForgotPasswordMutation();
   const [sent, setSent] = useState(false);
 
@@ -33,7 +33,7 @@ export function ForgotPasswordPage() {
       title={t.auth.forgotPassword.title}
       subtitle={t.auth.forgotPassword.subtitle}
       footer={
-        <Anchor as={Link} to="/sign-in">
+        <Anchor as={Link} to={localizePath("/sign-in")}>
           {t.auth.forgotPassword.backToSignIn}
         </Anchor>
       }
@@ -48,7 +48,7 @@ export function ForgotPasswordPage() {
           </Alert>
           <Button
             as={Link}
-            to="/reset-password"
+            to={localizePath("/reset-password")}
             variant="primary"
             fullWidth
           >

@@ -20,7 +20,7 @@ import { useI18n } from "@/i18n/I18nProvider";
 import styles from "./HomePage.module.css";
 
 export function HomePage() {
-  const { t } = useI18n();
+  const { localizePath, t } = useI18n();
   const token = useAuthToken();
   const meQuery = useMeQuery();
   const preferredPropertyId = meQuery.data?.preferredPropertyId ?? null;
@@ -64,18 +64,28 @@ export function HomePage() {
 
             {token ? (
               <Flex direction="column" className={styles.ctaGroup}>
-                <Button as={Link} to="/properties" variant="primary" fullWidth>
+                <Button
+                  as={Link}
+                  to={localizePath("/properties")}
+                  variant="primary"
+                  fullWidth
+                >
                   <span>{t.home.goToProperties}</span>
                   <ArrowRight aria-hidden="true" size={18} />
                 </Button>
               </Flex>
             ) : (
               <Flex direction="column" gap={2} className={styles.ctaGroup}>
-                <Button as={Link} to="/sign-in" variant="primary" fullWidth>
+                <Button
+                  as={Link}
+                  to={localizePath("/sign-in")}
+                  variant="primary"
+                  fullWidth
+                >
                   <LogIn aria-hidden="true" size={18} />
                   <span>{t.home.signInCta}</span>
                 </Button>
-                <Button as={Link} to="/sign-up" fullWidth>
+                <Button as={Link} to={localizePath("/sign-up")} fullWidth>
                   <UserPlus aria-hidden="true" size={18} />
                   <span>{t.home.signUpCta}</span>
                 </Button>

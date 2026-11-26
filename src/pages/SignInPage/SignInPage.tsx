@@ -5,10 +5,11 @@ import { PasswordInput } from "@/components/features/auth/PasswordInput";
 import { Anchor, Button, Fieldset, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
+import { buildLocalizedPath } from "@/i18n/localeRouting";
 import { signInEmailSchema } from "@/validators/authValidators";
 
 export function SignInPage() {
-  const { setLocale, t } = useI18n();
+  const { locale, localizePath, t } = useI18n();
   const navigate = useNavigate();
   const signInMutation = useSignInMutation();
 
@@ -23,10 +24,10 @@ export function SignInPage() {
   const onSubmit = handleSubmit(async (values) => {
     try {
       const output = await signInMutation.mutateAsync(values);
-      if (output.user.locale) {
-        setLocale(output.user.locale);
-      }
-      navigate("/properties", { replace: true });
+      const targetLocale = output.user.locale ?? locale;
+      navigate(buildLocalizedPath(targetLocale, "/properties"), {
+        replace: true,
+      });
     } catch (err) {
       applyServerErrors(err);
     }
@@ -39,7 +40,7 @@ export function SignInPage() {
       footer={
         <>
           <span>{t.auth.signIn.noAccountPrompt} </span>
-          <Anchor as={Link} to="/sign-up">
+          <Anchor as={Link} to={localizePath("/sign-up")}>
             {t.auth.signIn.signUpLink}
           </Anchor>
         </>
@@ -83,10 +84,10 @@ export function SignInPage() {
 
             <Text as="div" variant="subtitle">
               <Flex wrap justify="between" gap={2}>
-                <Anchor as={Link} to="/forgot-password">
+                <Anchor as={Link} to={localizePath("/forgot-password")}>
                   {t.auth.signIn.forgotPasswordLink}
                 </Anchor>
-                <Anchor as={Link} to="/verify-email">
+                <Anchor as={Link} to={localizePath("/verify-email")}>
                   {t.auth.signIn.needVerificationLink}
                 </Anchor>
               </Flex>

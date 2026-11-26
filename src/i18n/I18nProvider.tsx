@@ -4,12 +4,18 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
 } from "react";
 import type { ReactNode } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { bgBG } from "./bg-BG";
 import { enUS } from "./en-US";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "./types";
+import {
+  buildLocalizedPath,
+  detectBrowserLocale,
+  extractLocaleFromPathname,
+  replaceLocaleInUrl,
+} from "./localeRouting";
+import { DEFAULT_LOCALE } from "./types";
 import type {
   ApiErrorShape,
   FieldMachineCodeKey,
@@ -17,31 +23,10 @@ import type {
   TranslationDictionary,
 } from "./types";
 
-const LOCALE_STORAGE_KEY = "portateka_locale";
-
 const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
   "en-US": enUS,
   "bg-BG": bgBG,
 };
-
-function isSupportedLocale(value: string | null): value is SupportedLocale {
-  if (!value) {
-    return false;
-  }
-  return (SUPPORTED_LOCALES as readonly string[]).includes(value);
-}
-
-function readInitialLocale(): SupportedLocale {
-  try {
-    const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-    if (isSupportedLocale(stored)) {
-      return stored;
-    }
-  } catch {
-    // Ignore storage access errors
-  }
-  return DEFAULT_LOCALE;
-}
 
 export function translateFieldMachineCode(
   field: string,
@@ -185,6 +170,8 @@ export function translateApiErrorFromShape(
 interface I18nContextValue {
   locale: SupportedLocale;
   setLocale: (next: SupportedLocale) => void;
+  localizePath: (path: string) => string;
+  getLocaleSwitchUrl: (next: SupportedLocale) => string;
   t: TranslationDictionary;
   translateApiError: (
     error: ApiErrorShape | null | undefined,
@@ -198,30 +185,58 @@ interface I18nContextValue {
 
 const I18nContext = createContext<I18nContextValue | null>(null);
 
-let activeLocaleSnapshot: SupportedLocale = readInitialLocale();
+let activeLocaleSnapshot: SupportedLocale = DEFAULT_LOCALE;
 
 export function getActiveDictionary(): TranslationDictionary {
   return DICTIONARIES[activeLocaleSnapshot];
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<SupportedLocale>(readInitialLocale);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const extracted = extractLocaleFromPathname(location.pathname);
+  const locale: SupportedLocale = extracted?.locale ?? detectBrowserLocale();
+
+  activeLocaleSnapshot = locale;
 
   useEffect(() => {
     activeLocaleSnapshot = locale;
     document.documentElement.lang = locale;
   }, [locale]);
 
-  const setLocale = useCallback((next: SupportedLocale) => {
-    activeLocaleSnapshot = next;
-    setLocaleState(next);
-    document.documentElement.lang = next;
-    try {
-      localStorage.setItem(LOCALE_STORAGE_KEY, next);
-    } catch {
-      // Ignore storage access errors
-    }
-  }, []);
+  const getLocaleSwitchUrl = useCallback(
+    (next: SupportedLocale) =>
+      replaceLocaleInUrl(
+        location.pathname,
+        location.search,
+        location.hash,
+        next,
+      ),
+    [location.pathname, location.search, location.hash],
+  );
+
+  const setLocale = useCallback(
+    (next: SupportedLocale) => {
+      activeLocaleSnapshot = next;
+      document.documentElement.lang = next;
+      navigate(
+        replaceLocaleInUrl(
+          location.pathname,
+          location.search,
+          location.hash,
+          next,
+        ),
+        { replace: true },
+      );
+    },
+    [location.pathname, location.search, location.hash, navigate],
+  );
+
+  const localizePath = useCallback(
+    (path: string) => buildLocalizedPath(locale, path),
+    [locale],
+  );
 
   const t = DICTIONARIES[locale];
 
@@ -258,12 +273,23 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     () => ({
       locale,
       setLocale,
+      localizePath,
+      getLocaleSwitchUrl,
       t,
       translateApiError,
       translateFieldErrors,
       formatDate,
     }),
-    [locale, setLocale, t, translateApiError, translateFieldErrors, formatDate],
+    [
+      locale,
+      setLocale,
+      localizePath,
+      getLocaleSwitchUrl,
+      t,
+      translateApiError,
+      translateFieldErrors,
+      formatDate,
+    ],
   );
 
   return <I18nContext value={value}>{children}</I18nContext>;

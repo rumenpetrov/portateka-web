@@ -9,7 +9,7 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { resetPasswordSchema } from "@/validators/authValidators";
 
 export function ResetPasswordPage() {
-  const { t } = useI18n();
+  const { localizePath, t } = useI18n();
   const [searchParams] = useSearchParams();
   const resetMutation = useResetPasswordMutation();
   const [completed, setCompleted] = useState(false);
@@ -36,7 +36,7 @@ export function ResetPasswordPage() {
       title={t.auth.resetPassword.title}
       subtitle={t.auth.resetPassword.subtitle}
       footer={
-        <Anchor as={Link} to="/sign-in">
+        <Anchor as={Link} to={localizePath("/sign-in")}>
           {t.auth.forgotPassword.backToSignIn}
         </Anchor>
       }
@@ -49,7 +49,7 @@ export function ResetPasswordPage() {
               <p>{t.auth.resetPassword.successMessage}</p>
             </Flex>
           </Alert>
-          <Button as={Link} to="/sign-in" variant="primary" fullWidth>
+          <Button as={Link} to={localizePath("/sign-in")} variant="primary" fullWidth>
             {t.auth.resetPassword.proceedToSignIn}
           </Button>
         </Flex>

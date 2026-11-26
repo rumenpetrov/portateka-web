@@ -4,10 +4,10 @@ import { useI18n } from "@/i18n/I18nProvider";
 import styles from "./BrandLogo.module.css";
 
 export function BrandLogo() {
-  const { t } = useI18n();
+  const { localizePath, t } = useI18n();
 
   return (
-    <Anchor as={Link} to="/" className={styles.brandLogo}>
+    <Anchor as={Link} to={localizePath("/")} className={styles.brandLogo}>
       <svg
         aria-hidden="true"
         className={styles.mark}

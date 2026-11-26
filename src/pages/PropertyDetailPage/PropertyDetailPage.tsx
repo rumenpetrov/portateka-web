@@ -29,9 +29,10 @@ import type { ApiErrorShape } from "@/i18n/types";
 
 export function PropertyDetailPage() {
   const { id = "" } = useParams<{ id: string }>();
-  const { t, formatDate, translateApiError } = useI18n();
+  const { localizePath, t, formatDate, translateApiError } = useI18n();
   const { notifySuccess } = useNotifications();
   const navigate = useNavigate();
+  const propertiesPath = localizePath("/properties");
 
   const propertyQuery = usePropertyQuery(id);
   const meQuery = useMeQuery();
@@ -49,7 +50,7 @@ export function PropertyDetailPage() {
         <Flex wrap align="start" justify="between" gap={3}>
           <Flex direction="column" gap={1}>
             <Flex align="center" gap={2}>
-              <Anchor as={Link} to="/properties" tone="secondary">
+              <Anchor as={Link} to={propertiesPath} tone="secondary">
                 <Flex as="span" inline align="center" gap={1}>
                   <ArrowLeft aria-hidden="true" size={16} />
                   <Text as="span" variant="subtitle">
@@ -110,7 +111,7 @@ export function PropertyDetailPage() {
         <EmptyState
           title={t.errors.topLevel.NOT_FOUND.property}
           action={
-            <Button as={Link} to="/properties" variant="primary">
+            <Button as={Link} to={propertiesPath} variant="primary">
               <ArrowLeft aria-hidden="true" size={16} />
               <span>{t.common.back}</span>
             </Button>
@@ -138,7 +139,7 @@ export function PropertyDetailPage() {
               <RefreshCw aria-hidden="true" size={16} />
               <span>{t.common.retry}</span>
             </Button>
-            <Button as={Link} to="/properties" variant="secondary">
+            <Button as={Link} to={propertiesPath} variant="secondary">
               <ArrowLeft aria-hidden="true" size={16} />
               <span>{t.common.back}</span>
             </Button>
@@ -158,7 +159,7 @@ export function PropertyDetailPage() {
     try {
       await updatePropertyMutation.mutateAsync(values);
       notifySuccess(t.properties.detail.updatedNotification);
-      navigate("/properties", { replace: true });
+      navigate(propertiesPath, { replace: true });
     } catch (err) {
       applyServerErrors(err);
     }
@@ -175,7 +176,7 @@ export function PropertyDetailPage() {
     await deletePropertyMutation.mutateAsync(property.id);
     setDeleteModalOpen(false);
     notifySuccess(t.properties.detail.deletedNotification);
-    navigate("/properties", { replace: true });
+    navigate(propertiesPath, { replace: true });
   };
 
   return (
@@ -183,7 +184,7 @@ export function PropertyDetailPage() {
       <Flex wrap align="start" justify="between" gap={3}>
         <Flex direction="column" gap={1}>
           <Flex align="center" gap={2}>
-            <Anchor as={Link} to="/properties" tone="secondary">
+            <Anchor as={Link} to={propertiesPath} tone="secondary">
               <Flex as="span" inline align="center" gap={1}>
                 <ArrowLeft aria-hidden="true" size={16} />
                 <Text as="span" variant="subtitle">

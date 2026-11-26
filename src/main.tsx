@@ -1,6 +1,7 @@
 import "@/theme/tokens.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/api/queryClient";
 import { NotificationProvider } from "@/notifications/NotificationProvider";
@@ -16,14 +17,16 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <ThemeProvider>
-      <I18nProvider>
-        <QueryClientProvider client={queryClient}>
-          <NotificationProvider>
-            <AppRouter />
-          </NotificationProvider>
-        </QueryClientProvider>
-      </I18nProvider>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider>
+        <I18nProvider>
+          <QueryClientProvider client={queryClient}>
+            <NotificationProvider>
+              <AppRouter />
+            </NotificationProvider>
+          </QueryClientProvider>
+        </I18nProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </StrictMode>,
 );
