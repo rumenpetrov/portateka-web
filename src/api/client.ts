@@ -86,7 +86,7 @@ export function isApiClientError(err: unknown): err is ApiClientError {
   return err instanceof ApiClientError;
 }
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? "").replace(
+const API_BASE_URL = (import.meta.env.PUBLIC_API_BASE_URL ?? "").replace(
   /\/+$/,
   "",
 );

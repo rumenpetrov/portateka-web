@@ -24,7 +24,7 @@ jobs:
       - name: Build web bundle
         run: npm run build
         env:
-          VITE_API_BASE_URL: https://portateka-api.rpetrov.dev
+          PUBLIC_API_BASE_URL: https://portateka-api.rpetrov.dev
 
       - name: Upload build artifact
         if: inputs.upload-artifact
