@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { DICTIONARIES } from "./dictionaries";
 import {
-  buildLocalizedPath,
+  buildAppPath,
   detectBrowserLocale,
   extractLocaleFromPathname,
   replaceLocaleInUrl,
@@ -228,7 +228,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   );
 
   const localizePath = useCallback(
-    (path: string) => buildLocalizedPath(locale, path),
+    (path: string) => buildAppPath(locale, path),
     [locale],
   );
 

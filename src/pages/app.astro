@@ -1,0 +1,17 @@
+---
+import { getDictionary } from "@/i18n/dictionaries";
+import { DEFAULT_LOCALE } from "@/i18n/types";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { App } from "@/spa/App";
+
+const t = getDictionary(DEFAULT_LOCALE);
+---
+
+<BaseLayout
+  locale={DEFAULT_LOCALE}
+  title={t.app.name}
+  description={t.seo.routes.home.description}
+  indexable={false}
+>
+  <App client:only="react" />
+</BaseLayout>

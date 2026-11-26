@@ -5,7 +5,7 @@ import { PasswordInput } from "@/components/features/auth/PasswordInput";
 import { Anchor, Button, Fieldset, Flex, Input, Text } from "@/components/ui";
 import { useAppForm } from "@/hooks/useAppForm";
 import { useI18n } from "@/i18n/I18nProvider";
-import { buildLocalizedPath } from "@/i18n/localeRouting";
+import { buildAppPath } from "@/i18n/localeRouting";
 import { signInEmailSchema } from "@/validators/authValidators";
 
 export function SignInPage() {
@@ -25,7 +25,7 @@ export function SignInPage() {
     try {
       const output = await signInMutation.mutateAsync(values);
       const targetLocale = output.user.locale ?? locale;
-      navigate(buildLocalizedPath(targetLocale, "/properties"), {
+      navigate(buildAppPath(targetLocale, "/properties"), {
         replace: true,
       });
     } catch (err) {
