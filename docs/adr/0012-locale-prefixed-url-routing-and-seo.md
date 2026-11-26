@@ -1,6 +1,6 @@
 # ADR 0012: Locale-Prefixed URL Routing and SPA SEO
 
-- **Status:** Accepted
+- **Status:** Accepted (Extended by ADR 0013)
 - **Date:** 2026-11-26
 
 ## Context
@@ -25,3 +25,4 @@ Previously, `portateka-web` stored the active language in `localStorage` (`porta
 ## Consequences
 - **Positive:** Clean, shareable, crawlable locale URLs; no `localStorage` locale drift; zero duplicate `<head>` tags; backwards compatibility with older unprefixed links.
 - **Negative / Trade-offs:** Remains a client-rendered SPA on Cloudflare Workers Assets, so crawlers that do not execute JavaScript rely on `sitemap.xml` and `robots.txt` rather than server-rendered per-route HTML `<head>` tags.
+- **Update (ADR 0013):** Public pages (`/:locale`, `/:locale/404`, future marketing pages) now render as static Astro SSG HTML with build-time SEO tags and `@astrojs/sitemap`, while the React Router SPA is scoped under `/:locale/app/*` (`noindex, nofollow`).
