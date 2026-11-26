@@ -8,9 +8,9 @@
 
 ## Decision
 1. Configure `API_TARGET_URL` in `.env` (e.g., `http://localhost:8787` or `https://portateka-api.rpetrov.dev`).
-2. Configure Astro's Vite dev server proxy (`astro.config.mjs`) to forward `/api` and `/health` to `API_TARGET_URL` with `changeOrigin: true`.
+2. Configure Astro's Vite dev server proxy (`astro.config.mjs`)—and `worker/index.ts` for local `npm run preview` (`wrangler dev`) when `env.API_TARGET_URL` is set—to forward `/api` and `/health` to `API_TARGET_URL` with `changeOrigin: true` (production has no `API_TARGET_URL` binding and is unaffected).
 3. Support an optional `PUBLIC_API_BASE_URL` (following Astro's `PUBLIC_` client env prefix convention) for production builds hosted directly on an allowed CORS origin.
 
 ## Consequences
 - **Positive:** Browser requests during local development are same-origin (`http://localhost:5173/api/...`), completely avoiding CORS preflight rejections against both local and remote API targets without touching `portateka-api`.
-- **Negative / Trade-offs:** Changing `API_TARGET_URL` in `.env` requires restarting the Astro dev server (`npm run dev`).
+- **Negative / Trade-offs:** Changing `API_TARGET_URL` in `.env` requires restarting the local server (`npm run dev` / `npm run preview`).

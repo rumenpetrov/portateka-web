@@ -4,6 +4,12 @@ import sitemap from "@astrojs/sitemap";
 import { AstroPWAIntegration } from "@vite-pwa/astro";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
+import {
+  LOCALE_NOT_FOUND_PATTERN,
+  SITE_ORIGIN,
+  SPA_ROUTE_PATTERN,
+} from "./src/i18n/localeRouting";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "./src/i18n/types";
 import cssConfig from "./vite.css.config.mjs";
 
 const env = loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), "");
@@ -11,8 +17,6 @@ const apiTarget = env.API_TARGET_URL || "http://localhost:8787";
 
 /** @returns {import("vite").Plugin} */
 function spaDevRewritePlugin() {
-  const spaRoutePattern = /^\/(?:en-US|bg-BG)\/app(?:\/.*)?$/i;
-
   return {
     name: "spa-dev-rewrite",
     configureServer(server) {
@@ -22,7 +26,7 @@ function spaDevRewritePlugin() {
         const pathname = queryIndex === -1 ? url : url.slice(0, queryIndex);
         const query = queryIndex === -1 ? "" : url.slice(queryIndex);
 
-        if (spaRoutePattern.test(pathname)) {
+        if (SPA_ROUTE_PATTERN.test(pathname)) {
           req.url = `/app${query}`;
         }
         next();
@@ -32,7 +36,7 @@ function spaDevRewritePlugin() {
 }
 
 export default defineConfig({
-  site: "https://portateka.rpetrov.dev",
+  site: SITE_ORIGIN,
   output: "static",
   trailingSlash: "never",
   build: {
@@ -45,11 +49,10 @@ export default defineConfig({
     react(),
     sitemap({
       i18n: {
-        defaultLocale: "en-US",
-        locales: {
-          "en-US": "en-US",
-          "bg-BG": "bg-BG",
-        },
+        defaultLocale: DEFAULT_LOCALE,
+        locales: Object.fromEntries(
+          SUPPORTED_LOCALES.map((locale) => [locale, locale]),
+        ),
       },
       filter: (page) => {
         const { pathname } = new URL(page);
@@ -57,14 +60,14 @@ export default defineConfig({
           pathname === "/" ||
           pathname === "/404" ||
           pathname === "/404.html" ||
-          /^\/(?:en-US|bg-BG)\/404(?:\.html|\/)?$/i.test(pathname)
+          LOCALE_NOT_FOUND_PATTERN.test(pathname)
         ) {
           return false;
         }
         if (
           pathname === "/app" ||
           pathname.startsWith("/app/") ||
-          /^\/(?:en-US|bg-BG)\/app(?:\/|$)/i.test(pathname)
+          SPA_ROUTE_PATTERN.test(pathname)
         ) {
           return false;
         }
@@ -110,10 +113,7 @@ export default defineConfig({
       generateSW: {
         globPatterns: ["**/*.{js,css,html,svg,png,ico,woff2}"],
         navigateFallback: "/app",
-        navigateFallbackAllowlist: [
-          /^\/app(?:\/|$)/,
-          /^\/(?:en-US|bg-BG)\/app(?:\/|$)/i,
-        ],
+        navigateFallbackAllowlist: [/^\/app(?:\/|$)/, SPA_ROUTE_PATTERN],
         navigateFallbackDenylist: [
           /^\/api(?:\/|$)/,
           /^\/health(?:\/|$)/,

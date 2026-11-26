@@ -1,6 +1,7 @@
 ---
 import { getDictionary } from "@/i18n/dictionaries";
-import { DEFAULT_LOCALE } from "@/i18n/types";
+import { buildLocalizedPath } from "@/i18n/localeRouting";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/types";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const t = getDictionary(DEFAULT_LOCALE);
@@ -27,7 +28,14 @@ const t = getDictionary(DEFAULT_LOCALE);
   <noscript>
     <main style="padding: 2rem; text-align: center;">
       <p>
-        <a href="/en-US">English (US)</a> · <a href="/bg-BG">Български (BG)</a>
+        {SUPPORTED_LOCALES.map((locale, index) => (
+          <>
+            {index > 0 ? " · " : null}
+            <a href={buildLocalizedPath(locale, "/")}>
+              {getDictionary(locale).preferences.languages[locale]}
+            </a>
+          </>
+        ))}
       </p>
     </main>
   </noscript>

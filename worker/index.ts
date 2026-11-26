@@ -1,6 +1,8 @@
 import {
+  SPA_ROUTE_PATTERN,
   detectBrowserLocale,
   extractLocaleFromPathname,
+  replaceLocaleInUrl,
 } from "../src/i18n/localeRouting";
 
 interface AssetsBinding {
@@ -12,7 +14,6 @@ interface Env {
   API_TARGET_URL?: string;
 }
 
-const SPA_ROUTE_PATTERN = /^\/(?:en-US|bg-BG)\/app(?:\/.*)?$/i;
 const API_PROXY_PATTERN = /^\/(?:api|health)(?:\/|$)/;
 
 function parseAcceptLanguage(header: string | null): string[] {
@@ -55,6 +56,17 @@ export default {
       return fetch(targetUrl, init);
     }
 
+    const extracted = extractLocaleFromPathname(url.pathname);
+    if (extracted && !extracted.isCanonical) {
+      const canonicalPath = replaceLocaleInUrl(
+        url.pathname,
+        url.search,
+        "",
+        extracted.locale,
+      );
+      return Response.redirect(new URL(canonicalPath, url), 308);
+    }
+
     if (SPA_ROUTE_PATTERN.test(url.pathname)) {
       const appUrl = new URL("/app", url);
       return env.ASSETS.fetch(new Request(appUrl, request));
@@ -66,7 +78,7 @@ export default {
     }
 
     const locale =
-      extractLocaleFromPathname(url.pathname)?.locale ??
+      extracted?.locale ??
       detectBrowserLocale(
         parseAcceptLanguage(request.headers.get("Accept-Language")),
       );
