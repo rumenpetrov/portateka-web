@@ -9,6 +9,39 @@ import cssConfig from "./vite.css.config.mjs";
 const env = loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), "");
 const apiTarget = env.API_TARGET_URL || "http://localhost:8787";
 
+/** @returns {import("vite").Plugin} */
+function spaDevRewritePlugin() {
+  const spaRoutePattern = /^\/(?:en-US|bg-BG)\/app(?:\/.*)?$/i;
+
+  /**
+   * @param {string} targetPath
+   * @returns {import("vite").Connect.NextHandleFunction}
+   */
+  function createRewriteMiddleware(targetPath) {
+    return (req, _res, next) => {
+      const url = req.url ?? "";
+      const queryIndex = url.indexOf("?");
+      const pathname = queryIndex === -1 ? url : url.slice(0, queryIndex);
+      const query = queryIndex === -1 ? "" : url.slice(queryIndex);
+
+      if (spaRoutePattern.test(pathname)) {
+        req.url = `${targetPath}${query}`;
+      }
+      next();
+    };
+  }
+
+  return {
+    name: "spa-dev-rewrite",
+    configureServer(server) {
+      server.middlewares.use(createRewriteMiddleware("/app"));
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(createRewriteMiddleware("/app.html"));
+    },
+  };
+}
+
 export default defineConfig({
   site: "https://portateka.rpetrov.dev",
   output: "static",
@@ -105,7 +138,7 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: cssConfig.plugins,
+    plugins: [...cssConfig.plugins, spaDevRewritePlugin()],
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),

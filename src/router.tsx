@@ -13,7 +13,7 @@ import { AuthLayout } from "@/components/layout/AuthLayout";
 import { RouteMetadata } from "@/components/seo/RouteMetadata";
 import { useI18n } from "@/i18n/I18nProvider";
 import {
-  buildLocalizedPath,
+  buildAppPath,
   detectBrowserLocale,
   matchCanonicalLocale,
   normalizeTrailingSlash,
@@ -59,9 +59,9 @@ function AdaptiveShell() {
   return token ? <AppLayout /> : <AuthLayout />;
 }
 
-function RootLocaleRedirect() {
+function AppRootRedirect() {
   const location = useLocation();
-  const target = `${buildLocalizedPath(detectBrowserLocale(), "/")}${location.search}${location.hash}`;
+  const target = `${buildAppPath(detectBrowserLocale(), "/")}${location.search}${location.hash}`;
   return <Navigate to={target} replace />;
 }
 
@@ -71,7 +71,7 @@ function LocaleBoundary() {
   const canonical = matchCanonicalLocale(rawLocale);
 
   if (!canonical) {
-    const target = `${buildLocalizedPath(detectBrowserLocale(), location.pathname)}${location.search}${location.hash}`;
+    const target = `${buildAppPath(detectBrowserLocale(), "/")}${location.search}${location.hash}`;
     return <Navigate to={target} replace />;
   }
 
@@ -89,21 +89,10 @@ function LocaleBoundary() {
   return <Outlet />;
 }
 
-function withRouteMetadata(
-  element: ReactNode,
-  options: {
-    routeKey: SeoRouteKey;
-    indexable?: boolean;
-    canonicalSubpath?: string;
-  },
-) {
+function withRouteMetadata(element: ReactNode, routeKey: SeoRouteKey) {
   return (
     <>
-      <RouteMetadata
-        routeKey={options.routeKey}
-        indexable={options.indexable}
-        canonicalSubpath={options.canonicalSubpath}
-      />
+      <RouteMetadata routeKey={routeKey} />
       {element}
     </>
   );
@@ -112,47 +101,60 @@ function withRouteMetadata(
 export function AppRouter() {
   return (
     <Routes>
-      {/* Bare root redirects to detected browser locale */}
-      <Route path="/" element={<RootLocaleRedirect />} />
+      {/* Bare /app (e.g. PWA start_url) redirects to detected browser locale */}
+      <Route path="/app" element={<AppRootRedirect />} />
 
-      {/* Locale-prefixed application routes (plus catch-all redirect for unprefixed paths) */}
-      <Route path="/:locale" element={<LocaleBoundary />}>
-        {/* Dedicated Home Page accessible to both guests and signed-in users */}
-        <Route element={<AdaptiveShell />}>
-          <Route
-            index
-            element={withRouteMetadata(<HomePage />, {
-              routeKey: "home",
-              indexable: true,
-              canonicalSubpath: "/",
-            })}
-          />
+      {/* Locale-prefixed SPA routes */}
+      <Route path="/:locale/app" element={<LocaleBoundary />}>
+        {/* Authenticated SPA Home (preferred property + beta card) */}
+        <Route element={<RequireAuth />}>
+          <Route element={<AppLayout />}>
+            <Route
+              index
+              element={withRouteMetadata(<HomePage />, "home")}
+            />
+            <Route
+              path="properties"
+              element={withRouteMetadata(<PropertiesListPage />, "properties")}
+            />
+            <Route
+              path="properties/new"
+              element={withRouteMetadata(
+                <PropertyCreatePage />,
+                "propertyCreate",
+              )}
+            />
+            <Route
+              path="properties/:id"
+              element={withRouteMetadata(
+                <PropertyDetailPage />,
+                "propertyDetail",
+              )}
+            />
+            <Route
+              path="profile"
+              element={withRouteMetadata(<ProfilePage />, "profile")}
+            />
+          </Route>
         </Route>
 
-        {/* Guest-only routes */}
+        {/* Guest-only auth routes */}
         <Route element={<GuestOnly />}>
           <Route element={<AuthLayout />}>
             <Route
               path="sign-in"
-              element={withRouteMetadata(<SignInPage />, {
-                routeKey: "signIn",
-                indexable: true,
-                canonicalSubpath: "/sign-in",
-              })}
+              element={withRouteMetadata(<SignInPage />, "signIn")}
             />
             <Route
               path="sign-up"
-              element={withRouteMetadata(<SignUpPage />, {
-                routeKey: "signUp",
-                indexable: true,
-                canonicalSubpath: "/sign-up",
-              })}
+              element={withRouteMetadata(<SignUpPage />, "signUp")}
             />
             <Route
               path="forgot-password"
-              element={withRouteMetadata(<ForgotPasswordPage />, {
-                routeKey: "forgotPassword",
-              })}
+              element={withRouteMetadata(
+                <ForgotPasswordPage />,
+                "forgotPassword",
+              )}
             />
           </Route>
         </Route>
@@ -161,58 +163,25 @@ export function AppRouter() {
         <Route element={<AuthLayout />}>
           <Route
             path="verify-email"
-            element={withRouteMetadata(<VerifyEmailPage />, {
-              routeKey: "verifyEmail",
-            })}
+            element={withRouteMetadata(<VerifyEmailPage />, "verifyEmail")}
           />
           <Route
             path="reset-password"
-            element={withRouteMetadata(<ResetPasswordPage />, {
-              routeKey: "resetPassword",
-            })}
+            element={withRouteMetadata(<ResetPasswordPage />, "resetPassword")}
           />
         </Route>
 
-        {/* Protected authenticated routes */}
-        <Route element={<RequireAuth />}>
-          <Route element={<AppLayout />}>
-            <Route
-              path="properties"
-              element={withRouteMetadata(<PropertiesListPage />, {
-                routeKey: "properties",
-              })}
-            />
-            <Route
-              path="properties/new"
-              element={withRouteMetadata(<PropertyCreatePage />, {
-                routeKey: "propertyCreate",
-              })}
-            />
-            <Route
-              path="properties/:id"
-              element={withRouteMetadata(<PropertyDetailPage />, {
-                routeKey: "propertyDetail",
-              })}
-            />
-            <Route
-              path="profile"
-              element={withRouteMetadata(<ProfilePage />, {
-                routeKey: "profile",
-              })}
-            />
-          </Route>
-        </Route>
-
-        {/* Fallback for unknown routes within a locale */}
+        {/* Fallback for unknown routes within /:locale/app/* */}
         <Route element={<AdaptiveShell />}>
           <Route
             path="*"
-            element={withRouteMetadata(<NotFoundPage />, {
-              routeKey: "notFound",
-            })}
+            element={withRouteMetadata(<NotFoundPage />, "notFound")}
           />
         </Route>
       </Route>
+
+      {/* Fallback if SPA shell is hit directly on an unmatched path */}
+      <Route path="*" element={<AppRootRedirect />} />
     </Routes>
   );
 }

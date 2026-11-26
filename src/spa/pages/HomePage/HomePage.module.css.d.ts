@@ -6,17 +6,14 @@
  * https://npmjs.com/vite-css-modules
  */
 
-declare const headerBadge: string;
 declare const ctaGroup: string;
 
 export {
-	headerBadge,
 	ctaGroup
 };
 
 declare const __default_export__: {
-	headerBadge: typeof headerBadge;
 	ctaGroup: typeof ctaGroup;
 };
 export default __default_export__;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiSG9tZVBhZ2UubW9kdWxlLmNzcy5kLnRzIiwic291cmNlcyI6WyJIb21lUGFnZS5tb2R1bGUuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O2NBQ0U7Y0FJQTs7O0NBSkE7Q0FJQTs7OztDQUpBO0NBSUE7OyJ9
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiSG9tZVBhZ2UubW9kdWxlLmNzcy5kLnRzIiwic291cmNlcyI6WyJIb21lUGFnZS5tb2R1bGUuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O2NBQ0U7OztDQUFBOzs7O0NBQUE7OyJ9

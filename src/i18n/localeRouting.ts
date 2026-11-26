@@ -135,20 +135,41 @@ function splitPathAndSuffix(path: string): {
   };
 }
 
-export function buildLocalizedPath(
-  locale: SupportedLocale,
-  path: string,
-): string {
+function normalizeRelativeSubpath(path: string): {
+  pathname: string;
+  suffix: string;
+} {
   const { pathname, suffix } = splitPathAndSuffix(path);
   const normalizedPathname = normalizeTrailingSlash(
     pathname.startsWith("/") ? pathname : `/${pathname}`,
   );
+  return { pathname: normalizedPathname, suffix };
+}
 
-  if (normalizedPathname === "/") {
+export function buildLocalizedPath(
+  locale: SupportedLocale,
+  path: string,
+): string {
+  const { pathname, suffix } = normalizeRelativeSubpath(path);
+
+  if (pathname === "/") {
     return `/${locale}${suffix}`;
   }
 
-  return `/${locale}${normalizedPathname}${suffix}`;
+  return `/${locale}${pathname}${suffix}`;
+}
+
+export function buildAppPath(
+  locale: SupportedLocale,
+  path: string,
+): string {
+  const { pathname, suffix } = normalizeRelativeSubpath(path);
+
+  if (pathname === "/") {
+    return `/${locale}/app${suffix}`;
+  }
+
+  return `/${locale}/app${pathname}${suffix}`;
 }
 
 export function replaceLocaleInUrl(

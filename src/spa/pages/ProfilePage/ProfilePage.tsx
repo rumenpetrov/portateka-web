@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { RefreshCw, Trash2 } from "lucide-react";
-import { useNavigate } from "react-router";
 import {
   useDeleteMeMutation,
   useMeQuery,
@@ -25,17 +24,16 @@ import {
   Text,
 } from "@/components/ui";
 import { useI18n } from "@/i18n/I18nProvider";
+import { buildLocalizedPath } from "@/i18n/localeRouting";
 import { SUPPORTED_LOCALES } from "@/i18n/types";
 import type { ApiErrorShape, SupportedLocale } from "@/i18n/types";
 import { useTheme } from "@/theme/ThemeProvider";
 import type { ColorSchemePreference } from "@/theme/ThemeProvider";
 
 export function ProfilePage() {
-  const { locale, localizePath, setLocale, t, formatDate, translateApiError } =
-    useI18n();
+  const { locale, setLocale, t, formatDate, translateApiError } = useI18n();
   const { preference, setPreference } = useTheme();
   const { notifySuccess } = useNotifications();
-  const navigate = useNavigate();
   const signOut = useSignOut();
 
   const meQuery = useMeQuery();
@@ -193,7 +191,7 @@ export function ProfilePage() {
     handleCloseDeleteModal();
     signOut();
     notifySuccess(t.profile.dangerZone.deletedNotification);
-    navigate(localizePath("/"), { replace: true });
+    window.location.replace(buildLocalizedPath(locale, "/"));
   };
 
   return (
