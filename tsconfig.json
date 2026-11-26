@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [".astro/types.d.ts", "src", "astro.config.mjs"],
+  "include": [".astro/types.d.ts", "src", "worker", "astro.config.mjs"],
   "exclude": ["dist"]
 }

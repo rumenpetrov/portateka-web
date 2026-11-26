@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portateka.rpetrov.dev/sitemap.xml
+Sitemap: https://portateka.rpetrov.dev/sitemap-index.xml
