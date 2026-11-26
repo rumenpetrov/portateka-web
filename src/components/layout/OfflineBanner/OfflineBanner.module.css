@@ -10,7 +10,7 @@
   }
 
   .inner {
-    max-inline-size: 64rem;
+    max-inline-size: var(--primitive-wrapper-lg);
     margin-inline: auto;
     display: flex;
     align-items: center;

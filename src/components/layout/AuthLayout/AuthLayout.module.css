@@ -9,7 +9,7 @@
   }
 
   .header {
-    max-inline-size: 64rem;
+    max-inline-size: var(--primitive-wrapper-lg);
     inline-size: 100%;
     margin-inline: auto;
     padding-block: var(--primitive-space-2);
@@ -23,7 +23,7 @@
     flex-direction: column;
     justify-content: flex-start;
     inline-size: 100%;
-    max-inline-size: 26rem;
+    max-inline-size: var(--primitive-wrapper-sm);
     margin-inline: auto;
     padding-block-start: var(--primitive-space-3);
     padding-block-end: var(--primitive-space-10);

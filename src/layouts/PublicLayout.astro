@@ -77,7 +77,7 @@ const nextLocaleAriaLabel = `${t.preferences.languageLabel}: ${t.preferences.lan
       />
     </header>
 
-    <main class={authStyles.main}>
+    <main class:list={[authStyles.main, "public-main"]}>
       <slot />
     </main>
 
@@ -159,3 +159,15 @@ const nextLocaleAriaLabel = `${t.preferences.languageLabel}: ${t.preferences.lan
     });
   </script>
 </BaseLayout>
+
+<style>
+  @layer components {
+    .public-main {
+      max-inline-size: var(--primitive-wrapper-md);
+
+      @media (min-width: 48rem) {
+        padding-inline: var(--primitive-space-6);
+      }
+    }
+  }
+</style>
