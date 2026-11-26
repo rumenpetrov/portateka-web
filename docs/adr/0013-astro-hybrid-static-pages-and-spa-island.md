@@ -8,25 +8,24 @@ Following ADR 0012, `portateka-web` had locale-prefixed URLs (`/:locale/...`), b
 
 ## Decision
 1. **Astro Static Site Generation (`astro.config.mjs`):**
-   - Configure Astro with `output: "static"`, `trailingSlash: "never"`, and `build: { format: "file" }` (emitting flat `index.html`, `en-US.html`, `bg-BG.html`, `app.html`, `404.html`, `en-US/404.html`, `bg-BG/404.html`).
-   - Keep zero SSR runtime compute for public pages so hosting remains portable and edge-cached.
+   - Pre-render all Astro routes to static HTML with flat file URLs and zero SSR runtime compute so public pages stay portable and edge-cached.
 2. **Strict Route Boundary (`/:locale` vs `/:locale/app/*`):**
-   - **Astro static `.astro` pages (`0 KB React`):** `/` (`src/pages/index.astro` browser-locale redirect), `/:locale` (`src/pages/[locale]/index.astro` static landing page with a tiny inline `TOKEN_STORAGE_KEY` check toggling Sign In / Sign Up vs Open App), `/:locale/404` (`src/pages/[locale]/404.astro`), `/404` (`src/pages/404.astro`), and future marketing pages.
-   - **Single React SPA island (`src/pages/app.astro` → `src/spa/App.tsx`):** Mounted via `<App client:only="react" />` (`noindex, nofollow`). `src/router.tsx` scopes `/app` (PWA `start_url` redirect) and all interactive auth (`sign-in`, `sign-up`, `forgot-password`, `verify-email`, `reset-password`) and dashboard routes (`/:locale/app`, `properties`, `properties/new`, `properties/:id`, `profile`) under `/:locale/app/*`.
-   - **Cross-boundary navigation:** In-SPA links use React Router `<Link>` + `buildAppPath` (`I18nProvider.localizePath`); links crossing back to static pages (`BrandLogo`, guest `NotFoundPage`, post-account-deletion redirect in `ProfilePage`) use `<a href>` / `window.location.replace` via `buildLocalizedPath`.
+   - **Static Astro pages (`src/pages/`, 0 KB React):** Root locale redirect (`/`), localized landing pages (`/:locale`, with a tiny inline `TOKEN_STORAGE_KEY` check toggling auth links vs Open App), localized `404` pages (`/:locale/404`, `/404`), and future marketing pages.
+   - **Single React SPA island (`src/pages/app.astro` → `src/spa/App.tsx`):** Mounted client-only (`noindex, nofollow`) to host `/app` (PWA entry redirect) and all interactive auth and authenticated dashboard routes under `/:locale/app/*` (`src/router.tsx`).
+   - **Cross-boundary navigation:** In-SPA links use React Router `<Link>` (`localizePath`); links crossing back to static pages use `<a href>` / `window.location.replace` (`buildLocalizedPath`).
 3. **One-Way Component & Logic Sharing (`Astro → React`):**
-   - Astro imports pure presentational React components (`src/components/ui/*`, `BrandLogoView`, `WelcomeBetaCard`) **without** `client:*` so they compile to static HTML + CSS at build time.
-   - Shared pure TypeScript modules eliminate duplication across Astro and React: `src/theme/colorScheme.ts` (consumed by `ThemeProvider.tsx`, `BaseLayout.astro`, and `PublicLayout.astro`), `src/i18n/dictionaries.ts`, `src/i18n/localeRouting.ts`, and `TOKEN_STORAGE_KEY` from `src/api/client.ts`.
-   - `BaseLayout.astro` emits `<style is:inline>@layer tokens, base, components, utilities;</style>` at the top of `<head>` before any `<link rel="stylesheet">` so `@layer components` consistently overrides `@layer base` even when Astro splits CSS bundles or minifiers strip bare `@layer` order declarations.
+   - Astro imports pure presentational React components without `client:*` so they render to static HTML + CSS at build time.
+   - Shared pure TypeScript modules (`src/theme/colorScheme.ts`, `src/i18n/dictionaries.ts`, `src/i18n/localeRouting.ts`, and `TOKEN_STORAGE_KEY` in `src/api/client.ts`) eliminate duplicated theme, i18n, locale-pattern, and auth-token logic across Astro, React, and `worker/index.ts`.
+   - `BaseLayout.astro` declares the CSS `@layer` order inline at the top of `<head>` before stylesheets so `@layer components` consistently overrides `@layer base` even when Astro splits CSS bundles or minifiers strip bare `@layer` statements.
 4. **Cloudflare Worker Routing (`worker/index.ts`, `wrangler.jsonc`):**
-   - Configure `assets` with `run_worker_first: false`, `not_found_handling: "none"`, and `html_handling: "drop-trailing-slash"` so static files serve directly from Cloudflare's edge with zero Worker invocations, while unmatched paths fall through to `worker/index.ts` instead of being intercepted by Static Assets' built-in `404-page` handler.
-   - `worker/index.ts` rewrites `^/(?:en-US|bg-BG)/app(?:/.*)?$` to `/app` via `env.ASSETS.fetch`, and when `ASSETS` returns `404`, serves `/${locale}/404` (resolved via `extractLocaleFromPathname` or `Accept-Language`) with HTTP `404` status.
-   - `spaDevRewritePlugin` in `astro.config.mjs` rewrites `/:locale/app/*` to `/app` during `astro dev`, and `npm run preview` runs `wrangler dev --port 5173` to preview the built `dist/` bundle through `worker/index.ts` (including localized `404`s).
+   - Serve static assets directly from the edge (`run_worker_first: false`), with `not_found_handling: "none"` so unmatched paths fall through to `worker/index.ts` instead of Static Assets' built-in `404-page` handler.
+   - `worker/index.ts` handles `308` canonical locale-casing redirects, rewrites `/:locale/app/*` (matched via `SPA_ROUTE_PATTERN` from `src/i18n/localeRouting.ts`) to `/app`, and serves the localized `404` asset with HTTP `404` status (resolved from URL locale or `Accept-Language`).
+   - `astro.config.mjs` rewrites `/:locale/app/*` during `astro dev`, while `npm run preview` runs `wrangler dev` to test the built `dist/` bundle through `worker/index.ts`.
 5. **SPA-Scoped PWA (`@vite-pwa/astro`):**
-   - Use `generateSW` with `injectRegister: null` (registration stays in `src/pwa/updateStore.ts`), `manifest.start_url: "/app"`, `navigateFallback: "/app"`, and `navigateFallbackAllowlist: [/^\/app(?:\/|$)/, /^\/(?:en-US|bg-BG)\/app(?:\/|$)/i]` so the Service Worker only intercepts SPA navigations and never hijacks static marketing or 404 pages.
+   - Generate a Workbox service worker whose registration stays in `src/pwa/updateStore.ts` and whose navigation fallback is scoped to `/app` and `SPA_ROUTE_PATTERN` so static marketing and `404` pages are never hijacked by the SPA shell.
 6. **SEO, Sitemap & API Coordination:**
-   - `@astrojs/sitemap` generates `sitemap-index.xml` and `sitemap-0.xml` restricted to indexable static public pages (`/:locale` and future marketing pages); `public/robots.txt` points to `sitemap-index.xml`.
-   - `portateka-api` updates `WEB_APP_VERIFY_EMAIL_PREFIX` to `/app/verify-email` and `WEB_APP_RESET_PASSWORD_PREFIX` to `/app/reset-password` so transactional emails link directly into `/:locale/app/*`.
+   - `@astrojs/sitemap` indexes only public static pages (filtering out `/app` and `404` routes); `public/robots.txt` points to `sitemap-index.xml`.
+   - `portateka-api` sets `WEB_APP_VERIFY_EMAIL_PREFIX` and `WEB_APP_RESET_PASSWORD_PREFIX` under `/app/*` so transactional emails link directly into `/:locale/app/*`.
 
 ## Consequences
 - **Positive:** Crawlers receive real localized HTML, Open Graph, `canonical`, and `hreflang` tags with 0 KB React JS on public pages; unknown URLs return real HTTP `404` responses in the user's locale; React Query caching, RHF/Zod forms, and offline PWA UX stay isolated inside one persistent SPA tree without hydration mismatches.

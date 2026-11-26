@@ -6,12 +6,12 @@ Web app where you organize and manage your property portfolio information.
 
 ## Tech Stack
 
-- **Static Shell & Marketing Pages:** Astro 7 (`output: "static"`) + `@astrojs/sitemap` + `@vite-pwa/astro`
-- **Interactive App Island (`/:locale/app/*`):** React 19 + TypeScript (`strict`) mounted with `client:only="react"`
-- **SPA Routing:** React Router v7
-- **Server State & Caching:** TanStack React Query v5
-- **Forms & Validation:** React Hook Form + Zod v4 (`@hookform/resolvers`)
-- **Internationalization (i18n):** Built-in typed dictionary (`en-US` default, `bg-BG`) shared by Astro and React
+- **Static Shell & Marketing Pages:** Astro + `@astrojs/sitemap` + `@vite-pwa/astro`
+- **Interactive App Island (`/:locale/app/*`):** React + TypeScript (`strict`)
+- **SPA Routing:** React Router
+- **Server State & Caching:** TanStack React Query
+- **Forms & Validation:** React Hook Form + Zod (`@hookform/resolvers`)
+- **Internationalization (i18n):** Built-in typed dictionaries shared by Astro and React
 - **Hosting & Edge Routing:** Cloudflare Workers Static Assets (`wrangler.jsonc` + `worker/index.ts`)
 - **Icons:** Lucide React
 
@@ -42,7 +42,7 @@ Web app where you organize and manage your property portfolio information.
 
    | Variable              | Default                 | Description                                                                                                |
    | --------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------- |
-   | `API_TARGET_URL`      | `http://localhost:8787` | Target backend URL proxied by Astro/Vite in local development (`/api` and `/health`).                      |
+   | `API_TARGET_URL`      | `http://localhost:8787` | Target backend URL proxied in local dev (`npm run dev`) and local Worker preview (`npm run preview`) for `/api` and `/health`. |
    | `PUBLIC_API_BASE_URL` | _(empty)_               | Optional direct API base URL for production builds. Leave empty in local dev to use the dev proxy.         |
 
 3. **Start the local dev server:**
@@ -72,23 +72,23 @@ Web app where you organize and manage your property portfolio information.
 
 ```text
 src/
-├── api/            # Fetch client, React Query keys, types, and domain API modules (auth, properties)
+├── api/            # Fetch client, React Query keys, types, and domain API modules
 ├── components/
 │   ├── astro/      # Pure presentational React views rendered statically by Astro (0 KB JS)
-│   ├── features/   # Domain-specific components (auth, home, profile, properties tabs & modals)
-│   ├── layout/     # AppLayout, AuthLayout, TopControls, BrandLogo/BrandLogoView, Footer, banners
-│   ├── seo/        # SPA RouteMetadata updater
-│   └── ui/         # Pure polymorphic UI primitives (Anchor, Button, Input, Modal, Card, etc.)
-├── hooks/          # Shared hooks (e.g. useAppForm wrapper for React Hook Form + Zod)
-├── i18n/           # Locale dictionaries, routing helpers (buildLocalizedPath / buildAppPath), I18nProvider
-├── layouts/        # Astro layouts (BaseLayout.astro, PublicLayout.astro)
-├── notifications/  # Toast notification context & global error notification bridge
-├── pages/          # Astro file-based routes (/, /[locale], /[locale]/404, /app, /404)
-├── pwa/            # Singleton service-worker update store (registerSW + useSyncExternalStore)
-├── spa/            # React SPA island root (App.tsx) and React Router pages (src/spa/pages/)
-├── theme/          # Design tokens & cascade layers (tokens.css), shared colorScheme helpers, ThemeProvider
+│   ├── features/   # Domain-specific feature components
+│   ├── layout/     # Shared shell, header controls, branding, footer, and status banners
+│   ├── seo/        # SPA metadata updater
+│   └── ui/         # Pure polymorphic UI primitives
+├── hooks/          # Shared React hooks
+├── i18n/           # Locale dictionaries, routing helpers, and I18nProvider
+├── layouts/        # Astro page layouts
+├── notifications/  # Toast notification context and global error bridge
+├── pages/          # Astro file-based routes and the SPA shell entry
+├── pwa/            # Service worker update store
+├── spa/            # React SPA island root and React Router pages
+├── theme/          # Design tokens, cascade layers, color-scheme helpers, and ThemeProvider
 └── validators/     # Zod schemas mapped to i18n validation keys
-worker/             # Cloudflare Worker entry rewriting /:locale/app/* -> /app and serving localized 404s
+worker/             # Cloudflare Worker edge router (SPA rewrites, canonical locale redirects, localized 404s)
 ```
 
 Each component, layout, and SPA page lives in its own `<Name>/` folder alongside any colocated `<Name>.types.ts`, `<Name>.module.css`, and `index.ts` barrel.

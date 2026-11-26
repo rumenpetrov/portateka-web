@@ -3,6 +3,18 @@ import type { SupportedLocale } from "./types";
 
 export const SITE_ORIGIN = "https://portateka.rpetrov.dev";
 
+const SUPPORTED_LOCALES_PATTERN = SUPPORTED_LOCALES.join("|");
+
+export const SPA_ROUTE_PATTERN = new RegExp(
+  `^\\/(?:${SUPPORTED_LOCALES_PATTERN})\\/app(?:\\/.*)?$`,
+  "i",
+);
+
+export const LOCALE_NOT_FOUND_PATTERN = new RegExp(
+  `^\\/(?:${SUPPORTED_LOCALES_PATTERN})\\/404(?:\\.html|\\/)?$`,
+  "i",
+);
+
 export function isSupportedLocale(
   value: string | null | undefined,
 ): value is SupportedLocale {
